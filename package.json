@@ -1,0 +1,16 @@
+{
+  "build": {
+    "productName": "Check Me Out Desktop",
+    "appId": "pro.checkmeout.desktop",
+    "publish": {
+      "provider": "generic",
+      "url": "https://checkmeout.pro/desktop/updates/${os}/${arch}"
+    }
+  },
+  "dependencies": {
+    "electron-builder": "^19.56.0"
+  },
+  "scripts": {
+  	"build": "node_modules\\.bin\\electron-builder build -w"
+  }
+}

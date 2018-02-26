@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Check Me Out</title>
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body style="display: none;">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="header">
+					<div class="logo" href="settings.html">
+						<i class="material-icons">arrow_back</i>
+						<span class="logo-1">Check</span><span class="logo-2">Me</span><span class="logo-3">Out</span>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col">
+						<h4>Other settings</h4>
+						<hr>
+
+						<div class="card-container">
+							<a class="settings-card" href="https://checkmeout.pro/desktop/account">
+								<i class="material-icons">account_circle</i>
+								<h4>My account</h4>
+							</a>
+							<div class="settings-card" id="login-google">
+								<i class="material-icons">fingerprint</i>
+								<h4>Log in to Google</h4>
+							</div>
+							<div class="settings-card" id="open-dev-tools">
+								<i class="material-icons">developer_mode</i>
+								<h4>Open dev tools</h4>
+							</div>
+							<div class="settings-card" id="delete-all-data">
+								<i class="material-icons">delete_forever</i>
+								<h4>Delete all data</h4>
+							</div>
+							<div class="settings-card" id="check-updates">
+								<i class="material-icons">cached</i>
+								<h4>Check for updates</h4>
+							</div>
+							<div class="settings-card" id="relaunch">
+								<i class="material-icons">settings_backup_restore</i>
+								<h4>Relaunch</h4>
+							</div>
+							<div class="settings-card" href="licenses.html">
+								<i class="material-icons">code</i>
+								<h4>Open souce licenses</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	window.$ = window.jQuery = require('./js/jquery.min.js');
+	var common = require('./js/common.js');
+	require('./js/advanced.js');
+	var shell = require('electron').shell;
+
+	$(document).on('click', 'a[href^="http"]', function(event) {
+		event.preventDefault();
+		shell.openExternal(this.href);
+	});
+</script>
+</html>

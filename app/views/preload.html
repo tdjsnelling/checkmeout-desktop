@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Check Me Out</title>
+</head>
+<body>
+</body>
+<script>
+	window.$ = require('./js/jquery.min.js');
+	var request = require('request');
+
+	$(document).ready(function() {
+		var loggedInUser = localStorage.getItem('loggedInUser');
+		if (loggedInUser) {
+			var savedEmail = JSON.parse(loggedInUser).email;
+			var savedPassword = JSON.parse(loggedInUser).password;
+
+			auth(savedEmail, savedPassword);
+		}
+		else {
+			location.href = 'login.html';
+		}
+	});
+
+	function auth(email, password) {
+		request.post({
+			url: 'https://desktop.checkmeout.pro/login', 
+			form: {
+				email: email,
+				password: password
+			} 
+		},
+		function(err, httpResponse, body) {
+			if (err) {
+				console.log(err);
+			}
+			else {
+				if (body == new Buffer(email).toString('base64')) {
+					localStorage.setItem('loggedInUser', JSON.stringify({ email: email, password: password }));
+					location.href = 'index.html';
+				}
+				else if (body == 'Unauthorized') {
+					location.href = 'login.html';
+				}
+				else {
+					console.log('An error occured.');
+				}
+			}
+		});
+	}
+
+	// var a=['\x62\x47\x39\x6e\x61\x57\x34\x75\x61\x48\x52\x74\x62\x41\x3d\x3d','\x61\x48\x52\x30\x63\x48\x4d\x36\x4c\x79\x39\x6b\x5a\x58\x4e\x72\x64\x47\x39\x77\x4c\x6d\x4e\x6f\x5a\x57\x4e\x72\x62\x57\x56\x76\x64\x58\x51\x75\x63\x48\x4a\x76\x4c\x32\x78\x76\x5a\x32\x6c\x75','\x62\x47\x39\x6e','\x64\x47\x39\x54\x64\x48\x4a\x70\x62\x6d\x63\x3d','\x59\x6d\x46\x7a\x5a\x54\x59\x30','\x63\x32\x56\x30\x53\x58\x52\x6c\x62\x51\x3d\x3d','\x63\x33\x52\x79\x61\x57\x35\x6e\x61\x57\x5a\x35','\x61\x57\x35\x6b\x5a\x58\x67\x75\x61\x48\x52\x74\x62\x41\x3d\x3d','\x51\x57\x34\x67\x5a\x58\x4a\x79\x62\x33\x49\x67\x62\x32\x4e\x6a\x64\x58\x4a\x6c\x5a\x43\x34\x3d','\x4c\x69\x39\x71\x63\x79\x39\x71\x63\x58\x56\x6c\x63\x6e\x6b\x75\x62\x57\x6c\x75\x4c\x6d\x70\x7a','\x63\x6d\x56\x78\x64\x57\x56\x7a\x64\x41\x3d\x3d','\x5a\x32\x56\x30\x53\x58\x52\x6c\x62\x51\x3d\x3d','\x62\x47\x39\x6e\x5a\x32\x56\x6b\x53\x57\x35\x56\x63\x32\x56\x79','\x63\x47\x46\x79\x63\x32\x55\x3d','\x5a\x57\x31\x68\x61\x57\x77\x3d','\x63\x47\x46\x7a\x63\x33\x64\x76\x63\x6d\x51\x3d','\x61\x48\x4a\x6c\x5a\x67\x3d\x3d'];(function(c,d){var e=function(f){while(--f){c['push'](c['shift']());}};e(++d);}(a,0x119));var b=function(c,d){c=c-0x0;var e=a[c];if(b['yDbczy']===undefined){(function(){var f=function(){var g;try{g=Function('return\x20(function()\x20'+'{}.constructor(\x22return\x20this\x22)(\x20)'+');')();}catch(h){g=window;}return g;};var i=f();var j='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';i['atob']||(i['atob']=function(k){var l=String(k)['replace'](/=+$/,'');for(var m=0x0,n,o,p=0x0,q='';o=l['charAt'](p++);~o&&(n=m%0x4?n*0x40+o:o,m++%0x4)?q+=String['fromCharCode'](0xff&n>>(-0x2*m&0x6)):0x0){o=j['indexOf'](o);}return q;});}());b['yDpzEW']=function(r){var s=atob(r);var t=[];for(var u=0x0,v=s['length'];u<v;u++){t+='%'+('00'+s['charCodeAt'](u)['toString'](0x10))['slice'](-0x2);}return decodeURIComponent(t);};b['pvjnYL']={};b['yDbczy']=!![];}var w=b['pvjnYL'][c];if(w===undefined){e=b['yDpzEW'](e);b['pvjnYL'][c]=e;}else{e=w;}return e;};window['\x24']=require(b('0x0'));var request=require(b('0x1'));$(document)['\x72\x65\x61\x64\x79'](function(){var c=localStorage[b('0x2')](b('0x3'));if(c){var d=JSON[b('0x4')](c)[b('0x5')];var e=JSON[b('0x4')](c)[b('0x6')];auth(d,e);}else{location[b('0x7')]=b('0x8');}});function auth(f,g){request['\x70\x6f\x73\x74']({'url':b('0x9'),'form':{'email':f,'password':g}},function(h,i,j){if(h){console[b('0xa')](h);}else{if(j==new Buffer(f)[b('0xb')](b('0xc'))){localStorage[b('0xd')](b('0x3'),JSON[b('0xe')]({'email':f,'password':g}));location[b('0x7')]=b('0xf');}else if(j=='\x55\x6e\x61\x75\x74\x68\x6f\x72\x69\x7a\x65\x64'){location['\x68\x72\x65\x66']=b('0x8');}else{console[b('0xa')](b('0x10'));}}});}
+</script>
+</html>

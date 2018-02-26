@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Check Me Out</title>
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body style="display: none;">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="header">
+					<div class="logo" href="settings.html">
+						<i class="material-icons">arrow_back</i>
+						<span class="logo-1">Check</span><span class="logo-2">Me</span><span class="logo-3">Out</span>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col">
+						<h4>
+							Payment profiles
+							<button class="btn btn-header" href="new-payment.html">New</button>
+							<button class="btn btn-header" id="delete-all">Delete all</button>
+						</h4>
+						<hr>
+
+						<ul class="list-group" id="profiles-list">
+							<li class="list-group-item"><i class="material-icons">error_outline</i>&nbsp; No payment profiles to display. Create one with the 'New' button.</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	window.$ = window.jQuery = require('./js/jquery.min.js');
+	require('./js/common.js');
+	require('./js/payment.js');
+</script>
+</html>

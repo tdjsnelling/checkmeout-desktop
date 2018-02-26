@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Check Me Out</title>
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body style="display: none;">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="main-header header">
+					<div class="logo">
+						<span class="logo-1">Check</span><span class="logo-2">Me</span><span class="logo-3">Out</span>
+						<span class="badge badge-ver"></span>
+					</div>				
+					<div class="main-controls">
+						<i class="material-icons" id="run-tasks" data-toggle="tooltip" data-placement="bottom" title="Run selected tasks">play_arrow</i>
+						<i class="material-icons" id="pause-tasks" data-toggle="tooltip" data-placement="bottom" title="Pause selected tasks">pause</i>
+						<i class="material-icons" href="task.html" data-toggle="tooltip" data-placement="bottom" title="Create a new task">add</i>
+						<i class="material-icons" id="delete-selected" data-toggle="tooltip" data-placement="bottom" title="Delete selected tasks">delete</i>
+						<i class="material-icons" href="settings.html" data-toggle="tooltip" data-placement="bottom" title="Settings">settings</i>
+						<div id="time">00:00:00</div>
+					</div>
+				</div>
+
+				<ul class="list-group" id="tasks">
+					<li class="list-group-item list-head">
+						<div class="col-icon"><i class="material-icons">check_box</i></div>
+						<div class="col">Task name</div>
+						<div class="col">Shipping</div>
+						<div class="col">Payment</div>
+						<div class="col">Status</div>
+					</li>
+					<li class="list-group-item list-item-empty"><i class="material-icons">error_outline</i>&nbsp; No tasks to display.</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="footer">
+		<p id="user-email"></p>
+		<div class="links">
+			<a href="https://twitter.com/checkmeoutbots">Twitter</a>
+			<a href="https://discord.gg/nTxpstp">Discord</a>
+		</div>
+	</div>
+</body>
+<script>
+	window.$ = window.jQuery = require('./js/jquery.min.js');
+	window.Tether = require('./js/tether.min.js');
+	require('./js/bootstrap.js');
+	var common = require('./js/common.js');
+	require('./js/index.js');
+	var shell = require('electron').shell;
+
+	$(document).on('click', 'a[href^="http"]', function(event) {
+		event.preventDefault();
+		shell.openExternal(this.href);
+	});
+</script>
+</html>

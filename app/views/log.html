@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Check Me Out</title>
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+
+	<style>
+		body {
+			padding: 20px;
+		}
+	</style>
+</head>
+<body>
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col">
+				<p>Log</p>
+				<hr>
+
+				<ul class="list-group" id="log"></ul>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	window.$ = require('./js/jquery.min.js');
+	var ipcRenderer = require('electron').ipcRenderer;
+
+	ipcRenderer.on('status', (event, task, status) => {
+		$('#log').append($('<li class="list-group-item"><p class="logo-1">' + task + ':</p><p>&nbsp;' + status + '</p></li>'))
+	});
+</script>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Check Me Out</title>
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body style="display: none;">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="header">
+					<div class="logo" href="index.html">
+						<i class="material-icons">arrow_back</i>
+						<span class="logo-1">Check</span><span class="logo-2">Me</span><span class="logo-3">Out</span>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col">
+						<h4>
+							Add a new item
+							<button type="button" class="btn btn-header" id="create-item">Add item</button>
+						</h4>
+						<hr>
+
+						<form>
+							<div class="row">
+								<div class="col">
+									<div class="form-group">
+										<label for="category">Category</label>
+										<select class="form-control" id="category">
+											<option value="jackets">Jackets</option>
+											<option value="shirts">Shirts</option>
+											<option value="tops_sweaters">Tops/Sweaters</option>
+											<option value="sweatshirts">Sweatshirts</option>
+											<option value="pants">Pants</option>
+											<option value="shorts">Shorts</option>
+											<option value="t-shirts">T-Shirts</option>
+											<option value="hats">Hats</option>
+											<option value="bags">Bags</option>
+											<option value="accessories">Accessories</option>
+											<option value="skate">Skate</option>
+											<option value="shoes">Shoes</option>
+										</select>
+									</div>
+								</div>
+								<div class="col">
+									<div class="form-group">
+										<label for="size">Size</label>
+										<select class="form-control" id="size">
+											<option value="Small">Small</option>
+											<option value="Medium">Medium</option>
+											<option value="Large">Large</option>
+											<option value="XLarge">XLarge</option>
+											<option value="">--</option>
+											<option value="One size">One size</option>
+											<option value="">--</option>
+											<option value="">EU shoes:</option>
+											<option value="US 8 / UK 7">US 8 / UK 7</option>
+											<option value="US 8.5 / UK 7.5">US 8.5 / UK 7.5</option>
+											<option value="US 9 / UK 8">US 9 / UK 8</option>
+											<option value="US 9.5 / UK 8.5">US 9.5 / UK 8.5</option>
+											<option value="US 10 / UK 9">US 10 / UK 9</option>
+											<option value="US 10.5 / UK 9.5">US 10.5 / UK 9.5</option>
+											<option value="US 11 / UK 10">US 11 / UK 10</option>
+											<option value="US 11.5 / UK 10.5">US 11.5 / UK 10.5</option>
+											<option value="US 12 / UK 11">US 12 / UK 11</option>
+											<option value="US 13 / UK 12">US 13 / UK 12</option>
+											<option value="">--</option>
+											<option value="">US shoes:</option>
+											<option value="6">6</option>
+											<option value="6.5">6.5</option>
+											<option value="7">7</option>
+											<option value="7.5">7.5</option>
+											<option value="8">8</option>
+											<option value="8.5">8.5</option>
+											<option value="9">9</option>
+											<option value="9.5">9.5</option>
+											<option value="10">10</option>
+											<option value="10.5">10.5</option>
+											<option value="11">11</option>
+											<option value="11.5">11.5</option>
+											<option value="12">12</option>
+											<option value="12.5">12.5</option>
+											<option value="13">13</option>
+										</select>
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label for="keywords">Keywords</label>
+								<input type="text" class="form-control" id="keywords">
+							</div>
+							<div class="form-group">
+								<label for="colour">Colour</label>
+								<input type="text" class="form-control" id="colour">
+							</div>
+						</form>
+					</div>
+					<div class="col">
+						<h4>
+							Task settings
+							<button type="button" class="btn btn-header" id="create-task">Create task</button>
+						</h4>
+						<hr>
+
+						<form>
+							<div class="form-group">
+								<label for="task-name">Name</label>
+								<input class="form-control" id="task-name">
+							</div>
+							<div class="row">
+								<div class="col">
+									<div class="form-group">
+										<label for="run-at">Run at</label>
+										<input class="form-control" id="run-at" placeholder="e.g. 11:00:00">
+									</div>
+								</div>
+								<div class="col">
+									<div class="form-group">
+										<label for="proxy">Proxy</label>
+										<input class="form-control" id="proxy" placeholder="e.g. 127.0.0.1:8080 (optional)">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<div class="form-group">
+										<label for="shipping-profile">Shipping profile</label>
+										<select class="form-control" id="shipping-profile"></select>
+									</div>
+								</div>
+								<div class="col">
+									<div class="form-group">
+										<label for="payment-profile">Payment profile</label>
+										<select class="form-control" id="payment-profile"></select>
+									</div>
+								</div>
+							</div>
+						</form>
+
+						<label for="shopping-list">Shopping list</label>
+						<ul class="list-group shopping-list" id="shopping-list">
+							<li class="list-group-item">Check Me Out x Supreme</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	window.$ = window.jQuery = require('./js/jquery.min.js');
+	require('./js/common.js');
+	require('./js/task.js');
+</script>
+</html>

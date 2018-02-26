@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Check Me Out</title>
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body style="display: none;">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="header">
+					<div class="logo" href="advanced.html">
+						<i class="material-icons">arrow_back</i>
+						<span class="logo-1">Check</span><span class="logo-2">Me</span><span class="logo-3">Out</span>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col">
+						<h4>Open source licenses</h4>
+						<hr>
+
+						<ul class="list-group" id="licenses"></ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	var fs = require('fs');
+	window.$ = window.jQuery = require('./js/jquery.min.js');
+	var common = require('./js/common.js');
+	require('./js/advanced.js');
+	var shell = require('electron').shell;
+
+	$(document).on('click', 'a[href^="http"]', function(event) {
+		event.preventDefault();
+		shell.openExternal(this.href);
+	});
+
+	var licenses = require('./../licenses.json');
+	
+	for (key of Object.keys(licenses)) {
+		$('#licenses').append($('<li class="list-group-item"><a href="' + licenses[key].repository + '">' + key + '</a>&nbsp;-&nbsp;<a href="' + licenses[key].licenseUrl + '">' + licenses[key].licenses + '</a></li>'));
+	}
+</script>
+</html>

@@ -1,0 +1,26 @@
+{
+  "name": "checkmeout-desktop",
+  "description": "The Desktop Supreme bot from Check Me Out",
+  "version": "0.0.4",
+  "main": "index.js",
+  "devDependencies": {
+    "electron": "2.0.0-beta.1"
+  },
+  "scripts": {
+    "start": "electron .",
+    "licenses": "npm-license-crawler --dependencies --json licenses.json"
+  },
+  "author": "Check Me Out Ltd",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "electron-is-dev": "^0.3.0",
+    "electron-updater": "^2.20.1",
+    "express": "^4.16.2",
+    "fuse.js": "^3.2.0",
+    "moment": "^2.20.1",
+    "nightmare": "^2.10.0",
+    "passport": "^0.4.0",
+    "passport-google-oauth": "^1.0.0",
+    "request": "^2.83.0"
+  }
+}

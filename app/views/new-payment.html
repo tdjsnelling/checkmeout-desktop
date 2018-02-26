@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Check Me Out</title>
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body style="display: none;">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="header">
+					<div class="logo" href="payment.html">
+						<i class="material-icons">arrow_back</i>
+						<span class="logo-1">Check</span><span class="logo-2">Me</span><span class="logo-3">Out</span>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col">
+						<h4>
+							New payment profile
+							<button type="button" class="btn btn-header" id="save-payment">Save</button>
+						</h4>
+						<hr>
+
+						<form>
+							<div class="row">
+								<div class="col">
+									<label for="cardtype">Card type</label>
+									<select class="form-control" id="cardtype">
+										<option value="Visa">Visa</option>
+										<option value="American Express">American Express</option>
+										<option value="Mastercard">Mastercard</option>
+										<option value="Solo">Solo</option>
+										<option value="PayPal">PayPal</option>
+										<option value="JCB">JCB</option>
+										<option value="cod">Cash on Delivery (JP only)</option>
+									</select>
+								</div>
+								<div class="col">
+									<div class="form-group"> 
+										<label for="cardno">Card number</label>
+										<input type="text" class="form-control" id="cardno">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<div class="form-group"> 
+										<label for="expirymonth">Expiry month (e.g. 09)</label>
+										<input type="text" class="form-control" id="expirymonth">
+									</div>
+								</div>
+								<div class="col">
+									<div class="form-group"> 
+										<label for="expiryyear">Expiry year (e.g. 2020)</label>
+										<input type="text" class="form-control" id="expiryyear">
+									</div>
+								</div>
+								<div class="col">
+									<div class="form-group"> 
+										<label for="cvv">CVV</label>
+										<input type="text" class="form-control" id="cvv">
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	window.$ = window.jQuery = require('./js/jquery.min.js');
+	require('./js/common.js');
+	require('./js/new-payment.js');
+</script>
+</html>

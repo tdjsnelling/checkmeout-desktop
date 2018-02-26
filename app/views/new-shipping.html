@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Check Me Out</title>
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body style="display: none;">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="header">
+					<div class="logo" href="shipping.html">
+						<i class="material-icons">arrow_back</i>
+						<span class="logo-1">Check</span><span class="logo-2">Me</span><span class="logo-3">Out</span>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col">
+						<h4>
+							New shipping profile
+							<button type="button" class="btn btn-header" id="save-shipping">Save</button>
+						</h4>
+						<hr>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col">
+						<form>
+							<div class="form-group"> 
+								<label for="name">Name</label>
+								<input type="text" class="form-control" id="name">
+							</div>
+							<div class="form-group">
+								<label for="email">Email</label>
+								<input type="email" class="form-control" id="email" required>
+							</div>
+							<div class="form-group"> 
+								<label for="address">Address</label>
+								<input type="text" class="form-control" id="address">
+							</div>
+							<div class="form-group">
+								<div class="row">
+									<div class="col">
+										<label for="address2">Address line 2</label>
+										<input type="text" class="form-control" id="address2" placeholder="optional">
+									</div>
+									<div class="col">
+										<label for="address3">Address line 3</label>
+										<input type="text" class="form-control" id="address3" placeholder="optional">
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="col">
+						<form>
+							<div class="form-group">
+								<label for="phone">Phone</label>
+								<input type="text" class="form-control" id="phone">
+							</div>
+							<div class="form-group">
+								<label for="city">City</label>
+								<input type="text" class="form-control" id="city">
+							</div>
+							<div class="form-group" id="us-state" style="display: none;">
+								<label for="state">State / Province</label>
+								<input type="text" class="form-control" id="state" placeholder="2 letter code as it appears on Supreme">
+							</div>
+							<div class="form-group" id="jp-prefecture" style="display: none;">
+								<label for="prefecture">Prefecture</label>
+								<select class="form-control" id="prefecture">
+										<option value=" 北海道"> 北海道</option>
+										<option value=" 青森県"> 青森県</option>
+										<option value=" 岩手県"> 岩手県</option>
+										<option value=" 宮城県"> 宮城県</option>
+										<option value=" 秋田県"> 秋田県</option>
+										<option value=" 山形県"> 山形県</option>
+										<option value=" 福島県"> 福島県</option>
+										<option value=" 茨城県"> 茨城県</option>
+										<option value=" 栃木県"> 栃木県</option>
+										<option value=" 群馬県"> 群馬県</option>
+										<option value=" 埼玉県"> 埼玉県</option>
+										<option value=" 千葉県"> 千葉県</option>
+										<option value=" 東京都"> 東京都</option>
+										<option value=" 神奈川県"> 神奈川県</option>
+										<option value=" 新潟県"> 新潟県</option>
+										<option value=" 富山県"> 富山県</option>
+										<option value=" 石川県"> 石川県</option>
+										<option value=" 福井県"> 福井県</option>
+										<option value=" 山梨県"> 山梨県</option>
+										<option value=" 長野県"> 長野県</option>
+										<option value=" 岐阜県"> 岐阜県</option>
+										<option value=" 静岡県"> 静岡県</option>
+										<option value=" 愛知県"> 愛知県</option>
+										<option value=" 三重県"> 三重県</option>
+										<option value=" 滋賀県"> 滋賀県</option>
+										<option value=" 京都府"> 京都府</option>
+										<option value=" 大阪府"> 大阪府</option>
+										<option value=" 兵庫県"> 兵庫県</option>
+										<option value=" 奈良県"> 奈良県</option>
+										<option value=" 和歌山県"> 和歌山県</option>
+										<option value=" 鳥取県"> 鳥取県</option>
+										<option value=" 島根県"> 島根県</option>
+										<option value=" 岡山県"> 岡山県</option>
+										<option value=" 広島県"> 広島県</option>
+										<option value=" 山口県"> 山口県</option>
+										<option value=" 徳島県"> 徳島県</option>
+										<option value=" 香川県"> 香川県</option>
+										<option value=" 愛媛県"> 愛媛県</option>
+										<option value=" 高知県"> 高知県</option>
+										<option value=" 福岡県"> 福岡県</option>
+										<option value=" 佐賀県"> 佐賀県</option>
+										<option value=" 長崎県"> 長崎県</option>
+										<option value=" 熊本県"> 熊本県</option>
+										<option value=" 大分県"> 大分県</option>
+										<option value=" 宮崎県"> 宮崎県</option>
+										<option value=" 鹿児島県"> 鹿児島県</option>
+										<option value=" 沖縄県"> 沖縄県</option>
+								</select>
+							</div>
+							<div class="row">
+								<div class="col">
+									<div class="form-group">
+										<label for="zip">Zip / Postcode</label>
+										<input type="text" class="form-control" id="zip">
+									</div>
+								</div>
+								<div class="col">
+									<div class="form-group">
+										<label for="country">Country</label>
+										<select class="form-control" id="country">
+											<option value="GB">UK</option>
+											<option value="NB">UK (N. IRELAND)</option>
+											<option value="AT">AUSTRIA</option>
+											<option value="BY">BELARUS</option>
+											<option value="BE">BELGIUM</option>
+											<option value="BG">BULGARIA</option>
+											<option value="HR">CROATIA</option>
+											<option value="CZ">CZECH REPUBLIC</option>
+											<option value="DK">DENMARK</option>
+											<option value="EE">ESTONIA</option>
+											<option value="FI">FINLAND</option>
+											<option value="FR">FRANCE</option>
+											<option value="DE">GERMANY</option>
+											<option value="GR">GREECE</option>
+											<option value="HU">HUNGARY</option>
+											<option value="IS">ICELAND</option>
+											<option value="IE">IRELAND</option>
+											<option value="IT">ITALY</option>
+											<option value="LV">LATVIA</option>
+											<option value="LT">LITHUANIA</option>
+											<option value="LU">LUXEMBOURG</option>
+											<option value="MC">MONACO</option>
+											<option value="NL">NETHERLANDS</option>
+											<option value="NO">NORWAY</option>
+											<option value="PL">POLAND</option>
+											<option value="PT">PORTUGAL</option>
+											<option value="RO">ROMANIA</option>
+											<option value="RU">RUSSIA</option>
+											<option value="SK">SLOVAKIA</option>
+											<option value="SI">SLOVENIA</option>
+											<option value="ES">SPAIN</option>
+											<option value="SE">SWEDEN</option>
+											<option value="CH">SWITZERLAND</option>
+											<option value="TR">TURKEY</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	window.$ = window.jQuery = require('./js/jquery.min.js');
+	require('./js/common.js');
+	require('./js/new-shipping.js');
+</script>
+</html>
