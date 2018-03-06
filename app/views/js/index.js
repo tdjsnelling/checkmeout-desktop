@@ -49,6 +49,11 @@ setInterval(() => {
 setInterval(() => {
 	for (i in browsers) {
 		if (browsers[i].isDestroyed()) {
+			$($('.list-group-item').not('.list-head')[i]).children('.status').text('Ended');
+			$($('.list-group-item').not('.list-head')[i]).children('.status').css('color', '');
+			tasks[i].status = 'Idle';
+			localStorage.setItem('tasks', JSON.stringify(tasks));
+
 			browsers.splice(i, 1);
 		}
 	}
@@ -86,7 +91,7 @@ $(document).on('click', '.task-select', function() {
 	}
 	else {
 		$(this).text('check_box');
-		$(this).parents('.list-group-item').css('height', 'fit-content');
+		$(this).parents('.list-group-item').css('height', '120px');
 
 		var shoppingListString = '';
 		for (i in tasks[index].shoppingList) {
@@ -150,29 +155,26 @@ $('#run-tasks').on('click', function() {
 				$($('.list-group-item:not(.list-head)')[i]).children('.status').text('Running');
 				$($('.list-group-item:not(.list-head)')[i]).children('.status').css('color', '#2ecc71');
 
-				for (j in tasks[i].shoppingList) {
-					tasks[i].shoppingList[j].carted = false;
-				}
-
 				createBrowser(tasks[i]);
 			}
-
-			var startTime = moment(tasks[i].startTime, 'HH:mm:ss');
-			var diff = startTime.diff(timeNow, 'seconds');
-
-			if (diff > 0) {
-				tasks[i].status = 'Waiting';
-				$(this).children('.status').text('Waiting');
-				$(this).children('.status').css('color', '#f39c12');
-			}
 			else {
-				var el = $(this).children('.status');
-				el.text('Cannot start expired task');
-				el.css('color', '#e74c3c');
-				setTimeout(function() {
-					el.text('Idle');
-					el.css('color', '');
-				}, 2000);
+				var startTime = moment(tasks[i].startTime, 'HH:mm:ss');
+				var diff = startTime.diff(timeNow, 'seconds');
+
+				if (diff > 0) {
+					tasks[i].status = 'Waiting';
+					$(this).children('.status').text('Waiting');
+					$(this).children('.status').css('color', '#f39c12');
+				}
+				else {
+					var el = $(this).children('.status');
+					el.text('Cannot start expired task');
+					el.css('color', '#e74c3c');
+					setTimeout(function() {
+						el.text('Idle');
+						el.css('color', '');
+					}, 2000);
+				}
 			}
 		}
 	});
@@ -251,6 +253,10 @@ function createBrowser(task) {
 	});
 
 	browsers.push(newBrowser);
+
+	for (i in task.shoppingList) {
+		task.shoppingList[i].carted = false;
+	}
 
 	gotoNextItem(browsers.indexOf(newBrowser));
 }
@@ -341,39 +347,34 @@ function handleBrowser(id) {
 	}
 }
 
-function terminateBrowser(id) {
-	var currentBrowser = remote.BrowserWindow.fromId(id);
-	var currentBrowserIndex = browsers.indexOf(currentBrowser);
-
-	tasks[currentBrowserIndex].status = 'Idle';
-	var listEntry = $('.list-group-item').not('.list-head')[currentBrowserIndex];
-	$(listEntry).children('.status').text('Cancelled');
-}
-
 function gotoNextItem(taskIndex) {
 	var nextItem = tasks[taskIndex].shoppingList.filter(x => x.carted == false)[0];
 
-	searchForItem(nextItem, (item) => {
-		if (item) {
-			browsers[taskIndex].loadURL('http://supremenewyork.com/' + item.href, {
-				userAgent: ua
-			});
-		}
-		else {
-			if (nextItem) {
-				ipcRenderer.send('status', tasks[taskIndex].name, 'couldn\'t find item &rarr; ' + nextItem.keywords + ', ' + nextItem.colour);
-				nextItem.carted = true;
-				gotoNextItem(taskIndex);
+	if (nextItem) {
+		searchForItem(nextItem, (item) => {
+			console.log(item)
+			if (item) {
+				browsers[taskIndex].loadURL('http://supremenewyork.com/' + item.href, {
+					userAgent: ua
+				});
 			}
 			else {
-				ipcRenderer.send('status', tasks[arg[0]].name, 'going to checkout...');
-				browsers[taskIndex].loadURL('https://supremenewyork.com/checkout');
+				if (nextItem) {
+					ipcRenderer.send('status', tasks[taskIndex].name, 'couldn\'t find item &rarr; ' + nextItem.keywords + ', ' + nextItem.colour);
+					nextItem.carted = true;
+					gotoNextItem(taskIndex);
+				}
+				else {
+					ipcRenderer.send('status', tasks[arg[0]].name, 'going to checkout...');
+					browsers[taskIndex].loadURL('https://supremenewyork.com/checkout');
+				}
 			}
-		}
-	});
+		});
+	}
 }
 
 function searchForItem(searchItem, cb) {
+	console.log(searchItem)
 	request('http://supremenewyork.com/shop/all/' + searchItem.category, { headers: { 'User-Agent': ua } }, (err, res, body) => {
 		if (err) {
 			console.log(err);
