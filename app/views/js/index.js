@@ -444,9 +444,19 @@ function gotoNextItem(taskIndex) {
 		searchForItem(nextItem, (item) => {
 			console.log(item)
 			if (item) {
-				browsers[taskIndex].loadURL('http://supremenewyork.com/' + item.href, {
-					userAgent: ua
-				});
+				if (item == -1) {
+					$($('.list-group-item').not('.list-head')[i]).children('.status').text('Error');
+					$($('.list-group-item').not('.list-head')[i]).children('.status').css('color', '#e74c3c');
+
+					setTimeout(() => {
+						browsers[taskIndex].destroy();
+					}, 3000);
+				}
+				else {
+					browsers[taskIndex].loadURL('http://supremenewyork.com/' + item.href, {
+						userAgent: ua
+					});
+				}
 			}
 			else {
 				if (nextItem) {
@@ -468,7 +478,7 @@ function searchForItem(searchItem, cb) {
 	request('http://supremenewyork.com/shop/all/' + searchItem.category, { headers: { 'User-Agent': ua } }, (err, res, body) => {
 		if (err) {
 			console.log(err);
-			return false;
+			return cb(-1);
 		}
 		else {
 			var items = [];
