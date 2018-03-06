@@ -389,3 +389,34 @@ select {
 .col.status {
 	color: #3498db;
 }
+
+.checkbox-custom {
+    opacity: 0;
+    position: absolute;   
+}
+
+.checkbox-custom, .checkbox-custom-label {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.checkbox-custom-label {
+    position: relative;
+}
+
+.checkbox-custom + .checkbox-custom-label:before {
+    content: '';
+    background: #fff;
+    border: 1px solid rgba(0,0,0,.15);
+    display: inline-block;
+    vertical-align: text-top;
+    width: 18px;
+    height: 18px;
+    padding: 2px;
+    margin-right: 10px;
+    text-align: center;
+}
+
+.checkbox-custom:checked + .checkbox-custom-label:before {
+    background: #ed1e24;
+}

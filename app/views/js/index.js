@@ -239,7 +239,7 @@ function createBrowser(task) {
 	var newBrowser = new remote.BrowserWindow({
 		width: 1000,
 		height: 750,
-		show: false,
+		show: task.showBrowser,
 		webPreferences: {
 			nodeIntegration: false,
 			preload: path.resolve('./views/js/preload/ipc.js')

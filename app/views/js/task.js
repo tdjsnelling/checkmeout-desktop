@@ -86,6 +86,7 @@ $('#create-task').on('click', function() {
 		task.payment = savedPayment.find(x => x.id == $('#payment-profile').val());
 		task.shoppingList = shoppingList;
 		task.startTime = $('#run-at').val();
+		task.showBrowser = $('#show-browser').is(':checked');
 		task.status = 'Idle';
 
 		var tasks = JSON.parse(localStorage.getItem('tasks'));
