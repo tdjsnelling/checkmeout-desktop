@@ -88,6 +88,7 @@ ipcMain.on('productPageSource', (event, arg) => {
 });
 
 // create log window
+
 ipcMain.on('create', (event, arg) => {
 	if (arg == 'logWindow') {
 		logWindow = new BrowserWindow({

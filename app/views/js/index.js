@@ -22,7 +22,7 @@ $('#user-email').text(JSON.parse(localStorage.getItem('loggedInUser')).email);
 
 var browsers = [];
 
-setInterval(function() {
+setInterval(() => {
 	timeNow = moment();
 	$('#time').text(timeNow.format('HH:mm:ss'));
 
@@ -46,6 +46,14 @@ setInterval(function() {
 	}
 }, 100);
 
+setInterval(() => {
+	for (i in browsers) {
+		if (browsers[i].isDestroyed()) {
+			browsers.splice(i, 1);
+		}
+	}
+}, 250);
+
 $(function () {
 	$('[data-toggle="tooltip"]').tooltip();
 });
@@ -56,22 +64,38 @@ if (tasks.length > 0) {
 		var last4 =  tasks[i].payment.number.substr(tasks[i].payment.number.length - 4);
 		$('#tasks').append($('<li class="list-group-item data-id="' + tasks[i].id + '""> \
 								<div class="col-icon"><i class="material-icons task-select">check_box_outline_blank</i></div> \
-								<div class="col no-overflow">' + tasks[i].name + '</div> \
-								<div class="col no-overflow">' + tasks[i].shipping.address + '</div> \
-								<div class="col no-overflow">' + tasks[i].payment.type + ': ' + last4 + '</div> \
+								<div class="col no-overflow name">' + tasks[i].name + '</div> \
+								<div class="col no-overflow address">' + tasks[i].shipping.address + '</div> \
+								<div class="col no-overflow payment">' + tasks[i].payment.type + ': ' + last4 + '</div> \
 								<div class="col no-overflow status">' + tasks[i].status + '</div> \
 							</li>'));
 	}
 }
 
 $(document).on('click', '.task-select', function() {
+	var index = $(this).parents('.list-group-item').index() - 1;
+	var last4 =  tasks[index].payment.number.substr(tasks[index].payment.number.length - 4);
+
 	if ($(this).text() == 'check_box') {
 		$(this).text('check_box_outline_blank');
 		$(this).parents('.list-group-item').css('height', '');
+
+		$(this).parent().siblings('.address').html(tasks[index].shipping.address);
+		$(this).parent().siblings('.payment').html(tasks[index].payment.type + ': ' + last4);
+		$(this).parent().siblings('.name').html(tasks[index].name);
 	}
 	else {
 		$(this).text('check_box');
-		$(this).parents('.list-group-item').css('height', '150px');
+		$(this).parents('.list-group-item').css('height', 'fit-content');
+
+		var shoppingListString = '';
+		for (i in tasks[index].shoppingList) {
+			shoppingListString += tasks[index].shoppingList[i].keywords + ', ' + tasks[index].shoppingList[i].colour + '<br>';
+		}
+
+		$(this).parent().siblings('.address').html(tasks[index].shipping.name + '<br>' + tasks[index].shipping.address + '<br>' + tasks[index].shipping.city + '<br>' + tasks[index].shipping.zip);
+		$(this).parent().siblings('.payment').html(tasks[index].payment.type + '<br>' + tasks[index].payment.number + '<br>' + tasks[index].payment.expirymonth + '/' + tasks[index].payment.expiryyear + '<br>' + tasks[index].payment.cvv);
+		$(this).parent().siblings('.name').html(tasks[index].name + '<br>' + shoppingListString);
 	}
 });
 
@@ -106,6 +130,8 @@ $('#delete-selected').on('click', function() {
 });
 
 $('#run-tasks').on('click', function() {
+	tasks = JSON.parse(localStorage.getItem('tasks'));
+
 	if (shiftClick) {
 		$('.list-group-item').not('.list-head').each(function(i) {
 			$(this).children('.col-icon').children('i').text('check_box');
@@ -191,13 +217,19 @@ $('#pause-tasks').on('click', function() {
 
 var shiftClick = false;
 
-$('body').on('keydown', function(e) {
-	if (e.key == 'Shift') {
+$('body').on('keydown', (e) => {
+	if (e.keyCode == 16) {
 		shiftClick = true;
+	}
+	else if (e.keyCode == 32) {
+		$('#run-tasks').click();
+	}
+	else if (e.keyCode == 46) {
+		$('#delete-selected').click();
 	}
 });
 
-$('body').on('keyup', function(e) {
+$('body').on('keyup', (e) => {
 	if (e.key == 'Shift') {
 		shiftClick = false;
 	}
@@ -210,19 +242,7 @@ function createBrowser(task) {
 		show: false,
 		webPreferences: {
 			nodeIntegration: false,
-			preload: path.resolve('./views/js/preload/ipc.js'),
-			paritition: browsers.length - 1
-		}
-	});
-
-	searchForItem(task.shoppingList[0], (item) => {
-		if (item) {
-			newBrowser.loadURL('http://supremenewyork.com/' + item.href, {
-				userAgent: ua
-			});
-		}
-		else {
-			ipcRenderer.send('status', task.name, 'couldn\'t find item &rarr; ' + task.shoppingList[0].keywords);
+			preload: path.resolve('./views/js/preload/ipc.js')
 		}
 	});
 
@@ -231,6 +251,8 @@ function createBrowser(task) {
 	});
 
 	browsers.push(newBrowser);
+
+	gotoNextItem(browsers.indexOf(newBrowser));
 }
 
 function handleBrowser(id) {
@@ -251,13 +273,15 @@ function handleBrowser(id) {
 
 		console.log('at-product: ' + currentBrowserIndex + ':' + id);
 
-		ipcRenderer.send('status', tasks[currentBrowserIndex].name, 'found product keyword &rarr; ' + currentProduct.keywords);
+		ipcRenderer.send('status', tasks[currentBrowserIndex].name, 'found product keyword &rarr; ' + currentProduct.keywords + ', ' + currentProduct.colour);
 
 		currentBrowser.webContents.executeJavaScript(`
 			ipcSend("productPageSource", [` + currentBrowserIndex + `, document.body.innerHTML]);
 		`);
 
 		ipcRenderer.on('productPageSource', (event, arg) => {
+			currentProduct = tasks[arg[0]].shoppingList.filter(x => x.carted == false)[0];
+
 			var $ = cheerio.load(arg[1]);
 
 			var availableSizes = $('#size option').map((i, el) => {
@@ -265,38 +289,31 @@ function handleBrowser(id) {
 			}).get();
 
 			if (availableSizes.indexOf(tasks[arg[0]].shoppingList.filter(x => x.carted == false)[0].size) == -1) {
-				ipcRenderer.send('status', tasks[currentBrowserIndex].name, 'couldn\'t find size &rarr; ' + currentProduct.size);
+				ipcRenderer.send('status', tasks[arg[0]].name, currentProduct.keywords + ' &rarr; couldn\'t find size &rarr; ' + currentProduct.size + ', skipping');
 			}
-
-			$('#size').children().each((i, el) => {
-				if ($(el).text() == tasks[arg[0]].shoppingList.filter(x => x.carted == false)[0].size) {
-					currentBrowser.webContents.executeJavaScript('document.getElementById("size").value=' + $(el).val());
-					ipcRenderer.send('status', tasks[currentBrowserIndex].name, 'selected size &rarr; ' + currentProduct.size);
-				}
-			});
-
-			currentBrowser.webContents.executeJavaScript('document.getElementsByName("commit")[0].click()');
-			ipcRenderer.send('status', tasks[currentBrowserIndex].name, 'added to basket &rarr; ' + currentProduct.keywords);
-
-			tasks[arg[0]].shoppingList.filter(x => x.carted == false)[0].carted = true;
-			
-			if (tasks[arg[0]].shoppingList.filter(x => x.carted == false).length > 0) {
-				searchForItem(tasks[arg[0]].shoppingList.filter(x => x.carted == false)[0], (item) => {
-					if (item) {
-						currentBrowser.loadURL('http://supremenewyork.com/' + item.href, {
-							userAgent: ua
-						});
-					}
-					else {
-						// item not found
-						ipcRenderer.send('status', tasks[currentBrowserIndex].name, 'could not find next item');
+			else {
+				$('#size').children().each((i, el) => {
+					if ($(el).text() == tasks[arg[0]].shoppingList.filter(x => x.carted == false)[0].size) {
+						browsers[arg[0]].webContents.executeJavaScript('document.getElementById("size").value=' + $(el).val());
+						ipcRenderer.send('status', tasks[arg[0]].name, currentProduct.keywords + ' &rarr; selected size &rarr; ' + currentProduct.size);
 					}
 				});
+
+				browsers[arg[0]].webContents.executeJavaScript('document.getElementsByName("commit")[0].click()');
+				ipcRenderer.send('status', tasks[arg[0]].name, 'added to basket &rarr; ' + currentProduct.keywords + ', ' + currentProduct.size);
+			}
+
+			currentProduct.carted = true;
+			
+			if (tasks[arg[0]].shoppingList.filter(x => x.carted == false).length > 0) {
+				var nextItem = tasks[arg[0]].shoppingList.filter(x => x.carted == false)[0];
+
+				gotoNextItem(arg[0]);
 			}
 			else {
 				setTimeout(() => {
-					ipcRenderer.send('status', tasks[currentBrowserIndex].name, 'going to checkout...');
-					currentBrowser.webContents.executeJavaScript('document.getElementsByClassName("checkout")[0].click()');
+					ipcRenderer.send('status', tasks[arg[0]].name, 'going to checkout...');
+					browsers[arg[0]].webContents.executeJavaScript('document.getElementsByClassName("checkout")[0].click()');
 				}, 250);
 			}
 		});
@@ -311,6 +328,10 @@ function handleBrowser(id) {
 
 		ipcRenderer.send('status', tasks[currentBrowserIndex].name, 'at checkout, showing browser...');
 
+		tasks[currentBrowserIndex].status = 'At checkout';
+		var listEntry = $('.list-group-item').not('.list-head')[currentBrowserIndex];
+		$(listEntry).children('.status').text('At checkout');	
+
 		currentBrowser.show();
 	}
 
@@ -321,7 +342,35 @@ function handleBrowser(id) {
 }
 
 function terminateBrowser(id) {
-	// kill browser and end task
+	var currentBrowser = remote.BrowserWindow.fromId(id);
+	var currentBrowserIndex = browsers.indexOf(currentBrowser);
+
+	tasks[currentBrowserIndex].status = 'Idle';
+	var listEntry = $('.list-group-item').not('.list-head')[currentBrowserIndex];
+	$(listEntry).children('.status').text('Cancelled');
+}
+
+function gotoNextItem(taskIndex) {
+	var nextItem = tasks[taskIndex].shoppingList.filter(x => x.carted == false)[0];
+
+	searchForItem(nextItem, (item) => {
+		if (item) {
+			browsers[taskIndex].loadURL('http://supremenewyork.com/' + item.href, {
+				userAgent: ua
+			});
+		}
+		else {
+			if (nextItem) {
+				ipcRenderer.send('status', tasks[taskIndex].name, 'couldn\'t find item &rarr; ' + nextItem.keywords + ', ' + nextItem.colour);
+				nextItem.carted = true;
+				gotoNextItem(taskIndex);
+			}
+			else {
+				ipcRenderer.send('status', tasks[arg[0]].name, 'going to checkout...');
+				browsers[taskIndex].loadURL('https://supremenewyork.com/checkout');
+			}
+		}
+	});
 }
 
 function searchForItem(searchItem, cb) {
