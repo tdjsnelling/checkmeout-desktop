@@ -87,6 +87,8 @@ $('#create-task').on('click', function() {
 		task.shoppingList = shoppingList;
 		task.startTime = $('#run-at').val();
 		task.showBrowser = $('#show-browser').is(':checked');
+		task.autoCheckout = $('#auto-checkout').is(':checked');
+		task.autoCheckoutDelay = $('#auto-checkout-delay').val();
 		task.status = 'Idle';
 
 		var tasks = JSON.parse(localStorage.getItem('tasks'));
@@ -119,4 +121,17 @@ $('#create-task').on('click', function() {
 			$('#create-task').text('Create task');
 		}, 2000);
 	}
+});
+
+$("#auto-checkout").on('click', function() {
+	if (!$(this).is(':checked')) {
+		$('#auto-checkout-delay').parents('.col-h').hide();
+	}
+	else {
+		$('#auto-checkout-delay').parents('.col-h').show();
+	}
+});
+
+$('#auto-checkout-delay').on('input', function() {
+	$('#delay-val').text($(this).val() + ' seconds');
 });

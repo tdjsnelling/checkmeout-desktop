@@ -420,3 +420,19 @@ select {
 .checkbox-custom:checked + .checkbox-custom-label:before {
     background: #ed1e24;
 }
+
+input[type=range] {
+	-webkit-appearance: none; 
+    appearance: none;
+    height: 4px;
+    background: #d3d3d3;
+    outline: none; 
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  border: 1px solid rgba(0,0,0,.15);
+  height: 22px;
+  width: 10px;
+  background: white;
+}

@@ -146,9 +146,25 @@
 									</div>
 								</div>
 							</div>
-							<div class="form-group">
-								<input type="checkbox" id="show-browser" class="checkbox-custom">
-								<label for="show-browser" class="checkbox-custom-label">Make browser visible</label>
+							<div class="row">
+								<div class="col">
+									<div class="form-group">
+										<input type="checkbox" id="show-browser" class="checkbox-custom">
+										<label for="show-browser" class="checkbox-custom-label">Show browser</label>
+									</div>
+								</div>
+								<div class="col">
+									<div class="form-group">
+										<input type="checkbox" id="auto-checkout" class="checkbox-custom">
+										<label for="auto-checkout" class="checkbox-custom-label">Auto-checkout</label>
+									</div>
+								</div>
+								<div class="col col-h" style="display: none;">
+									<div class="form-group">
+										<input type="range" id="auto-checkout-delay" min="0" max="8" step="0.5" style="margin-bottom: 12px;">
+										<p id="delay-val">4 seconds</p>
+									</div>
+								</div>
 							</div>
 						</form>
 					</div>

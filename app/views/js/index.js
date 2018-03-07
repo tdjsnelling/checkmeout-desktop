@@ -441,6 +441,12 @@ function handleBrowser(id) {
 			document.getElementsByName("order[terms]")[1].checked = true;
 		`);
 
+		if (task.autoCheckout) {
+			setTimeout(() => {
+				currentBrowser.webContents.executeJavaScript('$(".checkout").click();');
+			}, task.autoCheckoutDelay * 1000);
+		}
+
 		ipcRenderer.send('status', tasks[currentBrowserIndex].name, 'showing browser...');
 		currentBrowser.show();
 	}
