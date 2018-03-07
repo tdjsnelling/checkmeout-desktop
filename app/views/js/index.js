@@ -306,7 +306,7 @@ function handleBrowser(id) {
 				return $(el).text();
 			}).get();
 
-			if (availableSizes.indexOf(tasks[arg[0]].shoppingList.filter(x => x.carted == false)[0].size) == -1) {
+			if (availableSizes.indexOf(tasks[arg[0]].shoppingList.filter(x => x.carted == false)[0].size) == -1 && tasks[arg[0]].shoppingList.filter(x => x.carted == false)[0].size != 'One size') {
 				ipcRenderer.send('status', tasks[arg[0]].name, currentProduct.keywords + ' &rarr; couldn\'t find size &rarr; ' + currentProduct.size + ', skipping');
 			}
 			else {
