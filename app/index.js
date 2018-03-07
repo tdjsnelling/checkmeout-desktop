@@ -18,28 +18,38 @@ app.on('window-all-closed', function() {
 });
 
 app.on('ready', function() {
-	if (isDev) {
-		mainWindow = new BrowserWindow({
-			width: 1280, 
-			height: 800,
-			backgroundColor: '#f8f8f8',
-			frame: true,
-			show: false
-		});
+	// if (isDev) {
+	// 	mainWindow = new BrowserWindow({
+	// 		width: 1280, 
+	// 		height: 800,
+	// 		backgroundColor: '#f8f8f8',
+	// 		frame: true,
+	// 		show: false
+	// 	});
 
-		mainWindow.loadURL('file://' + __dirname + '/views/preload.html');
-	}
-	else {
-		mainWindow = new BrowserWindow({
-			width: 1280, 
-			height: 800,
-			backgroundColor: '#f8f8f8',
-			frame: false,
-			show: false
-		});
+	// 	mainWindow.loadURL('file://' + __dirname + '/views/preload.html');
+	// }
+	// else {
+	// 	mainWindow = new BrowserWindow({
+	// 		width: 1280, 
+	// 		height: 800,
+	// 		backgroundColor: '#f8f8f8',
+	// 		frame: false,
+	// 		show: false
+	// 	});
 
-		mainWindow.loadURL('file://' + __dirname + '/views/root.html');
-	}
+	// 	mainWindow.loadURL('file://' + __dirname + '/views/root.html');
+	// }
+
+	mainWindow = new BrowserWindow({
+	 	width: 1280, 
+	 	height: 800,
+		backgroundColor: '#f8f8f8',
+	 	frame: true,
+	 	show: false
+	 });
+
+ 	mainWindow.loadURL('file://' + __dirname + '/views/preload.html');
 
 	mainWindow.once('ready-to-show', () => {
 		mainWindow.show();
@@ -84,6 +94,7 @@ ipcMain.on('categoryPageSource', (event, arg) => {
 });
 
 ipcMain.on('productPageSource', (event, arg) => {
+	console.log('sending-product-source');
 	mainWindow.webContents.send('productPageSource', arg);
 });
 

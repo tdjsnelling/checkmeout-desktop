@@ -5,6 +5,7 @@ var cheerio = require('cheerio');
 var Fuse = require('fuse.js');
 var request = require('request');
 var path = require('path');
+const isDev = require('electron-is-dev');
 
 var tasks = JSON.parse(localStorage.getItem('tasks'));
 tasks = tasks == null ? [] : tasks;
@@ -14,7 +15,7 @@ var ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, l
 var timeNow = moment();
 $('#time').text(timeNow.format('HH:mm:ss'));
 
-var verPrefix = 'ALPHA ';
+var verPrefix = 'BETA ';
 var ver = remote.app.getVersion();
 $('.badge-ver').text(verPrefix + ver);
 
@@ -238,13 +239,22 @@ $('body').on('keyup', (e) => {
 });
 
 function createBrowser(task) {
+	var preloadPath;
+
+	if (isDev) {
+		preloadPath = path.resolve('./views/js/preload/ipc.js');
+	}
+	else {
+		preloadPath = path.join(__dirname, '/preload/ipc.js');
+	}
+
 	var newBrowser = new remote.BrowserWindow({
 		width: 1000,
 		height: 750,
 		show: task.showBrowser,
 		webPreferences: {
 			nodeIntegration: false,
-			preload: path.resolve('./views/js/preload/ipc.js')
+			preload: preloadPath
 		}
 	});
 
@@ -286,6 +296,8 @@ function handleBrowser(id) {
 		`);
 
 		ipcRenderer.on('productPageSource', (event, arg) => {
+			console.log('received-product-source: ' + currentBrowserIndex + ':' + id);
+
 			currentProduct = tasks[arg[0]].shoppingList.filter(x => x.carted == false)[0];
 
 			var $ = cheerio.load(arg[1]);
@@ -329,6 +341,8 @@ function handleBrowser(id) {
 	else if (currentUrl.indexOf('/checkout') != -1) {
 		// autofill details
 		// show the browser if not visible already
+
+		// if ($('.tab-payment').hasClass('selected')) ...
 
 		console.log('at-checkout: ' + currentBrowserIndex + ':' + id);
 
