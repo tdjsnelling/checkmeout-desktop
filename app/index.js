@@ -69,7 +69,7 @@ app.on('ready', function() {
 		if (!isDev) {
 			autoUpdater.checkForUpdates();
 		}
-	}, 10000);
+	}, 5000);
 });
 
 // auto updater
@@ -94,8 +94,11 @@ ipcMain.on('categoryPageSource', (event, arg) => {
 });
 
 ipcMain.on('productPageSource', (event, arg) => {
-	console.log('sending-product-source');
 	mainWindow.webContents.send('productPageSource', arg);
+});
+
+ipcMain.on('checkoutPageSource', (event, arg) => {
+	mainWindow.webContents.send('checkoutPageSource', arg);
 });
 
 // create log window

@@ -341,114 +341,128 @@ function handleBrowser(id) {
 	else if (currentUrl.indexOf('/checkout') != -1) {
 		// autofill details
 		// show the browser if not visible already
-
-		// if ($('.tab-payment').hasClass('selected')) ...
-
-		console.log('at-checkout: ' + currentBrowserIndex + ':' + id);
-
-		ipcRenderer.send('status', tasks[currentBrowserIndex].name, 'at checkout, autofilling...');
-
-		tasks[currentBrowserIndex].status = 'At checkout';
-		var listEntry = $('.list-group-item').not('.list-head')[currentBrowserIndex];
-		$(listEntry).children('.status').text('At checkout');
-
-		var task = tasks[currentBrowserIndex];
+		// notify user of success or failure
 
 		currentBrowser.webContents.executeJavaScript(`
-			// most labels are <label> elements
-			$('label').each(function(i) {
-
-				// shipping info
-
-				if ($(this).text() == "full name" || $(this).text() == "name") {
-					document.getElementById($(this).attr('for')).value = '` + task.shipping.name + `';
-				}
-				if ($(this).text() == "名前") {
-					var a = $(this).attr('for');
-					var b = document.getElementById(a).parentNode;
-					b.childNodes[1].value = '` + task.shipping.name.split("\\s+")[0] + `';
-					b.childNodes[2].value = '` + task.shipping.name.split("\\s+")[1] + `';
-				}
-				if ($(this).text() == "email" || $(this).text() == "Eメール") {
-					document.getElementById($(this).attr('for')).value = '` + task.shipping.email + `';
-				}
-				if ($(this).text() == "tel" || $(this).text() == "電話番号") {
-					document.getElementById($(this).attr('for')).value = '` + task.shipping.phone + `';
-				}
-				if ($(this).text() == "address" || $(this).text() == "住所") {
-					document.getElementById($(this).attr('for')).value = '` + task.shipping.address + `';
-				}
-				if ($(this).text() == "city" || $(this).text() == "区市町村") {
-					document.getElementById($(this).attr('for')).value = '` + task.shipping.city + `';
-				}
-				if ($(this).text() == "postcode" || $(this).text() == "zip" || $(this).text() == "郵便番号") {
-					document.getElementById($(this).attr('for')).value = '` + task.shipping.zip + `';
-				}
-				if ($(this).text() == "country") {
-					document.getElementById($(this).attr('for')).value = '` + task.shipping.country + `';
-					// trigger a change event to update the page
-					document.getElementById($(this).attr('for')).dispatchEvent(new Event('change'));
-				}
-				if ($(this).text() == "都道府県") {
-					document.getElementById($(this).attr('for')).value = '` + task.shipping.prefecture + `';
-				}
-
-				// payment info
-
-				if ($(this).text() == "type" || $(this).text() == "支払い方法") {
-					document.getElementById($(this).attr('for')).value = '` + task.payment.type + `';
-					document.getElementById($(this).attr('for')).dispatchEvent(new Event('change'));
-				}
-				if ($(this).text() == "number" || $(this).text() == "カード番号") {
-					var a = $(this).attr('for');
-					if (a != undefined) {
-						document.getElementById(a).value = '` + task.payment.number + `';
-					}
-				}
-				if ($(this).text() == "exp. date" || $(this).text() == "有効期限") {
-					var a = $(this).attr('for');
-					var b = document.getElementById(a).parentNode;
-					b.childNodes[1].value = '` + task.payment.expirymonth + `';
-					b.childNodes[2].value = '` + task.payment.expiryyear + `';
-				}
-				if ($(this).text() == "CVV" || $(this).text() == "CVV番号") {
-					var a = $(this).attr('for');
-					if (a != undefined) {
-						document.getElementById(a).value = '` + task.payment.cvv + `';
-					}
-				}
-			});
-
-			// some labels are <div> elements
-			$('div').each(function(i) {
-				if ($(this).text() == "number" || $(this).text() == "カード番号") {
-					var a = $(this).attr('for');
-					if (a != undefined) {
-						document.getElementById(a).value = '` + task.payment.number + `';
-					}
-				}
-				if ($(this).text() == "CVV" || $(this).text() == "CVV番号") {
-					var a = $(this).attr('for');
-					if (a != undefined) {
-						document.getElementById(a).value = '` + task.payment.cvv + `';
-					}
-				}
-			});
-
-			// tick the t&c box
-			document.getElementsByName("order[terms]")[1].parentElement.className = "icheckbox_minimal checked";
-			document.getElementsByName("order[terms]")[0].checked = true;
-			document.getElementsByName("order[terms]")[1].checked = true;
+			ipcSend("checkoutPageSource", [` + currentBrowserIndex + `, document.body.innerHTML]);
 		`);
 
-		if (task.autoCheckout) {
-			setTimeout(() => {
-				currentBrowser.webContents.executeJavaScript('$(".checkout").click();');
-			}, task.autoCheckoutDelay * 1000);
-		}
+		ipcRenderer.on('checkoutPageSource', (event, arg) => {
+			var $ = cheerio.load(arg[1]);
+			if ($('.tab-payment').hasClass('selected')) {
+				console.log('at-checkout: ' + arg[0] + ':' + id);
 
-		ipcRenderer.send('status', tasks[currentBrowserIndex].name, 'showing browser...');
-		currentBrowser.show();
+				ipcRenderer.send('status', tasks[arg[0]].name, 'at checkout, autofilling...');
+
+				tasks[arg[0]].status = 'At checkout';
+				var listEntry = $('.list-group-item').not('.list-head')[arg[0]];
+				$(listEntry).children('.status').text('At checkout');
+
+				var task = tasks[arg[0]];
+
+				browsers[arg[0]].webContents.executeJavaScript(`
+					// most labels are <label> elements
+					$('label').each(function(i) {
+
+						// shipping info
+
+						if ($(this).text() == "full name" || $(this).text() == "name") {
+							document.getElementById($(this).attr('for')).value = '` + task.shipping.name + `';
+						}
+						if ($(this).text() == "名前") {
+							var a = $(this).attr('for');
+							var b = document.getElementById(a).parentNode;
+							b.childNodes[1].value = '` + task.shipping.name.split("\\s+")[0] + `';
+							b.childNodes[2].value = '` + task.shipping.name.split("\\s+")[1] + `';
+						}
+						if ($(this).text() == "email" || $(this).text() == "Eメール") {
+							document.getElementById($(this).attr('for')).value = '` + task.shipping.email + `';
+						}
+						if ($(this).text() == "tel" || $(this).text() == "電話番号") {
+							document.getElementById($(this).attr('for')).value = '` + task.shipping.phone + `';
+						}
+						if ($(this).text() == "address" || $(this).text() == "住所") {
+							document.getElementById($(this).attr('for')).value = '` + task.shipping.address + `';
+						}
+						if ($(this).text() == "city" || $(this).text() == "区市町村") {
+							document.getElementById($(this).attr('for')).value = '` + task.shipping.city + `';
+						}
+						if ($(this).text() == "postcode" || $(this).text() == "zip" || $(this).text() == "郵便番号") {
+							document.getElementById($(this).attr('for')).value = '` + task.shipping.zip + `';
+						}
+						if ($(this).text() == "country") {
+							document.getElementById($(this).attr('for')).value = '` + task.shipping.country + `';
+							// trigger a change event to update the page
+							document.getElementById($(this).attr('for')).dispatchEvent(new Event('change'));
+						}
+						if ($(this).text() == "都道府県") {
+							document.getElementById($(this).attr('for')).value = '` + task.shipping.prefecture + `';
+						}
+
+						// payment info
+
+						if ($(this).text() == "type" || $(this).text() == "支払い方法") {
+							document.getElementById($(this).attr('for')).value = '` + task.payment.type + `';
+							document.getElementById($(this).attr('for')).dispatchEvent(new Event('change'));
+						}
+						if ($(this).text() == "number" || $(this).text() == "カード番号") {
+							var a = $(this).attr('for');
+							if (a != undefined) {
+								document.getElementById(a).value = '` + task.payment.number + `';
+							}
+						}
+						if ($(this).text() == "exp. date" || $(this).text() == "有効期限") {
+							var a = $(this).attr('for');
+							var b = document.getElementById(a).parentNode;
+							b.childNodes[1].value = '` + task.payment.expirymonth + `';
+							b.childNodes[2].value = '` + task.payment.expiryyear + `';
+						}
+						if ($(this).text() == "CVV" || $(this).text() == "CVV番号") {
+							var a = $(this).attr('for');
+							if (a != undefined) {
+								document.getElementById(a).value = '` + task.payment.cvv + `';
+							}
+						}
+					});
+
+					// some labels are <div> elements
+					$('div').each(function(i) {
+						if ($(this).text() == "number" || $(this).text() == "カード番号") {
+							var a = $(this).attr('for');
+							if (a != undefined) {
+								document.getElementById(a).value = '` + task.payment.number + `';
+							}
+						}
+						if ($(this).text() == "CVV" || $(this).text() == "CVV番号") {
+							var a = $(this).attr('for');
+							if (a != undefined) {
+								document.getElementById(a).value = '` + task.payment.cvv + `';
+							}
+						}
+					});
+
+					// tick the t&c box
+					document.getElementsByName("order[terms]")[1].parentElement.className = "icheckbox_minimal checked";
+					document.getElementsByName("order[terms]")[0].checked = true;
+					document.getElementsByName("order[terms]")[1].checked = true;
+				`);
+
+				if (task.autoCheckout) {
+					setTimeout(() => {
+						browsers[arg[0]].webContents.executeJavaScript('$(".checkout").click();');
+					}, task.autoCheckoutDelay * 1000);
+				}
+
+				ipcRenderer.send('status', tasks[currentBrowserIndex].name, 'showing browser...');
+				browsers[arg[0]].show();
+			}
+
+			else if ($('.tab-confirmation').hasClass('selected')) {
+				console.log('at-confirmation: ' + arg[0] + ':' + id);
+
+				ipcRenderer.send('status', tasks[arg[0]].name, 'at confirmation screen');
+			}
+		});
 	}
 
 	// don't know where we are
