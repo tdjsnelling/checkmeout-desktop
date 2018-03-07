@@ -1,5 +1,14 @@
 var crypto = require('crypto');
 
+$('#cardtype').on('change', function() {
+	if ($(this).val() == 'paypal' || $(this).val() == 'cod') {
+		$('input[type=text]').parents('.form-group').css('display', 'none');
+	}
+	else {
+		$('input[type=text]').parents('.form-group').css('display', '');
+	}
+});
+
 $('#save-payment').on('click', function() {
 	var count = 0;
 	$.each($('input'), function(i, value) {
