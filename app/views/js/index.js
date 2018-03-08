@@ -306,19 +306,30 @@ function handleBrowser(id) {
 				return $(el).text();
 			}).get();
 
-			if (availableSizes.indexOf(tasks[arg[0]].shoppingList.filter(x => x.carted == false)[0].size) == -1 && tasks[arg[0]].shoppingList.filter(x => x.carted == false)[0].size != 'One size') {
-				ipcRenderer.send('status', tasks[arg[0]].name, currentProduct.keywords + ' &rarr; couldn\'t find size &rarr; ' + currentProduct.size + ', skipping');
+			if (availableSizes.indexOf(currentProduct.size) == -1 && currentProduct.size != 'One size') {
+				ipcRenderer.send('status', tasks[arg[0]].name, currentProduct.keywords + ' &rarr; size ' + currentProduct.size + ' out of stock, skipping');
 			}
 			else {
-				$('#size').children().each((i, el) => {
-					if ($(el).text() == tasks[arg[0]].shoppingList.filter(x => x.carted == false)[0].size) {
-						browsers[arg[0]].webContents.executeJavaScript('document.getElementById("size").value=' + $(el).val());
-						ipcRenderer.send('status', tasks[arg[0]].name, currentProduct.keywords + ' &rarr; selected size &rarr; ' + currentProduct.size);
+				if (currentProduct.size == 'One size') {
+					if ($('.sold-out').text() == '') {
+						browsers[arg[0]].webContents.executeJavaScript('document.getElementsByName("commit")[0].click()');
+						ipcRenderer.send('status', tasks[arg[0]].name, 'added to basket &rarr; ' + currentProduct.keywords + ', ' + currentProduct.size);
 					}
-				});
+					else {
+						ipcRenderer.send('status', tasks[arg[0]].name, currentProduct.keywords + ' &rarr; out of stock, skipping');
+					}
+				}
+				else {
+					$('#size').children().each((i, el) => {
+						if ($(el).text() == currentProduct.size) {
+							browsers[arg[0]].webContents.executeJavaScript('document.getElementById("size").value=' + $(el).val());
+							ipcRenderer.send('status', tasks[arg[0]].name, currentProduct.keywords + ' &rarr; selected size &rarr; ' + currentProduct.size);
+						}
+					});
 
-				browsers[arg[0]].webContents.executeJavaScript('document.getElementsByName("commit")[0].click()');
-				ipcRenderer.send('status', tasks[arg[0]].name, 'added to basket &rarr; ' + currentProduct.keywords + ', ' + currentProduct.size);
+					browsers[arg[0]].webContents.executeJavaScript('document.getElementsByName("commit")[0].click()');
+					ipcRenderer.send('status', tasks[arg[0]].name, 'added to basket &rarr; ' + currentProduct.keywords + ', ' + currentProduct.size);
+				}
 			}
 
 			currentProduct.carted = true;
