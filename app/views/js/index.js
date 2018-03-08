@@ -477,14 +477,14 @@ function gotoNextItem(taskIndex) {
 	if (nextItem) {
 		searchForItem(nextItem, (item) => {
 			console.log(item)
-			if (item) {
+			if (typeof item !== 'undefined') {
 				if (item == -1) {
 					$($('.list-group-item').not('.list-head')[i]).children('.status').text('Error');
 					$($('.list-group-item').not('.list-head')[i]).children('.status').css('color', '#e74c3c');
 
 					setTimeout(() => {
 						browsers[taskIndex].destroy();
-					}, 3000);
+					}, 10000);
 				}
 				else {
 					browsers[taskIndex].loadURL('http://supremenewyork.com/' + item.href, {
@@ -493,6 +493,7 @@ function gotoNextItem(taskIndex) {
 				}
 			}
 			else {
+				console.log(nextItem)
 				if (nextItem) {
 					ipcRenderer.send('status', tasks[taskIndex].name, 'couldn\'t find item &rarr; ' + nextItem.keywords + ', ' + nextItem.colour);
 					nextItem.carted = true;
@@ -507,9 +508,17 @@ function gotoNextItem(taskIndex) {
 	}
 }
 
+var headers = {
+	'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8',
+	'Accept-Language': 'en-GB,en-US;q=0.9,en;q=0.8',
+	'Cache-Control': 'max-age=0',
+	'Connection': 'keep-alive',
+	'Host': 'www.supremenewyork.com',
+	'User-Agent': ua
+}
+
 function searchForItem(searchItem, cb) {
-	console.log(searchItem)
-	request('http://supremenewyork.com/shop/all/' + searchItem.category, { headers: { 'User-Agent': ua } }, (err, res, body) => {
+	request('http://supremenewyork.com/shop/all/' + searchItem.category, { headers: headers, timeout: 3000 }, (err, res, body) => {
 		if (err) {
 			console.log(err);
 			return cb(-1);
@@ -533,24 +542,36 @@ function searchForItem(searchItem, cb) {
 				items.push(item);
 			});
 
-			var fuseOptions = {
+			var keywordOptions = {
 				shouldSort: true,
 				tokenize: true,
-				threshold: 0.4,
+				threshold: 0.6,
 				location: 0,
 				distance: 100,
 				maxPatternLength: 32,
 				minMatchCharLength: 1,
 				keys: [
-					"name",
+					"name"
+				]
+			};
+
+			var fuse = new Fuse(items, keywordOptions);
+			var itemRes = fuse.search(searchItem.keywords);
+
+			var colourOptions = {
+				shouldSort: true,
+				tokenize: true,
+				threshold: 0.6,
+				location: 0,
+				distance: 100,
+				maxPatternLength: 32,
+				minMatchCharLength: 1,
+				keys: [
 					"colour"
 				]
 			};
 
-			var fuse = new Fuse(items, fuseOptions);
-			var itemRes = fuse.search(searchItem.keywords);
-
-			fuse = new Fuse(itemRes, fuseOptions);
+			fuse = new Fuse(itemRes, colourOptions);
 			var res = fuse.search(searchItem.colour);
 
 			return cb(res[0]);
