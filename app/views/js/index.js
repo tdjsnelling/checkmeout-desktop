@@ -207,6 +207,8 @@ $('#pause-tasks').on('click', function() {
 				tasks[i].status = 'Idle';
 				$(this).children('.status').text('Idle');
 				$(this).children('.status').css('color', '');
+
+				browsers[i].destroy();
 			}
 		}
 	});
