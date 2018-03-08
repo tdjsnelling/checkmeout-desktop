@@ -475,10 +475,11 @@ function gotoNextItem(taskIndex) {
 	var nextItem = tasks[taskIndex].shoppingList.filter(x => x.carted == false)[0];
 
 	if (nextItem) {
-		searchForItem(nextItem, (item) => {
-			console.log(item)
+		searchForItem(nextItem, (item, err) => {
 			if (typeof item !== 'undefined') {
-				if (item == -1) {
+				if (err) {
+					ipcRenderer.send('status', tasks[taskIndex].name, 'error connecting to the Supreme store');
+
 					$($('.list-group-item').not('.list-head')[i]).children('.status').text('Error');
 					$($('.list-group-item').not('.list-head')[i]).children('.status').css('color', '#e74c3c');
 
@@ -493,7 +494,6 @@ function gotoNextItem(taskIndex) {
 				}
 			}
 			else {
-				console.log(nextItem)
 				if (nextItem) {
 					ipcRenderer.send('status', tasks[taskIndex].name, 'couldn\'t find item &rarr; ' + nextItem.keywords + ', ' + nextItem.colour);
 					nextItem.carted = true;
@@ -521,7 +521,7 @@ function searchForItem(searchItem, cb) {
 	request('http://supremenewyork.com/shop/all/' + searchItem.category, { headers: headers, timeout: 3000 }, (err, res, body) => {
 		if (err) {
 			console.log(err);
-			return cb(-1);
+			return cb(null, err);
 		}
 		else {
 			var items = [];
@@ -574,7 +574,7 @@ function searchForItem(searchItem, cb) {
 			fuse = new Fuse(itemRes, colourOptions);
 			var res = fuse.search(searchItem.colour);
 
-			return cb(res[0]);
+			return cb(res[0], null);
 		}
 	});
 }
