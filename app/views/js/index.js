@@ -427,6 +427,12 @@ function handleBrowser(id) {
 						if ($(this).text() == "address" || $(this).text() == "住所") {
 							document.getElementById($(this).attr('for')).value = '` + task.shipping.address + `';
 						}
+						if ($(this).text() == "address 2") {
+							document.getElementById($(this).attr('for')).value = '` + task.shipping.address2 + `';
+						}
+						if ($(this).text() == "address 3") {
+							document.getElementById($(this).attr('for')).value = '` + task.shipping.address3 + `';
+						}
 						if ($(this).text() == "city" || $(this).text() == "区市町村") {
 							document.getElementById($(this).attr('for')).value = '` + task.shipping.city + `';
 						}
