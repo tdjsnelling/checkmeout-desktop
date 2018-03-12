@@ -6,6 +6,7 @@ var Fuse = require('fuse.js');
 var request = require('request');
 var path = require('path');
 const isDev = require('electron-is-dev');
+var fs = require('fs');
 
 var tasks = JSON.parse(localStorage.getItem('tasks'));
 tasks = tasks == null ? [] : tasks;
@@ -15,6 +16,8 @@ var ua = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, l
 var timeNow = moment();
 $('#time').text(timeNow.format('HH:mm:ss'));
 
+let t0;
+
 var verPrefix = 'BETA ';
 var ver = remote.app.getVersion();
 $('.badge-ver').text(verPrefix + ver);
@@ -22,6 +25,21 @@ $('.badge-ver').text(verPrefix + ver);
 $('#user-email').text(JSON.parse(localStorage.getItem('loggedInUser')).email);
 
 var browsers = [];
+
+function perf(browser, event) {
+	var t = performance.now() - t0;
+	var tObj = {
+		browser: browser,
+		name: tasks[browser].name, 
+		event: event,
+		time: `T+${t.toFixed(3)} ms`
+	}
+
+	console.log(tObj);
+	fs.appendFile('log.txt', JSON.stringify(tObj) + '\n', (err) => {
+		if (err) throw err;
+	});
+}
 
 setInterval(() => {
 	timeNow = moment();
@@ -136,6 +154,8 @@ $('#delete-selected').on('click', function() {
 });
 
 $('#run-tasks').on('click', function() {
+	t0 = performance.now();
+
 	tasks = JSON.parse(localStorage.getItem('tasks'));
 
 	if (shiftClick) {
@@ -270,6 +290,8 @@ function createBrowser(task) {
 		task.shoppingList[i].carted = false;
 	}
 
+	perf(browsers.indexOf(newBrowser), 'browser-created');
+
 	gotoNextItem(browsers.indexOf(newBrowser));
 }
 
@@ -290,6 +312,7 @@ function handleBrowser(id) {
 		var currentProduct = tasks[currentBrowserIndex].shoppingList.filter(x => x.carted == false)[0];
 
 		console.log('at-product: ' + currentBrowserIndex + ':' + id);
+		perf(currentBrowserIndex, 'at-product');
 
 		ipcRenderer.send('status', tasks[currentBrowserIndex].name, 'found product keyword &rarr; ' + currentProduct.keywords + ', ' + currentProduct.colour);
 
@@ -299,6 +322,7 @@ function handleBrowser(id) {
 
 		ipcRenderer.on('productPageSource', (event, arg) => {
 			console.log('received-product-source: ' + currentBrowserIndex + ':' + id);
+			perf(currentBrowserIndex, 'received-product-source');
 
 			currentProduct = tasks[arg[0]].shoppingList.filter(x => x.carted == false)[0];
 
@@ -325,11 +349,13 @@ function handleBrowser(id) {
 					$('#size').children().each((i, el) => {
 						if ($(el).text() == currentProduct.size) {
 							browsers[arg[0]].webContents.executeJavaScript('document.getElementById("size").value=' + $(el).val());
+							perf(currentBrowserIndex, 'selected-size');
 							ipcRenderer.send('status', tasks[arg[0]].name, currentProduct.keywords + ' &rarr; selected size &rarr; ' + currentProduct.size);
 						}
 					});
 
 					browsers[arg[0]].webContents.executeJavaScript('document.getElementsByName("commit")[0].click()');
+					perf(currentBrowserIndex, 'added-to-cart');
 					ipcRenderer.send('status', tasks[arg[0]].name, 'added to basket &rarr; ' + currentProduct.keywords + ', ' + currentProduct.size);
 				}
 			}
@@ -344,6 +370,7 @@ function handleBrowser(id) {
 			else {
 				setTimeout(() => {
 					ipcRenderer.send('status', tasks[arg[0]].name, 'going to checkout...');
+					perf(currentBrowserIndex, 'going-to-checkout');
 					browsers[arg[0]].webContents.executeJavaScript('document.getElementsByClassName("checkout")[0].click()');
 				}, 250);
 			}
@@ -356,12 +383,15 @@ function handleBrowser(id) {
 		// show the browser if not visible already
 		// notify user of success or failure
 
+		perf(currentBrowserIndex, 'at-checkout');
+
 		currentBrowser.webContents.executeJavaScript(`
 			ipcSend("checkoutPageSource", [` + currentBrowserIndex + `, document.body.innerHTML]);
 		`);
 
 		ipcRenderer.on('checkoutPageSource', (event, arg) => {
 			var $ = cheerio.load(arg[1]);
+			
 			if ($('.tab-payment').hasClass('selected')) {
 				console.log('at-checkout: ' + arg[0] + ':' + id);
 
@@ -460,14 +490,21 @@ function handleBrowser(id) {
 					document.getElementsByName("order[terms]")[1].checked = true;
 				`);
 
+				perf(currentBrowserIndex, 'autofilled');
+
 				if (task.autoCheckout) {
 					setTimeout(() => {
+						perf(currentBrowserIndex, 'clicked-checkout');
 						browsers[arg[0]].webContents.executeJavaScript('$(".checkout").click();');
 					}, task.autoCheckoutDelay * 1000);
 				}
 
 				ipcRenderer.send('status', tasks[currentBrowserIndex].name, 'showing browser...');
 				browsers[arg[0]].show();
+
+				setInterval(() => {
+
+				}, 1000);
 			}
 
 			else if ($('.tab-confirmation').hasClass('selected')) {
@@ -488,6 +525,8 @@ function gotoNextItem(taskIndex) {
 	var nextItem = tasks[taskIndex].shoppingList.filter(x => x.carted == false)[0];
 
 	if (nextItem) {
+		perf(taskIndex, 'searching-for-product');
+
 		searchForItem(nextItem, (item, err) => {
 			if (typeof item !== 'undefined') {
 				if (err) {
@@ -501,6 +540,8 @@ function gotoNextItem(taskIndex) {
 					}, 10000);
 				}
 				else {
+					perf(taskIndex, 'found-product');
+
 					browsers[taskIndex].loadURL('http://supremenewyork.com/' + item.href, {
 						userAgent: ua
 					});
