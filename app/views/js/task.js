@@ -1,9 +1,44 @@
 var crypto = require('crypto');
 
+let editId;
+
 var savedShipping = JSON.parse(localStorage.getItem('shipping'));
 var savedPayment = JSON.parse(localStorage.getItem('payment'));
 
 var shoppingList = [];
+
+$(document).ready(function() {
+	var url = new URL(location.href);
+	editId = url.searchParams.get('id');
+
+	if (editId) {
+		var tasks = JSON.parse(localStorage.getItem('tasks'));
+		var task = tasks.filter(x => x.id == editId)[0];
+		
+		for (i in task.shoppingList) {
+			item = task.shoppingList[i];
+
+			$('#shopping-list').append($('<li class="list-group-item item">').html('<p>' + item.category + ': ' + item.keywords + ' - ' + item.colour + ' (' + item.size + ')</p><div class="controls"><i class="material-icons delete">close</i></div>'));
+			shoppingList.push(item);
+		}
+
+		$('#task-name').val(task.name);
+		$('#run-at').val(task.startTime);
+		$('#proxy').val(task.proxy);
+		$('#shipping-profile').val(task.shipping.id);
+		$('#payment-profile').val(task.payment.id);
+		$('#show-browser').prop('checked', task.showBrowser);
+		$('#auto-checkout').prop('checked', task.autoCheckout);
+		$('#auto-checkout-delay').val(task.autoCheckoutDelay);
+		$('#delay-val').text(task.autoCheckoutDelay + ' seconds');
+
+		if (task.autoCheckout) {
+			$('#auto-checkout-delay').parents('.col-h').show();
+		}
+
+		$('#create-task').text('Update task')
+	}
+});
 
 for (i in savedShipping) {
 	$('#shipping-profile').append($('<option value="' + savedShipping[i].id + '">').html(savedShipping[i].address));
@@ -48,7 +83,7 @@ $('#create-item').on('click', function() {
 });
 
 $(document).on('click', '.delete', function() {
-	var index = $(this).parents('.list-group-item').index();
+	var index = $(this).parents('.list-group-item').index() - 1;
 	shoppingList.splice(index, 1);
 	$(this).parents('.list-group-item').remove();
 });
@@ -74,6 +109,14 @@ $('#create-task').on('click', function() {
 	}
 
 	if (count == 0) {
+		if (editId) {
+			var tasks = JSON.parse(localStorage.getItem('tasks'));
+			var task = tasks.filter(x => x.id == editId)[0];
+
+			tasks.splice(tasks.indexOf(task), 1);
+			localStorage.setItem('tasks', JSON.stringify(tasks));
+		}
+
 		var hash = crypto.createHash('md5');
 		hash.update($('#task-name').val() + $('#proxy').val() + $('#shipping-profile').val() + $('#payment-profile').val() + shoppingList + $('#run-at').val());
 

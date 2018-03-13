@@ -86,12 +86,13 @@ if (tasks.length > 0) {
 	$('.list-group-item').not('.list-head').remove();
 	for (i in tasks) {
 		var last4 =  tasks[i].payment.number.substr(tasks[i].payment.number.length - 4);
-		$('#tasks').append($('<li class="list-group-item data-id="' + tasks[i].id + '""> \
+		$('#tasks').append($('<li class="list-group-item" data-id="' + tasks[i].id + '""> \
 								<div class="col-icon"><i class="material-icons task-select">check_box_outline_blank</i></div> \
 								<div class="col no-overflow name">' + tasks[i].name + '</div> \
 								<div class="col no-overflow address">' + tasks[i].shipping.address + '</div> \
 								<div class="col no-overflow payment">' + tasks[i].payment.type + ': ' + last4 + '</div> \
 								<div class="col no-overflow status">' + tasks[i].status + '</div> \
+								<div class="controls"><i class="material-icons edit-task">edit</i></div> \
 							</li>'));
 	}
 }
@@ -238,6 +239,14 @@ $('#pause-tasks').on('click', function() {
 	}
 
 	localStorage.setItem('tasks', JSON.stringify(tasks));
+});
+
+$(document).on('click', '.edit-task', function() {
+	var id = $(this).parents('.list-group-item').data('id');
+
+	$('body').fadeOut(100, function() {
+		location.href = 'task.html?id=' + id;
+	});
 });
 
 var shiftClick = false;

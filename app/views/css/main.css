@@ -436,3 +436,8 @@ input[type=range]::-webkit-slider-thumb {
   width: 10px;
   background: white;
 }
+
+.edit-task {
+	color: #999;
+	margin-right: 6px;
+}
