@@ -133,6 +133,8 @@ $('#create-task').on('click', function() {
 		task.autoCheckout = $('#auto-checkout').is(':checked');
 		task.autoCheckoutDelay = $('#auto-checkout-delay').val();
 		task.status = 'Idle';
+		task.autofilled = false;
+		task.complete = false;
 
 		var tasks = JSON.parse(localStorage.getItem('tasks'));
 		tasks = tasks == null ? [] : tasks;

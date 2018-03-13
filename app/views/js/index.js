@@ -171,6 +171,10 @@ $('#run-tasks').on('click', function() {
 		if ($(this).children('.col-icon').children('i').text() == 'check_box') {
 			selected++;
 
+			tasks[i].autofilled = false;
+			tasks[i].complete = false;
+			localStorage.setItem('tasks', JSON.stringify(tasks));
+
 			if (tasks[i].startTime == 'now') {
 				tasks[i].status = 'Running';
 				localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -421,18 +425,19 @@ function handleBrowser(id) {
 		`);
 
 		ipcRenderer.on('checkoutPageSource', (event, arg) => {
-			var $ = cheerio.load(arg[1]);
+			var task = tasks[arg[0]];
+			var _$ = cheerio.load(arg[1]);
 			
-			if ($('.tab-payment').hasClass('selected')) {
+			if (_$('.tab-payment').hasClass('selected') && !task.autofilled) {
 				console.log('at-checkout: ' + arg[0] + ':' + id);
 
 				ipcRenderer.send('status', tasks[arg[0]].name, 'at checkout, autofilling...');
 
 				tasks[arg[0]].status = 'At checkout';
 				var listEntry = $('.list-group-item').not('.list-head')[arg[0]];
+				console.log(listEntry, $('.list-group-item').not('.list-head'), arg[0])
 				$(listEntry).children('.status').text('At checkout');
-
-				var task = tasks[arg[0]];
+				$(listEntry).children('.status').css('color', '#2ecc71');
 
 				browsers[arg[0]].webContents.executeJavaScript(`
 					// most labels are <label> elements
@@ -528,6 +533,9 @@ function handleBrowser(id) {
 				`);
 
 				perf(currentBrowserIndex, 'autofilled');
+				tasks[arg[0]].autofilled = true;
+				tasks[arg[0]].complete = false;
+				localStorage.setItem('tasks', JSON.stringify(tasks));
 
 				if (task.autoCheckout) {
 					setTimeout(() => {
@@ -540,14 +548,36 @@ function handleBrowser(id) {
 				browsers[arg[0]].show();
 
 				setInterval(() => {
-
+					currentBrowser.webContents.executeJavaScript(`
+						ipcSend("checkoutPageSource", [` + currentBrowserIndex + `, document.body.innerHTML]);
+					`);
 				}, 1000);
 			}
 
-			else if ($('.tab-confirmation').hasClass('selected')) {
+			else if (_$('.tab-confirmation').hasClass('selected') && !task.complete) {
 				console.log('at-confirmation: ' + arg[0] + ':' + id);
 
 				ipcRenderer.send('status', tasks[arg[0]].name, 'at confirmation screen');
+				perf(currentBrowserIndex, 'at-confirmation');
+
+				tasks[arg[0]].autofilled = false;
+				tasks[arg[0]].complete = true;
+				localStorage.setItem('tasks', JSON.stringify(tasks));
+
+				if (_$('.failed').length) {
+					ipcRenderer.send('status', tasks[arg[0]].name, 'checkout failed');
+
+					var listEntry = $('.list-group-item').not('.list-head')[arg[0]];
+					$(listEntry).children('.status').text('Checkout failed');
+					$(listEntry).children('.status').css('color', '#e74c3c');
+				}
+				else {
+					ipcRenderer.send('status', tasks[arg[0]].name, 'checkout success');
+
+					var listEntry = $('.list-group-item').not('.list-head')[arg[0]];
+					$(listEntry).children('.status').text('Checkout success');
+					$(listEntry).children('.status').css('color', '#2ecc71');
+				}
 			}
 		});
 	}
@@ -615,7 +645,11 @@ var headers = {
 }
 
 function searchForItem(searchItem, proxy, cb) {
-	request('http://supremenewyork.com/shop/all/' + searchItem.category, { headers: headers, timeout: 3000, proxy: 'http://' + proxy }, (err, res, body) => {
+	if (proxy) {
+		proxy = 'http://' + proxy;
+	}
+
+	request('http://supremenewyork.com/shop/all/' + searchItem.category, { headers: headers, timeout: 3000, proxy: proxy }, (err, res, body) => {
 		if (err) {
 			console.log(err);
 			return cb(null, err);
