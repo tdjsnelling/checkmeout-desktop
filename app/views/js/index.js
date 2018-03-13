@@ -289,19 +289,39 @@ function createBrowser(task) {
 		}
 	});
 
-	newBrowser.webContents.on('dom-ready', () => {
-		handleBrowser(newBrowser.id);
-	});
+	if (task.proxy != '') {
+		newBrowser.webContents.session.setProxy({ proxyRules: 'http://' + task.proxy }, () => {
+			newBrowser.webContents.on('dom-ready', () => {
+				handleBrowser(newBrowser.id);
+			});
 
-	browsers.push(newBrowser);
+			browsers.push(newBrowser);
 
-	for (i in task.shoppingList) {
-		task.shoppingList[i].carted = false;
+			for (i in task.shoppingList) {
+				task.shoppingList[i].carted = false;
+			}
+
+			perf(browsers.indexOf(newBrowser), 'browser-created');
+
+			gotoNextItem(browsers.indexOf(newBrowser));
+			
+		});
 	}
+	else {
+		newBrowser.webContents.on('dom-ready', () => {
+			handleBrowser(newBrowser.id);
+		});
 
-	perf(browsers.indexOf(newBrowser), 'browser-created');
+		browsers.push(newBrowser);
 
-	gotoNextItem(browsers.indexOf(newBrowser));
+		for (i in task.shoppingList) {
+			task.shoppingList[i].carted = false;
+		}
+
+		perf(browsers.indexOf(newBrowser), 'browser-created');
+
+		gotoNextItem(browsers.indexOf(newBrowser));
+	}
 }
 
 function handleBrowser(id) {
@@ -337,9 +357,11 @@ function handleBrowser(id) {
 
 			var $ = cheerio.load(arg[1]);
 
-			var availableSizes = $('#size option').map((i, el) => {
+			var availableSizes = $('#size option, #s option').map((i, el) => {
 				return $(el).text();
 			}).get();
+
+			console.log(availableSizes)
 
 			if (availableSizes.indexOf(currentProduct.size) == -1 && currentProduct.size != 'One size') {
 				ipcRenderer.send('status', tasks[arg[0]].name, currentProduct.keywords + ' &rarr; size ' + currentProduct.size + ' out of stock, skipping');
@@ -542,7 +564,13 @@ function gotoNextItem(taskIndex) {
 	if (nextItem) {
 		perf(taskIndex, 'searching-for-product');
 
-		searchForItem(nextItem, (item, err) => {
+		var proxy = tasks[taskIndex].proxy;
+
+		if (proxy == '') {
+			proxy = null;
+		}
+
+		searchForItem(nextItem, proxy, (item, err) => {
 			if (typeof item !== 'undefined') {
 				if (err) {
 					ipcRenderer.send('status', tasks[taskIndex].name, 'error connecting to the Supreme store');
@@ -586,8 +614,8 @@ var headers = {
 	'User-Agent': ua
 }
 
-function searchForItem(searchItem, cb) {
-	request('http://supremenewyork.com/shop/all/' + searchItem.category, { headers: headers, timeout: 3000 }, (err, res, body) => {
+function searchForItem(searchItem, proxy, cb) {
+	request('http://supremenewyork.com/shop/all/' + searchItem.category, { headers: headers, timeout: 3000, proxy: 'http://' + proxy }, (err, res, body) => {
 		if (err) {
 			console.log(err);
 			return cb(null, err);
