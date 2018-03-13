@@ -72,6 +72,12 @@ app.on('ready', function() {
 	}, 5000);
 });
 
+// check for updates
+
+ipcMain.on('check-for-updates', () => {
+	autoUpdater.checkForUpdates();
+})
+
 // auto updater
 
 autoUpdater.on('update-available', (ev, info) => {

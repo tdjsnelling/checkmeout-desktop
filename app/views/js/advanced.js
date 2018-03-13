@@ -1,4 +1,4 @@
-const {remote} = require('electron');
+const {remote, ipcRenderer} = require('electron');
 
 $('#open-dev-tools').on('click', function() {
 	remote.BrowserWindow.getFocusedWindow().openDevTools();
@@ -9,14 +9,13 @@ $('#delete-all-data').on('click', function() {
 });
 
 $('#check-updates').on('click', function() {
-	remote.autoUpdater.checkForUpdates();
+	ipcRenderer.send('check-for-updates');
 })
 
 $('#relaunch').on('click', function() {
 	remote.app.relaunch();
 	remote.app.exit(0);
 });
-
 
 $(document).on('click', '#confirm-delete', function() {
 	localStorage.clear();
