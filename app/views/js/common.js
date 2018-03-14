@@ -50,7 +50,10 @@ $(document).on('click', '.snackbar-close', function() {
 // messages from main process - DEV ONLY
 
 ipcRenderer.on('message', function(event, message) {
-	if (message == 'update-available') {
+	if (message == 'checking-for-updates') {
+		snackbar('<p><i class="material-icons">file_download</i>&nbsp; Checking for updates...</p>');
+	}
+	else if (message == 'update-available') {
 		console.log('update-available');
 	}
 	else if (message == 'update-downloaded') {

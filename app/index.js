@@ -67,6 +67,7 @@ app.on('ready', function() {
 	// wait for everything to be initialised
 	setTimeout(() => {
 		if (!isDev) {
+			mainWindow.webContents.send('message', 'checking-for-updates');
 			autoUpdater.checkForUpdates();
 		}
 	}, 5000);
@@ -75,6 +76,7 @@ app.on('ready', function() {
 // check for updates
 
 ipcMain.on('check-for-updates', () => {
+	mainWindow.webContents.send('message', 'checking-for-updates');
 	autoUpdater.checkForUpdates();
 })
 
