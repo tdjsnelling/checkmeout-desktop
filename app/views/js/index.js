@@ -105,22 +105,46 @@ $(document).on('click', '.task-select', function() {
 		$(this).text('check_box_outline_blank');
 		$(this).parents('.list-group-item').css('height', '');
 
-		$(this).parent().siblings('.address').html(tasks[index].shipping.address);
-		$(this).parent().siblings('.payment').html(tasks[index].payment.type + ': ' + last4);
-		$(this).parent().siblings('.name').html(tasks[index].name);
+		$(this).parent().siblings('.address').fadeOut(75, () => {
+			$(this).parent().siblings('.address').html(tasks[index].shipping.address);
+			$(this).parent().siblings('.address').fadeIn(75);
+		});
+
+		$(this).parent().siblings('.payment').fadeOut(75, () => {
+			$(this).parent().siblings('.payment').html(tasks[index].payment.type + ': ' + last4);
+			$(this).parent().siblings('.payment').fadeIn(75);
+		});
+
+		$(this).parent().siblings('.name').fadeOut(75, () => {
+			$(this).parent().siblings('.name').html(tasks[index].name);
+			$(this).parent().siblings('.name').fadeIn(75);
+		});
 	}
 	else {
 		$(this).text('check_box');
 		$(this).parents('.list-group-item').css('height', '120px');
 
-		var shoppingListString = '';
-		for (i in tasks[index].shoppingList) {
-			shoppingListString += tasks[index].shoppingList[i].keywords + ', ' + tasks[index].shoppingList[i].colour + '<br>';
-		}
+			var shoppingListString = '';
+			for (i in tasks[index].shoppingList) {
+				shoppingListString += tasks[index].shoppingList[i].keywords + ', ' + tasks[index].shoppingList[i].colour + '<br>';
+			}
 
-		$(this).parent().siblings('.address').html(tasks[index].shipping.name + '<br>' + tasks[index].shipping.address + '<br>' + tasks[index].shipping.city + '<br>' + tasks[index].shipping.zip);
-		$(this).parent().siblings('.payment').html(tasks[index].payment.type + '<br>' + tasks[index].payment.number + '<br>' + tasks[index].payment.expirymonth + '/' + tasks[index].payment.expiryyear + '<br>' + tasks[index].payment.cvv);
-		$(this).parent().siblings('.name').html(tasks[index].name + '<br>' + shoppingListString);
+			setTimeout(() => {
+				$(this).parent().siblings('.address').fadeOut(75, () => {
+					$(this).parent().siblings('.address').html(tasks[index].shipping.name + '<br>' + tasks[index].shipping.address + '<br>' + tasks[index].shipping.city + '<br>' + tasks[index].shipping.zip);
+					$(this).parent().siblings('.address').fadeIn(75);
+				});
+
+				$(this).parent().siblings('.payment').fadeOut(75, () => {
+					$(this).parent().siblings('.payment').html(tasks[index].payment.type + '<br>' + tasks[index].payment.number + '<br>' + tasks[index].payment.expirymonth + '/' + tasks[index].payment.expiryyear + '<br>' + tasks[index].payment.cvv);
+					$(this).parent().siblings('.payment').fadeIn(75);
+				});
+
+				$(this).parent().siblings('.name').fadeOut(75, () => {
+					$(this).parent().siblings('.name').html(tasks[index].name + '<br>' + shoppingListString);
+					$(this).parent().siblings('.name').fadeIn(75);
+				});
+			}, 120);
 	}
 });
 
@@ -435,7 +459,6 @@ function handleBrowser(id) {
 
 				tasks[arg[0]].status = 'At checkout';
 				var listEntry = $('.list-group-item').not('.list-head')[arg[0]];
-				console.log(listEntry, $('.list-group-item').not('.list-head'), arg[0])
 				$(listEntry).children('.status').text('At checkout');
 				$(listEntry).children('.status').css('color', '#2ecc71');
 
