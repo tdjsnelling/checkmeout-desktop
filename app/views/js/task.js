@@ -18,7 +18,7 @@ $(document).ready(function() {
 		for (i in task.shoppingList) {
 			item = task.shoppingList[i];
 
-			$('#shopping-list').append($('<li class="list-group-item item">').html('<p>' + item.category + ': ' + item.keywords + ' - ' + item.colour + ' (' + item.size + ')</p><div class="controls"><i class="material-icons delete">close</i></div>'));
+			$('#shopping-list').append($('<li class="list-group-item item">').html('<p>' + item.category + ': ' + item.keywords + ' (' + item.negKeywords + ') - ' + item.colour + ' (' + item.size + ')</p><div class="controls"><i class="material-icons delete">close</i></div>'));
 			shoppingList.push(item);
 		}
 
@@ -64,11 +64,12 @@ $('#create-item').on('click', function() {
 		var item = new Object();
 		item.category = $('#category').val();
 		item.keywords = $('#keywords').val();
+		item.negKeywords = $('#neg-keywords').val();
 		item.colour = $('#colour').val();
 		item.size = $('#size').val();
 		item.carted = false;
 
-		$('#shopping-list').append($('<li class="list-group-item item">').html('<p>' + item.category + ': ' + item.keywords + ' - ' + item.colour + ' (' + item.size + ')</p><div class="controls"><i class="material-icons delete">close</i></div>'));
+		$('#shopping-list').append($('<li class="list-group-item item">').html('<p>' + item.category + ': ' + item.keywords + ' (' + item.negKeywords + ') - ' + item.colour + ' (' + item.size + ')</p><div class="controls"><i class="material-icons delete">close</i></div>'));
 		shoppingList.push(item);
 
 		$('#keywords').val('');

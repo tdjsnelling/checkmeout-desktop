@@ -8,6 +8,8 @@ var path = require('path');
 const isDev = require('electron-is-dev');
 var fs = require('fs');
 
+process.env.UV_THREADPOOL_SIZE = 128;
+
 var tasks = JSON.parse(localStorage.getItem('tasks'));
 tasks = tasks == null ? [] : tasks;
 
@@ -672,7 +674,7 @@ function searchForItem(searchItem, proxy, cb) {
 		proxy = 'http://' + proxy;
 	}
 
-	request('http://supremenewyork.com/shop/all/' + searchItem.category, { headers: headers, timeout: 3000, proxy: proxy }, (err, res, body) => {
+	request('http://supremenewyork.com/shop/all/' + searchItem.category, { headers: headers, timeout: 3000, proxy: proxy, forever: true }, (err, res, body) => {
 		if (err) {
 			console.log(err);
 			return cb(null, err);
@@ -699,7 +701,7 @@ function searchForItem(searchItem, proxy, cb) {
 			var keywordOptions = {
 				shouldSort: true,
 				tokenize: true,
-				threshold: 0.6,
+				threshold: 0.4,
 				location: 0,
 				distance: 100,
 				maxPatternLength: 32,
@@ -712,10 +714,31 @@ function searchForItem(searchItem, proxy, cb) {
 			var fuse = new Fuse(items, keywordOptions);
 			var itemRes = fuse.search(searchItem.keywords);
 
+			var negKeywordOptions = {
+				shouldSort: true,
+				tokenize: true,
+				threshold: 0.2,
+				location: 0,
+				distance: 100,
+				maxPatternLength: 32,
+				minMatchCharLength: 1,
+				keys: [
+					"name"
+				]
+			};
+
+			fuse = new Fuse(itemRes, negKeywordOptions);
+			var negRes = fuse.search(searchItem.negKeywords);
+
+			for (i in negRes) {
+				var index = itemRes.indexOf(negRes[i]);
+				itemRes.splice(index, 1);
+			}
+
 			var colourOptions = {
 				shouldSort: true,
 				tokenize: true,
-				threshold: 0.6,
+				threshold: 0.4,
 				location: 0,
 				distance: 100,
 				maxPatternLength: 32,
@@ -728,7 +751,7 @@ function searchForItem(searchItem, proxy, cb) {
 			fuse = new Fuse(itemRes, colourOptions);
 			var res = fuse.search(searchItem.colour);
 
-			return cb(res[0], null);
+			// return cb(res[0], null);
 		}
 	});
 }
