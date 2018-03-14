@@ -751,7 +751,7 @@ function searchForItem(searchItem, proxy, cb) {
 			fuse = new Fuse(itemRes, colourOptions);
 			var res = fuse.search(searchItem.colour);
 
-			// return cb(res[0], null);
+			return cb(res[0], null);
 		}
 	});
 }
