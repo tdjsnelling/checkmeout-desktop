@@ -368,6 +368,10 @@ function handleBrowser(id) {
 		// if items remain goto next item
 		// else goto checkout
 
+		tasks[currentBrowserIndex].autofilled = false;
+		tasks[currentBrowserIndex].complete = false;
+		localStorage.setItem('tasks', JSON.stringify(tasks));
+
 		var currentProduct = tasks[currentBrowserIndex].shoppingList.filter(x => x.carted == false)[0];
 
 		console.log('at-product: ' + currentBrowserIndex + ':' + id);
@@ -610,6 +614,10 @@ function handleBrowser(id) {
 	// don't know where we are
 	else {
 		console.log('unknown-url: ' + currentBrowserIndex + ':' + id);
+
+		tasks[currentBrowserIndex].autofilled = false;
+		tasks[currentBrowserIndex].complete = false;
+		localStorage.setItem('tasks', JSON.stringify(tasks));
 	}
 }
 
@@ -640,7 +648,7 @@ function gotoNextItem(taskIndex) {
 				else {
 					perf(taskIndex, 'found-product');
 
-					browsers[taskIndex].loadURL('http://supremenewyork.com/' + item.href, {
+					browsers[taskIndex].loadURL('http://www.supremenewyork.com/' + item.href, {
 						userAgent: ua
 					});
 				}
@@ -653,7 +661,7 @@ function gotoNextItem(taskIndex) {
 				}
 				else {
 					ipcRenderer.send('status', tasks[arg[0]].name, 'going to checkout...');
-					browsers[taskIndex].loadURL('https://supremenewyork.com/checkout');
+					browsers[taskIndex].loadURL('https://www.supremenewyork.com/checkout');
 				}
 			}
 		});
