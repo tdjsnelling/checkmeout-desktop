@@ -60,7 +60,6 @@ html, body {
 
 .logo {
 	font-family: 'Futura', sans-serif !important;
-	text-rendering: optimizeLegibility;
 }
 
 .login-container {
@@ -75,6 +74,7 @@ html, body {
 	text-align: center;
 	font-size: 82px;
 	margin-bottom: 25px;
+	padding: 0px 16px;
 }
 .login-container > .logo > .tagline {
 	margin-top: -20px;
@@ -246,6 +246,9 @@ select {
 .controls > i:hover, .main-controls > i:hover {
 	color: #ed1e24;
 }
+.main-controls > i:hover {
+	transform: scale(1.15) translateZ(0);
+}
 
 .card-container {
 	display: flex;
@@ -278,6 +281,10 @@ select {
 .settings-card > i {
 	font-size: 3rem;
 	margin-bottom: 15px;
+	transition: transform 0.3s;
+}
+.settings-card:hover > i {
+	transform: scale(1.15);
 }
 
 .disabled {

@@ -6,20 +6,21 @@
 	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 	<link rel="stylesheet" type="text/css" href="css/main.css">
+	<link rel="stylesheet" type="text/css" href="css/animate.css">
 </head>
-<body style="display: none;">
+<body style="display: none; overflow-y: hidden;">
 	<div class="login-container">
-		<div class="logo">
+		<div class="logo animated slideInDown">
 			<span class="logo-1">Check</span><span class="logo-2">Me</span><span class="logo-3">Out</span>
 			<p class="tagline">desktop Supreme bot</p>
 		</div>
-		<form>
+		<form class="animated slideInUp">
 			<label for="input-email">Email</label>
 			<input type="email" class="form-control" id="input-email">
 
 			<label for="input-password">Password</label>
 			<input type="password" class="form-control" id="input-password" style="margin-bottom: 5px;">
-			<small><a href="https://checkmeout.pro/desktop/account/reset" target="_blank">Forgotten password</a></small>
+			<small><a href="https://checkmeout.pro/desktop/account/reset" target="_blank" style="color: #999">Forgotten password</a></small>
 
 			<button type="button" class="btn w-100" id="login-btn">Log in</button>
 		</form>
@@ -34,6 +35,12 @@
 	$(document).on('click', 'a[href^="http"]', function(event) {
 		event.preventDefault();
 		shell.openExternal(this.href);
+	});
+
+	$('#input-email, #input-password').on('keypress', function(e) {
+		if (e.keyCode == 13) {
+			$('#login-btn').click();
+		}
 	});
 </script>
 </html>
