@@ -2,8 +2,16 @@
 <html>
 <head>
 	<title>Check Me Out</title>
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
 </head>
 <body>
+	<div class="login-container">
+		<i id="icon" class="material-icons spin mb-5" style="font-size: 6rem;">hdr_strong</i>
+		<p id="message">Getting things ready...</p>
+	</div>
 </body>
 <script>
 	window.$ = require('./js/jquery.min.js');
@@ -18,7 +26,9 @@
 			auth(savedEmail, savedPassword);
 		}
 		else {
-			location.href = 'login.html';
+			$('body').fadeOut(100, function() {
+				location.href = 'login.html';
+			});
 		}
 	});
 
@@ -33,17 +43,33 @@
 		function(err, httpResponse, body) {
 			if (err) {
 				console.log(err);
+
+				$('#message, #icon').fadeOut(300, function() {
+					$('#message').text('An error occurred. Please try again later and if the issue persists, let us know.');
+					$('#icon').text('error_outline');
+					$('#icon').removeClass('spin');
+					$('#message, #icon').fadeIn(300);
+				});
 			}
 			else {
 				if (body == new Buffer(email).toString('base64')) {
 					localStorage.setItem('loggedInUser', JSON.stringify({ email: email, password: password }));
-					location.href = 'index.html';
+					$('body').fadeOut(100, function() {
+						location.href = 'index.html';
+					});
 				}
 				else if (body == 'Unauthorized') {
-					location.href = 'login.html';
+					$('body').fadeOut(100, function() {
+						location.href = 'login.html';
+					});
 				}
 				else {
-					console.log('An error occured.');
+					$('#message, #icon').fadeOut(300, function() {
+						$('#message').text('An error occurred. Please try again later and if the issue persists, let us know.');
+						$('#icon').text('error_outline');
+						$('#icon').removeClass('spin');
+						$('#message, #icon').fadeIn(300);
+					});
 				}
 			}
 		});

@@ -441,3 +441,18 @@ input[type=range]::-webkit-slider-thumb {
 	color: #999;
 	margin-right: 6px;
 }
+
+.spin {
+	animation-name: spin;
+	animation-duration: 1500ms; 
+	animation-iteration-count: infinite;
+}
+
+@keyframes spin {
+	from {
+		transform: rotate(0deg);
+	}
+	to {
+		transform: rotate(360deg);
+	}
+}
