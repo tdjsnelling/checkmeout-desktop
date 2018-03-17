@@ -84,6 +84,13 @@ $(function () {
 	$('[data-toggle="tooltip"]').tooltip();
 });
 
+var savedShipping = JSON.parse(localStorage.getItem('shipping'));
+var savedPayment = JSON.parse(localStorage.getItem('payment'));
+
+if (savedShipping.length == 0 || savedPayment.length == 0) {
+	$('#new-task').addClass('disabled');
+}
+
 if (tasks.length > 0) {
 	$('.list-group-item').not('.list-head').remove();
 	for (i in tasks) {
@@ -176,7 +183,7 @@ $('#delete-selected').on('click', function() {
 	localStorage.setItem('tasks', JSON.stringify(tasks));
 
 	if (tasks.length == 0 && $('.list-item-empty')[0] == null) {
-		$('#tasks').append($('<li class="list-group-item list-item-empty"><i class="material-icons">error_outline</i>&nbsp; No tasks to display.</li>'));
+		$('#tasks').append($('<li class="list-group-item list-item-empty"><i class="material-icons">error_outline</i>&nbsp; No tasks to display. Click the \'add\' button above to create one.</li>'));
 	}
 });
 
