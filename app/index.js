@@ -119,6 +119,13 @@ ipcMain.on('create', (event, arg) => {
 		});
 		logWindow.loadURL('file://' + __dirname + '/views/log.html');
 	}
+	else if (arg == 'googleWindow') {
+		var googleWindow = new BrowserWindow({
+			width: 1000,
+			height: 700
+		});
+		googleWindow.loadURL('http://accounts.google.com/signin');
+	}
 })
 
 // on receive browser status message
