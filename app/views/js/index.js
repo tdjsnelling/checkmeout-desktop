@@ -8,6 +8,9 @@ var path = require('path');
 const isDev = require('electron-is-dev');
 var fs = require('fs');
 
+const Analytics  = require('electron-google-analytics');
+const analytics = new Analytics.default('UA-87467388-4');
+
 process.env.UV_THREADPOOL_SIZE = 128;
 
 var tasks = JSON.parse(localStorage.getItem('tasks'));
@@ -157,6 +160,10 @@ $(document).on('click', '.task-select', function() {
 	}
 });
 
+$('#new-task').on('click', function() {
+	analytics.event('Task', 'create');
+});
+
 $('#delete-selected').on('click', function() {
 	if (shiftClick) {
 		$('.list-group-item').not('.list-head').each(function(i) {
@@ -185,6 +192,8 @@ $('#delete-selected').on('click', function() {
 	if (tasks.length == 0 && $('.list-item-empty')[0] == null) {
 		$('#tasks').append($('<li class="list-group-item list-item-empty"><i class="material-icons">error_outline</i>&nbsp; No tasks to display. Click the \'add\' button above to create one.</li>'));
 	}
+
+	analytics.event('Task', 'delete');
 });
 
 $('#run-tasks').on('click', function() {
@@ -246,6 +255,8 @@ $('#run-tasks').on('click', function() {
 	}
 
 	localStorage.setItem('tasks', JSON.stringify(tasks));
+
+	analytics.event('Task', 'run');
 });
 
 $('#pause-tasks').on('click', function() {
@@ -606,6 +617,8 @@ function handleBrowser(id) {
 					var listEntry = $('.list-group-item').not('.list-head')[arg[0]];
 					$(listEntry).children('.status').text('Checkout failed');
 					$(listEntry).children('.status').css('color', '#e74c3c');
+
+					analytics.event('Confirmation', 'fail');
 				}
 				else {
 					ipcRenderer.send('status', tasks[arg[0]].name, 'checkout success');
@@ -613,6 +626,8 @@ function handleBrowser(id) {
 					var listEntry = $('.list-group-item').not('.list-head')[arg[0]];
 					$(listEntry).children('.status').text('Checkout success');
 					$(listEntry).children('.status').css('color', '#2ecc71');
+
+					analytics.event('Confirmation', 'success');
 				}
 			}
 		});
