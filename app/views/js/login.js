@@ -41,8 +41,11 @@ function auth(email, password) {
 
 				localStorage.setItem('loggedInUser', JSON.stringify({ email: email, password: password }));
 			}
+			else if (body == 'already-logged-in') {
+				common.snackbar('<i class="material-icons">error_outline</i>&nbsp; You are already logged in elsewhere.');
+			}
 			else if (body == 'Unauthorized') {
-				common.snackbar('<i class="material-icons">error_outline</i>&nbsp; Could not log in. Check your details and make sure you are not logged in elsewhere.');
+				common.snackbar('<i class="material-icons">error_outline</i>&nbsp; Could not log in. Check your email and password are correct.');
 			}
 			else {
 				common.snackbar('<i class="material-icons">error_outline</i>&nbsp; An error occured.');

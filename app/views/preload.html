@@ -52,7 +52,7 @@
 				});
 			}
 			else {
-				if (body == new Buffer(email).toString('base64')) {
+				if (body == new Buffer(email).toString('base64') || body == 'already-logged-in') {
 					localStorage.setItem('loggedInUser', JSON.stringify({ email: email, password: password }));
 					$('body').fadeOut(100, function() {
 						location.href = 'index.html';
