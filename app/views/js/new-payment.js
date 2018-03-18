@@ -1,5 +1,27 @@
 var crypto = require('crypto');
 
+let editId;
+
+var savedPayment = JSON.parse(localStorage.getItem('payment'));
+
+$(document).ready(function() {
+	var url = new URL(location.href);
+	editId = url.searchParams.get('id');
+
+	if (editId) {
+		var profile = savedPayment.filter(x => x.id == editId)[0];
+
+		$('#cardtype').val(profile.type);
+		$('#cardtype').change();
+		$('#cardno').val(profile.number);
+		$('#expirymonth').val(profile.expirymonth);
+		$('#expiryyear').val(profile.expiryyear);
+		$('#cvv').val(profile.cvv);
+
+		$('#save-payment').text('Update');
+	}
+});
+
 $('#cardtype').on('change', function() {
 	if ($(this).val() == 'paypal' || $(this).val() == 'cod') {
 		$('input[type=text]').parents('.form-group').css('display', 'none');
@@ -22,6 +44,14 @@ $('#save-payment').on('click', function() {
 	});
 
 	if (count == 0) {
+		if (editId) {
+			var savedPayment = JSON.parse(localStorage.getItem('payment'));
+			var profile = savedPayment.filter(x => x.id == editId)[0];
+
+			savedPayment.splice(savedPayment.indexOf(profile), 1);
+			localStorage.setItem('payment', JSON.stringify(savedPayment));
+		}
+
 		var hash = crypto.createHash('md5');
 		hash.update($('#cardtype').val() + $('#cardno').val() + $('#expirymonth').val() + $('#expiryyear').val() + $('#cvv').val());
 
