@@ -1,6 +1,32 @@
 var crypto = require('crypto');
 
+let editId;
+
 var region = localStorage.getItem('region');
+var savedShipping = JSON.parse(localStorage.getItem('shipping'));
+
+$(document).ready(function() {
+	var url = new URL(location.href);
+	editId = url.searchParams.get('id');
+
+	if (editId) {
+		var profile = savedShipping.filter(x => x.id == editId)[0];
+
+		$('#name').val(profile.name);
+		$('#email').val(profile.email);
+		$('#phone').val(profile.phone);
+		$('#address').val(profile.address);
+		$('#address2').val(profile.address2);
+		$('#address3').val(profile.address3);
+		$('#city').val(profile.city);
+		$('#zip').val(profile.zip);
+		$('#country').val(profile.country);
+		$('#us-state').val(profile.state);
+		$('#jp-prefecture').val(profile.prefecture);
+
+		$('#save-shipping').text('Update');
+	}
+});
 
 if (region == 'us') {
 	$('#us-state').show();
@@ -29,6 +55,14 @@ $('#save-shipping').on('click', function() {
 	});
 
 	if (count == 0) {
+		if (editId) {
+			var savedShipping = JSON.parse(localStorage.getItem('shipping'));
+			var profile = savedShipping.filter(x => x.id == editId)[0];
+
+			savedShipping.splice(savedShipping.indexOf(profile), 1);
+			localStorage.setItem('shipping', JSON.stringify(savedShipping));
+		}
+
 		var hash = crypto.createHash('md5');
 		hash.update($('#name').val() + $('#email').val() + $('#phone').val() + $('#address').val() + $('#address2').val() + $('#address3').val() + $('#city').val() + $('#zip').val() + $('#country').val());
 
@@ -44,6 +78,8 @@ $('#save-shipping').on('click', function() {
 		shipping.city = $('#city').val();
 		shipping.zip = $('#zip').val();
 		shipping.country = $('#country').val();
+		shipping.state = $('#us-state').val();
+		shipping.prefecture = $('#jp-prefecture').val();
 
 		var savedShipping = JSON.parse(localStorage.getItem('shipping'));
 		savedShipping = savedShipping == null ? [] : savedShipping;
