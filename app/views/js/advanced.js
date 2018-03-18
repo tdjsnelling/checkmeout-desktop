@@ -1,4 +1,11 @@
 const {remote, ipcRenderer} = require('electron');
+var request = require('request');
+
+let email;
+
+$(document).ready(function() {
+	email = JSON.parse(localStorage.getItem('loggedInUser')).email;
+});
 
 $('#open-dev-tools').on('click', function() {
 	remote.BrowserWindow.getFocusedWindow().openDevTools();
@@ -18,6 +25,18 @@ $('#relaunch').on('click', function() {
 });
 
 $(document).on('click', '#confirm-delete', function() {
+	request.post({
+		url: 'https://desktop.checkmeout.pro/logout', 
+		form: {
+			email: email,
+		} 
+	},
+	function(err, httpResponse, body) {
+		if (err) {
+			console.log(err);
+		}
+	});
+
 	localStorage.clear();
 	location.href = 'login.html';
 });

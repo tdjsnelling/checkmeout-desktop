@@ -42,7 +42,7 @@ function auth(email, password) {
 				localStorage.setItem('loggedInUser', JSON.stringify({ email: email, password: password }));
 			}
 			else if (body == 'Unauthorized') {
-				common.snackbar('<i class="material-icons">error_outline</i>&nbsp; Incorrect email or password.');
+				common.snackbar('<i class="material-icons">error_outline</i>&nbsp; Could not log in. Check your details and make sure you are not logged in elsewhere.');
 			}
 			else {
 				common.snackbar('<i class="material-icons">error_outline</i>&nbsp; An error occured.');
