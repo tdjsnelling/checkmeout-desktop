@@ -86,6 +86,11 @@ $(function () {
 	$('[data-toggle="tooltip"]').tooltip();
 });
 
+$('body').popover({
+    selector: '[data-toggle="popover"]',
+    trigger: 'hover'
+});
+
 var savedShipping = JSON.parse(localStorage.getItem('shipping'));
 var savedPayment = JSON.parse(localStorage.getItem('payment'));
 
@@ -147,7 +152,7 @@ $(document).on('click', '.task-select', function() {
 
 			var shoppingListString = '';
 			for (i in tasks[index].shoppingList) {
-				shoppingListString += tasks[index].shoppingList[i].keywords + ', ' + tasks[index].shoppingList[i].colour + '<br>';
+				shoppingListString += tasks[index].shoppingList[i].category + ': ' + tasks[index].shoppingList[i].keywords + ' - ' + tasks[index].shoppingList[i].colour + ' (' + tasks[index].shoppingList[i].size + ')<br>';
 			}
 
 			setTimeout(() => {
@@ -162,7 +167,12 @@ $(document).on('click', '.task-select', function() {
 				});
 
 				$(this).parent().siblings('.name').fadeOut(75, () => {
-					$(this).parent().siblings('.name').html(tasks[index].name + '<br>' + shoppingListString);
+					$(this).parent().siblings('.name').html('<p class="items-hover">' + tasks[index].name + '</p>');
+					$(this).parent().siblings('.name').children('.items-hover').attr('data-toggle', 'popover');
+					$(this).parent().siblings('.name').children('.items-hover').attr('data-placement', 'right');
+					$(this).parent().siblings('.name').children('.items-hover').attr('data-html', 'true');
+					$(this).parent().siblings('.name').children('.items-hover').attr('title', 'Shopping list');
+					$(this).parent().siblings('.name').children('.items-hover').attr('data-content', shoppingListString);
 					$(this).parent().siblings('.name').fadeIn(75);
 				});
 			}, 120);
