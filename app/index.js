@@ -134,23 +134,11 @@ ipcMain.on('status', (event, task, status) => {
 	logWindow.webContents.send('status', task, status);
 });
 
-// express & passport for google login
+// get cookies
 
-passport.use(new GoogleStrategy({
-		clientID: '550574229157-hb040e4q881rn44oddmmsi7urff44eil.apps.googleusercontent.com',
-		clientSecret: 'MN4TpmB8npT46VV-AEIKo7n1',
-		callbackURL: "http://checkmeout.pro"
-	},
-	function(token, tokenSecret, profile, done) {
-		console.log(profile.id);
-  	}
-));
-
-exp.get('/auth/google', passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/plus.login'] }));
-
-exp.get('/auth/google/callback', passport.authenticate('google', { failureRedirect: '/login' }), function(req, res) {
-	console.log('callback')
+ipcMain.on('get-cookies', (event) => {
+	mainWindow.webContents.session.cookies.get({}, (err, cookies) => {
+		mainWindow.webContents.send('cookies', cookies);
+	});
 });
-
-exp.listen(40001);
 

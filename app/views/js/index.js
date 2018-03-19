@@ -73,7 +73,7 @@ setInterval(() => {
 		if (tasks[i].browser) {
 			if (tasks[i].browser.isDestroyed()) {
 				$($('.list-group-item').not('.list-head')[i]).children('.status').text('Ended');
-				$($('.list-group-item').not('.list-head')[i]).children('.status').css('color', '');
+				$($('.list-group-item').not('.list-head')[i]).children('.status').css('color', '#f39c12');
 				tasks[i].status = 'Idle';
 				tasks[i].browser = null;
 				localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -369,6 +369,22 @@ function createBrowser(task) {
 	else {
 		newBrowser.webContents.on('dom-ready', () => {
 			handleBrowser(newBrowser.id);
+		});
+
+		ipcRenderer.send('get-cookies');
+		ipcRenderer.on('cookies', (event, arg) => {
+			for (i in arg) {
+				var scheme = arg[i].secure ? "https" : "http";
+				var host = arg[i].domain[0] === "." ? arg[i].domain.substr(1) : arg[i].domain;
+				var url = scheme + "://" + host;
+				arg[i].url = url;
+
+				if (arg[i].domain.indexOf('supremenewyork') == -1) {
+					newBrowser.webContents.session.cookies.set(arg[i], (err) => {
+						if (err) console.log(err);
+					});
+				}
+			}
 		});
 
 		tasks[taskIndex].browser = newBrowser;
