@@ -29,8 +29,6 @@ $('.badge-ver').text(verPrefix + ver);
 
 $('#user-email').text(JSON.parse(localStorage.getItem('loggedInUser')).email);
 
-var browsers = [];
-
 function perf(browser, event) {
 	var t = performance.now() - t0;
 	var tObj = {
@@ -71,14 +69,15 @@ setInterval(() => {
 }, 100);
 
 setInterval(() => {
-	for (i in browsers) {
-		if (browsers[i].isDestroyed()) {
-			$($('.list-group-item').not('.list-head')[i]).children('.status').text('Ended');
-			$($('.list-group-item').not('.list-head')[i]).children('.status').css('color', '');
-			tasks[i].status = 'Idle';
-			localStorage.setItem('tasks', JSON.stringify(tasks));
-
-			browsers.splice(i, 1);
+	for (i in tasks) {
+		if (tasks[i].browser) {
+			if (tasks[i].browser.isDestroyed()) {
+				$($('.list-group-item').not('.list-head')[i]).children('.status').text('Ended');
+				$($('.list-group-item').not('.list-head')[i]).children('.status').css('color', '');
+				tasks[i].status = 'Idle';
+				tasks[i].browser = null;
+				localStorage.setItem('tasks', JSON.stringify(tasks));
+			}
 		}
 	}
 }, 250);
@@ -108,6 +107,16 @@ if (tasks.length > 0) {
 							</li>'));
 	}
 }
+
+$(document).ready(function() {
+	for (i in tasks) {
+		tasks[i].browser = null;
+		tasks[i].autofilled = false;
+		tasks[i].complete = false;
+		tasks[i].status = 'Idle';
+	}
+	localStorage.setItem('tasks', JSON.stringify(tasks));
+});
 
 $(document).on('click', '.task-select', function() {
 	var index = $(this).parents('.list-group-item').index() - 1;
@@ -277,7 +286,9 @@ $('#pause-tasks').on('click', function() {
 				$(this).children('.status').text('Idle');
 				$(this).children('.status').css('color', '');
 
-				browsers[i].destroy();
+				localStorage.setItem('tasks', JSON.stringify(tasks));
+
+				tasks[i].browser.destroy();
 			}
 		}
 	});
@@ -285,8 +296,6 @@ $('#pause-tasks').on('click', function() {
 	if (selected == 0) {
 		common.snackbar('<i class="material-icons">error_outline</i>&nbsp; No tasks selected.');
 	}
-
-	localStorage.setItem('tasks', JSON.stringify(tasks));
 });
 
 $(document).on('click', '.edit-task', function() {
@@ -319,6 +328,7 @@ $('body').on('keyup', (e) => {
 
 function createBrowser(task) {
 	var preloadPath;
+	var taskIndex = tasks.indexOf(task);
 
 	if (isDev) {
 		preloadPath = path.resolve('./views/js/preload/ipc.js');
@@ -333,7 +343,8 @@ function createBrowser(task) {
 		show: task.showBrowser,
 		webPreferences: {
 			nodeIntegration: false,
-			preload: preloadPath
+			preload: preloadPath,
+			partition: task.id
 		}
 	});
 
@@ -343,15 +354,15 @@ function createBrowser(task) {
 				handleBrowser(newBrowser.id);
 			});
 
-			browsers.push(newBrowser);
+			tasks[taskIndex].browser = newBrowser;
 
 			for (i in task.shoppingList) {
-				task.shoppingList[i].carted = false;
+				tasks[taskIndex].shoppingList[i].carted = false;
 			}
 
-			perf(browsers.indexOf(newBrowser), 'browser-created');
+			perf(taskIndex, 'browser-created');
 
-			gotoNextItem(browsers.indexOf(newBrowser));
+			gotoNextItem(taskIndex);
 			
 		});
 	}
@@ -360,21 +371,22 @@ function createBrowser(task) {
 			handleBrowser(newBrowser.id);
 		});
 
-		browsers.push(newBrowser);
+		tasks[taskIndex].browser = newBrowser;
 
 		for (i in task.shoppingList) {
-			task.shoppingList[i].carted = false;
+			tasks[taskIndex].shoppingList[i].carted = false;
 		}
 
-		perf(browsers.indexOf(newBrowser), 'browser-created');
+		perf(taskIndex, 'browser-created');
 
-		gotoNextItem(browsers.indexOf(newBrowser));
+		gotoNextItem(taskIndex);
 	}
 }
 
 function handleBrowser(id) {
 	var currentBrowser = remote.BrowserWindow.fromId(id);
-	var currentBrowserIndex = browsers.indexOf(currentBrowser);
+	var currentTask = tasks.filter(x => x.browser == currentBrowser)[0];
+	var currentBrowserIndex = tasks.indexOf(currentTask);
 
 	var currentUrl = currentBrowser.webContents.getURL();
 	var currentUrlSplit = currentUrl.split('/');
@@ -413,15 +425,13 @@ function handleBrowser(id) {
 				return $(el).text();
 			}).get();
 
-			console.log(availableSizes)
-
 			if (availableSizes.indexOf(currentProduct.size) == -1 && currentProduct.size != 'One size') {
 				ipcRenderer.send('status', tasks[arg[0]].name, currentProduct.keywords + ' &rarr; size ' + currentProduct.size + ' out of stock, skipping');
 			}
 			else {
 				if (currentProduct.size == 'One size') {
 					if ($('.sold-out').text() == '') {
-						browsers[arg[0]].webContents.executeJavaScript('document.getElementsByName("commit")[0].click()');
+						tasks[arg[0]].browser.webContents.executeJavaScript('document.getElementsByName("commit")[0].click()');
 						ipcRenderer.send('status', tasks[arg[0]].name, 'added to basket &rarr; ' + currentProduct.keywords + ', ' + currentProduct.size);
 					}
 					else {
@@ -431,13 +441,13 @@ function handleBrowser(id) {
 				else {
 					$('#size').children().each((i, el) => {
 						if ($(el).text() == currentProduct.size) {
-							browsers[arg[0]].webContents.executeJavaScript('document.getElementById("size").value=' + $(el).val());
+							tasks[arg[0]].browser.webContents.executeJavaScript('document.getElementById("size").value=' + $(el).val());
 							perf(currentBrowserIndex, 'selected-size');
 							ipcRenderer.send('status', tasks[arg[0]].name, currentProduct.keywords + ' &rarr; selected size &rarr; ' + currentProduct.size);
 						}
 					});
 
-					browsers[arg[0]].webContents.executeJavaScript('document.getElementsByName("commit")[0].click()');
+					tasks[arg[0]].browser.webContents.executeJavaScript('document.getElementsByName("commit")[0].click()');
 					perf(currentBrowserIndex, 'added-to-cart');
 					ipcRenderer.send('status', tasks[arg[0]].name, 'added to basket &rarr; ' + currentProduct.keywords + ', ' + currentProduct.size);
 				}
@@ -454,7 +464,7 @@ function handleBrowser(id) {
 				setTimeout(() => {
 					ipcRenderer.send('status', tasks[arg[0]].name, 'going to checkout...');
 					perf(currentBrowserIndex, 'going-to-checkout');
-					browsers[arg[0]].webContents.executeJavaScript('document.getElementsByClassName("checkout")[0].click()');
+					tasks[arg[0]].browser.webContents.executeJavaScript('document.getElementsByClassName("checkout")[0].click()');
 				}, 250);
 			}
 		});
@@ -486,7 +496,7 @@ function handleBrowser(id) {
 				$(listEntry).children('.status').text('At checkout');
 				$(listEntry).children('.status').css('color', '#2ecc71');
 
-				browsers[arg[0]].webContents.executeJavaScript(`
+				tasks[arg[0]].browser.webContents.executeJavaScript(`
 					// most labels are <label> elements
 					$('label').each(function(i) {
 
@@ -592,12 +602,14 @@ function handleBrowser(id) {
 				}
 
 				ipcRenderer.send('status', tasks[currentBrowserIndex].name, 'showing browser...');
-				browsers[arg[0]].show();
+				tasks[arg[0]].browser.show();
 
 				setInterval(() => {
-					currentBrowser.webContents.executeJavaScript(`
-						ipcSend("checkoutPageSource", [` + currentBrowserIndex + `, document.body.innerHTML]);
-					`);
+					if (!currentBrowser.isDestroyed()) {
+						currentBrowser.webContents.executeJavaScript(`
+							ipcSend("checkoutPageSource", [` + currentBrowserIndex + `, document.body.innerHTML]);
+						`);
+					}
 				}, 1000);
 			}
 
@@ -664,13 +676,13 @@ function gotoNextItem(taskIndex) {
 					$($('.list-group-item').not('.list-head')[i]).children('.status').css('color', '#e74c3c');
 
 					setTimeout(() => {
-						browsers[taskIndex].destroy();
+						tasks[taskIndex].browser.destroy();
 					}, 10000);
 				}
 				else {
 					perf(taskIndex, 'found-product');
 
-					browsers[taskIndex].loadURL('http://www.supremenewyork.com/' + item.href, {
+					tasks[taskIndex].browser.loadURL('http://www.supremenewyork.com/' + item.href, {
 						userAgent: ua
 					});
 				}
@@ -683,7 +695,7 @@ function gotoNextItem(taskIndex) {
 				}
 				else {
 					ipcRenderer.send('status', tasks[arg[0]].name, 'going to checkout...');
-					browsers[taskIndex].loadURL('https://www.supremenewyork.com/checkout');
+					tasks[taskIndex].browser.loadURL('https://www.supremenewyork.com/checkout');
 				}
 			}
 		});
