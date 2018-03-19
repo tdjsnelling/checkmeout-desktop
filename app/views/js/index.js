@@ -610,21 +610,23 @@ function handleBrowser(id) {
 				tasks[arg[0]].complete = false;
 				localStorage.setItem('tasks', JSON.stringify(tasks));
 
-				if (task.autoCheckout) {
+				if (tasks[arg[0]].autoCheckout) {
 					setTimeout(() => {
-						perf(currentBrowserIndex, 'clicked-checkout');
-						browsers[arg[0]].webContents.executeJavaScript('$(".checkout").click();');
-					}, task.autoCheckoutDelay * 1000);
+						perf(arg[0], 'clicked-checkout');
+						tasks[arg[0]].browser.webContents.executeJavaScript('$(".checkout").click();');
+					}, tasks[arg[0]].autoCheckoutDelay * 1000);
 				}
 
-				ipcRenderer.send('status', tasks[currentBrowserIndex].name, 'showing browser...');
+				ipcRenderer.send('status', tasks[arg[0]].name, 'showing browser...');
 				tasks[arg[0]].browser.show();
 
 				setInterval(() => {
-					if (!currentBrowser.isDestroyed()) {
-						currentBrowser.webContents.executeJavaScript(`
-							ipcSend("checkoutPageSource", [` + currentBrowserIndex + `, document.body.innerHTML]);
-						`);
+					if (tasks[arg[0]].browser) {
+						if (!tasks[arg[0]].browser.isDestroyed()) {
+							tasks[arg[0]].browser.webContents.executeJavaScript(`
+								ipcSend("checkoutPageSource", [` + arg[0] + `, document.body.innerHTML]);
+							`);
+						}
 					}
 				}, 1000);
 			}
@@ -633,7 +635,7 @@ function handleBrowser(id) {
 				console.log('at-confirmation: ' + arg[0] + ':' + id);
 
 				ipcRenderer.send('status', tasks[arg[0]].name, 'at confirmation screen');
-				perf(currentBrowserIndex, 'at-confirmation');
+				perf(arg[0], 'at-confirmation');
 
 				tasks[arg[0]].autofilled = false;
 				tasks[arg[0]].complete = true;
