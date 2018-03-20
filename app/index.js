@@ -114,14 +114,14 @@ ipcMain.on('checkoutPageSource', (event, arg) => {
 // create log window
 
 ipcMain.on('create', (event, arg) => {
-	if (arg == 'logWindow' && !logWindow) {
+	if (arg == 'logWindow') {
 		logWindow = new BrowserWindow({
 			width: 500,
 			height: 700
 		});
 		logWindow.loadURL('file://' + __dirname + '/views/log.html');
 	}
-	else if (arg == 'googleWindow' && !googleWindow) {
+	else if (arg == 'googleWindow') {
 		var googleWindow = new BrowserWindow({
 			width: 1000,
 			height: 700
