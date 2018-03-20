@@ -336,6 +336,29 @@ $('body').on('keyup', (e) => {
 	}
 });
 
+ipcRenderer.send('get-monitors');
+ipcRenderer.on('get-monitors', (event, monitors) => {
+	if (monitors.length > 0) {
+		$('#restock-count').text(monitors.length);
+		$('#restock-count').show();
+	}
+	else {
+		$('#restock-count').hide();
+	}
+});
+
+ipcRenderer.on('stock-found', (event, monitor, product) => {
+	ipcRenderer.send('stop-monitor', monitor);
+	ipcRenderer.send('get-monitors');
+
+	if (monitor.task != '-1') {
+		var taskIndex = tasks.findIndex(x => x.id == monitor.task);
+
+		ipcRenderer.send('create', 'logWindow');
+		createBrowser(tasks[i]);
+	}
+});
+
 function createBrowser(task) {
 	var preloadPath;
 	var taskIndex = tasks.indexOf(task);

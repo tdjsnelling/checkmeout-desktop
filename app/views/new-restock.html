@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Check Me Out</title>
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body style="display: none;">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="header">
+					<div class="logo" href="restocks.html">
+						<i class="material-icons">arrow_back</i>
+						<span class="logo-1">Check</span><span class="logo-2">Me</span><span class="logo-3">Out</span>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col">
+						<h4>
+							New restock monitor
+							<button type="button" class="btn btn-header" id="create-monitor">Create monitor</button>
+						</h4>
+						<hr>
+
+						<form>
+							<div class="row">
+								<div class="col">
+									<div class="form-group">
+										<label for="name">Monitor name</label>
+										<input type="text" class="form-control" id="name">
+									</div>
+								</div>
+								<div class="col">
+									<div class="form-group">
+										<label for="item-url">Item URL</label>
+										<input type="text" class="form-control" id="item-url" placeholder="http://www.supremenewyork.com/shop/...">
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<div class="form-group">
+										<label for="trigger-task">Trigger task</label>
+										<select class="form-control" id="trigger-task">
+											<option value="-1">None</option>
+										</select>
+									</div>
+								</div>
+								<div class="col">
+									<div class="form-group">
+										<label for="size">Size</label>
+										<select class="form-control" id="size">
+											<option value="any">Any</option>
+											<optgroup label="Standard sizes">
+												<option value="Small">Small</option>
+												<option value="Medium">Medium</option>
+												<option value="Large">Large</option>
+												<option value="XLarge">XLarge</option>
+											</optgroup>
+											<optgroup label="EU shoes">
+												<option value="US 8 / UK 7">US 8 / UK 7</option>
+												<option value="US 8.5 / UK 7.5">US 8.5 / UK 7.5</option>
+												<option value="US 9 / UK 8">US 9 / UK 8</option>
+												<option value="US 9.5 / UK 8.5">US 9.5 / UK 8.5</option>
+												<option value="US 10 / UK 9">US 10 / UK 9</option>
+												<option value="US 10.5 / UK 9.5">US 10.5 / UK 9.5</option>
+												<option value="US 11 / UK 10">US 11 / UK 10</option>
+												<option value="US 11.5 / UK 10.5">US 11.5 / UK 10.5</option>
+												<option value="US 12 / UK 11">US 12 / UK 11</option>
+												<option value="US 13 / UK 12">US 13 / UK 12</option>
+											</optgroup>
+											<optgroup label="US shoes">
+												<option value="6">6</option>
+												<option value="6.5">6.5</option>
+												<option value="7">7</option>
+												<option value="7.5">7.5</option>
+												<option value="8">8</option>
+												<option value="8.5">8.5</option>
+												<option value="9">9</option>
+												<option value="9.5">9.5</option>
+												<option value="10">10</option>
+												<option value="10.5">10.5</option>
+												<option value="11">11</option>
+												<option value="11.5">11.5</option>
+												<option value="12">12</option>
+												<option value="12.5">12.5</option>
+												<option value="13">13</option>
+											</optgroup>
+										</select>
+									</div>
+								</div>
+								<div class="col">
+									<div class="form-group">
+										<label for="interval">Interval</label>
+										<br>
+										<input type="range" id="interval" max="10" min="0.5" step="0.5" value="2">
+										<p id="interval-text" style="display: inline-block; margin-left: 12px;">2 seconds</p>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<div class="form-group">
+										<label for="proxies">Rotational proxies <i>(comma separated)</i></label>
+										<input type="text" class="form-control" id="proxies" placeholder="optional">
+									</div>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	window.$ = window.jQuery = require('./js/jquery.min.js');
+	require('./js/common.js');
+	require('./js/new-restock.js');
+</script>
+</html>

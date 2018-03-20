@@ -1,6 +1,6 @@
 "use strict";
 
-const {app, BrowserWindow, ipcMain} = require("electron");
+const {app, BrowserWindow, ipcMain, Notification} = require("electron");
 const {autoUpdater} = require("electron-updater");
 
 var express = require('express');
@@ -11,6 +11,8 @@ var isDev = require('electron-is-dev');
 
 var mainWindow = null;
 var logWindow = null;
+
+app.setAppUserModelId('pro.checkmeout.desktop');
 
 app.on('window-all-closed', function() {
 	if (process.platform != 'darwin')
@@ -112,14 +114,14 @@ ipcMain.on('checkoutPageSource', (event, arg) => {
 // create log window
 
 ipcMain.on('create', (event, arg) => {
-	if (arg == 'logWindow') {
+	if (arg == 'logWindow' && !logWindow) {
 		logWindow = new BrowserWindow({
 			width: 500,
 			height: 700
 		});
 		logWindow.loadURL('file://' + __dirname + '/views/log.html');
 	}
-	else if (arg == 'googleWindow') {
+	else if (arg == 'googleWindow' && !googleWindow) {
 		var googleWindow = new BrowserWindow({
 			width: 1000,
 			height: 700
@@ -142,3 +144,56 @@ ipcMain.on('get-cookies', (event) => {
 	});
 });
 
+// restock monitors
+
+var monitors = [];
+
+var Restocks = require('./views/js/monitor.js');
+
+ipcMain.on('start-monitor', (event, arg) => {
+	if (arg.proxies.length > 0) {
+		var monitor = new Restocks(arg.interval, arg.proxies);
+	}
+	else {
+		var monitor = new Restocks(arg.interval);
+	}
+
+	monitor.on('stock-found', (product) => {
+		if (arg.size == 'any') {
+			mainWindow.webContents.send('stock-found', arg, product);
+
+			var notification = new Notification({
+				title: 'Product restocked!',
+				body: product.name + ' - ' + product.colour
+			}).show();
+		}
+		else {
+			if (product.sizes.indexOf(arg.size) != -1) {
+				mainWindow.webContents.send('stock-found', arg, product);
+
+				var notification = new Notification({
+					title: 'Product restocked!',
+					body: product.name + ' - ' + product.colour + ' - ' + arg.size
+				}).show();
+			}
+		}
+	});
+
+	monitor.start(arg.url);
+
+	var monitorObj = {};
+	monitorObj.id = arg.id;
+	monitorObj.monitor = monitor;
+
+	monitors.push(monitorObj);
+});
+
+ipcMain.on('stop-monitor', (event, arg) => {
+	var i = monitors.findIndex(x => x.id == arg.id);
+	monitors[i].monitor.stop();
+	monitors.splice(i, 1);
+});
+
+ipcMain.on('get-monitors', (event) => {
+	mainWindow.webContents.send('get-monitors', monitors);
+})

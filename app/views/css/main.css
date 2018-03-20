@@ -358,6 +358,15 @@ select {
 	vertical-align: super;
 }
 
+.badge-count {
+	background: #ed1e24;
+	color: #eee;
+	border-radius: 4px !important;
+	font-size: 10px;
+	vertical-align: super;
+	margin-left: -16px;
+}
+
 .no-overflow {
 	white-space: nowrap;
 	overflow: hidden;
