@@ -11,7 +11,7 @@ $(document).ready(function() {
 	}
 
 	for (i in monitors) {
-		$('#monitors').append($('<li class="list-group-item" data-id="' + monitors[i].id + '">').html(monitors[i].name + ' - ' + monitors[i].url + '<div class="controls"><i class="material-icons start">play_arrow</i><i class="material-icons edit">edit</i><i class="material-icons delete">close</i></div></li>'));
+		$('#monitors').append($('<li class="list-group-item" data-id="' + monitors[i].id + '">').html('<b>' + monitors[i].name + '</b>&nbsp;' + monitors[i].url + '<div class="controls"><i class="material-icons start">play_arrow</i><i class="material-icons edit">edit</i><i class="material-icons delete">close</i></div></li>'));
 	}
 
 	ipcRenderer.send('get-monitors');

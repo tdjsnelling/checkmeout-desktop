@@ -35,7 +35,8 @@ function perf(browser, event) {
 		browser: browser,
 		name: tasks[browser].name, 
 		event: event,
-		time: `T+${t.toFixed(3)} ms`
+		time: `T+${t.toFixed(3)} ms`,
+		timestamp: moment().format('Y-MM-DD HH:mm:ss')
 	}
 
 	console.log(tObj);
@@ -167,7 +168,7 @@ $(document).on('click', '.task-select', function() {
 				});
 
 				$(this).parent().siblings('.name').fadeOut(75, () => {
-					$(this).parent().siblings('.name').html('<p class="items-hover">' + tasks[index].name + '</p>');
+					$(this).parent().siblings('.name').html(tasks[index].name + '<i class="material-icons items-hover">subject</i>');
 					$(this).parent().siblings('.name').children('.items-hover').attr('data-toggle', 'popover');
 					$(this).parent().siblings('.name').children('.items-hover').attr('data-placement', 'right');
 					$(this).parent().siblings('.name').children('.items-hover').attr('data-html', 'true');

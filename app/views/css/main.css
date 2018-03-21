@@ -24,6 +24,10 @@ html, body {
 	text-rendering: optimizeLegibility;
 }
 
+.container {
+	padding-bottom: 40px;
+}
+
 .titlebar {
 	position: fixed;
 	z-index: 1;
@@ -160,6 +164,16 @@ i[href]:hover {
 	color: #ed1e24;
 }
 
+a {
+	color: #ed1e24;
+}
+a:hover {
+	color: #cc2029;
+}
+a:focus {
+	color: #f17e22;
+}
+
 button:focus {
 	outline: none;
 	-webkit-tap-highlight-color: rgba(255, 255, 255, 0);
@@ -276,6 +290,10 @@ select {
 .settings-card:hover {
 	border: 2px solid #ed1e24;
 	color: #ed1e24;
+	text-decoration: none;
+}
+.settings-card:focus {
+	color: black;
 	text-decoration: none;
 }
 .settings-card > i {
@@ -474,8 +492,9 @@ input[type=range]::-webkit-slider-thumb {
 }
 
 .items-hover {
-	display: inline-block;
-	text-decoration: underline;
-	padding-right: 8px;
-	margin-bottom: 0;
+	padding: 0px 8px;
+}
+
+small {
+	color: #888;
 }

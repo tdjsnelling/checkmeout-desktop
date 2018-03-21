@@ -131,6 +131,7 @@
 									<div class="form-group">
 										<label for="run-at">Run at</label>
 										<input class="form-control" id="run-at" placeholder="e.g. 11:00:00 or 'now'">
+										<small>Make sure your time is accurate at <a href="http://time.is">time.is</a></small>
 									</div>
 								</div>
 								<div class="col">
@@ -185,5 +186,12 @@
 	window.$ = window.jQuery = require('./js/jquery.min.js');
 	require('./js/common.js');
 	require('./js/task.js');
+
+	var shell = require('electron').shell;
+
+	$(document).on('click', 'a[href^="http"]', function(event) {
+		event.preventDefault();
+		shell.openExternal(this.href);
+	});
 </script>
 </html>
