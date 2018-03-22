@@ -218,6 +218,11 @@ select {
 	display: block;
 }
 
+.shopping-list-container {
+	max-height: 189px;
+	overflow-y: auto;
+}
+
 .shopping-list > .list-group-item:first-child {
 	background-color: #fff;
 	border-top: 1px solid rgba(0,0,0,.15);
@@ -497,4 +502,20 @@ input[type=range]::-webkit-slider-thumb {
 
 small {
 	color: #888;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f8f8f8; 
+}
+
+::-webkit-scrollbar-thumb {
+    background: #888; 
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ed1e24; 
 }
