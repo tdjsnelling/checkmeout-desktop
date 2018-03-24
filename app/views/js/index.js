@@ -29,6 +29,10 @@ $('.badge-ver').text(verPrefix + ver);
 
 $('#user-email').text(JSON.parse(localStorage.getItem('loggedInUser')).email);
 
+if (!fs.existsSync('logs')){
+	fs.mkdirSync('logs');
+}
+
 function perf(browser, event) {
 	var t = performance.now() - t0;
 	var tObj = {
@@ -40,7 +44,9 @@ function perf(browser, event) {
 	}
 
 	console.log(tObj);
-	fs.appendFile('log.txt', JSON.stringify(tObj) + '\n', (err) => {
+
+	fName = 'logs/' + tasks[browser].name + '_' + moment().format('Y-MM-DD') + '.txt';
+	fs.appendFile(fName, JSON.stringify(tObj) + '\n', (err) => {
 		if (err) throw err;
 	});
 }
@@ -292,15 +298,13 @@ $('#pause-tasks').on('click', function() {
 		if ($(this).children('.col-icon').children('i').text() == 'check_box') {
 			selected++;
 			
-			if (tasks[i].status != 'Idle') {
-				tasks[i].status = 'Idle';
-				$(this).children('.status').text('Idle');
-				$(this).children('.status').css('color', '');
+			tasks[i].status = 'Idle';
+			$(this).children('.status').text('Idle');
+			$(this).children('.status').css('color', '');
 
-				localStorage.setItem('tasks', JSON.stringify(tasks));
+			localStorage.setItem('tasks', JSON.stringify(tasks));
 
-				tasks[i].browser.destroy();
-			}
+			tasks[i].browser.destroy();
 		}
 	});
 
