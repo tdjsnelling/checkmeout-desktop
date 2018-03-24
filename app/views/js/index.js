@@ -429,7 +429,9 @@ function createBrowser(task) {
 
 		perf(taskIndex, 'browser-created');
 
-		gotoNextItem(taskIndex);
+		setTimeout(() => {
+			gotoNextItem(taskIndex);
+		}, 50);
 	}
 }
 
@@ -720,34 +722,38 @@ function gotoNextItem(taskIndex) {
 		}
 
 		searchForItem(nextItem, proxy, (item, err) => {
-			if (typeof item !== 'undefined') {
-				if (err) {
-					ipcRenderer.send('status', tasks[taskIndex].name, 'error connecting to the Supreme store');
+			if (err) {
+				ipcRenderer.send('status', tasks[taskIndex].name, 'error connecting to the Supreme store');
 
-					$($('.list-group-item').not('.list-head')[i]).children('.status').text('Error');
-					$($('.list-group-item').not('.list-head')[i]).children('.status').css('color', '#e74c3c');
+				$($('.list-group-item').not('.list-head')[i]).children('.status').text('Error');
+				$($('.list-group-item').not('.list-head')[i]).children('.status').css('color', '#e74c3c');
 
-					setTimeout(() => {
-						tasks[taskIndex].browser.destroy();
-					}, 10000);
-				}
-				else {
+				setTimeout(() => {
+					tasks[taskIndex].browser.destroy();
+				}, 10000);
+			}
+			else {
+				if (item) {
 					perf(taskIndex, 'found-product');
 
 					tasks[taskIndex].browser.loadURL('http://www.supremenewyork.com/' + item.href, {
 						userAgent: ua
 					});
 				}
-			}
-			else {
-				if (nextItem) {
+				else {
 					ipcRenderer.send('status', tasks[taskIndex].name, 'couldn\'t find item &rarr; ' + nextItem.keywords + ', ' + nextItem.colour);
 					nextItem.carted = true;
-					gotoNextItem(taskIndex);
-				}
-				else {
-					ipcRenderer.send('status', tasks[arg[0]].name, 'going to checkout...');
-					tasks[taskIndex].browser.loadURL('https://www.supremenewyork.com/checkout');
+					nextItem = tasks[taskIndex].shoppingList.filter(x => x.carted == false)[0];
+
+					console.log(nextItem)
+
+					if (nextItem) {
+						gotoNextItem(taskIndex);
+					}
+					else {
+						ipcRenderer.send('status', tasks[taskIndex].name, 'going to checkout...');
+						tasks[taskIndex].browser.loadURL('https://www.supremenewyork.com/checkout');
+					}
 				}
 			}
 		});
