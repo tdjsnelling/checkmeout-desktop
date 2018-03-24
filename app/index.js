@@ -128,6 +128,16 @@ ipcMain.on('create', (event, arg) => {
 		});
 		googleWindow.loadURL('http://accounts.google.com/signin');
 	}
+	else if (arg == 'captchaWindow') {
+		var captchaWindow = new BrowserWindow({
+			width: 1280,
+			height: 700,
+			webPreferences: {
+				nodeIntegration: false
+			}
+		});
+		captchaWindow.loadURL('https://checkmeout.pro/recaptcha');
+	}
 })
 
 // on receive browser status message

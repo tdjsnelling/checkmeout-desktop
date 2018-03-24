@@ -44,3 +44,7 @@ $(document).on('click', '#confirm-delete', function() {
 $('#login-google').on('click', function() {
 	ipcRenderer.send('create', 'googleWindow');
 });
+
+$('#recaptcha').on('click', function() {
+	ipcRenderer.send('create', 'captchaWindow');
+});
