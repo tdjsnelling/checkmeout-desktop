@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Check Me Out</title>
+
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body style="display: none;">
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<div class="header">
+					<div class="logo">
+						<span class="logo-1">Check</span><span class="logo-2">Me</span><span class="logo-3">Out</span>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col">
+						<h4 id="title">
+							Keywords
+						</h4>
+						<hr>
+
+						<p>Prices are only estimations and may vary.</p>
+						<p id="err" style="color: #ed1e24; display: none;">An error occurred.</p>
+						<div class="item-list-container"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+<script>
+	window.$ = window.jQuery = require('./js/jquery.min.js');
+	require('./js/common.js');
+	require('./js/keywords.js');
+</script>
+</html>

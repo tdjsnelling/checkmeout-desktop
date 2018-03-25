@@ -138,7 +138,14 @@ ipcMain.on('create', (event, arg) => {
 		});
 		captchaWindow.loadURL('https://checkmeout.pro/recaptcha');
 	}
-})
+	else if (arg == 'keywordWindow') {
+		var keywordWindow = new BrowserWindow({
+			width: 1100, 
+			height: 750
+		});
+		keywordWindow.loadURL('file://' + __dirname + '/views/keywords.html');
+	}
+});
 
 // on receive browser status message
 
@@ -206,4 +213,10 @@ ipcMain.on('stop-monitor', (event, arg) => {
 
 ipcMain.on('get-monitors', (event) => {
 	mainWindow.webContents.send('get-monitors', monitors);
-})
+});
+
+// keyword items
+
+ipcMain.on('keyword-item', (event, arg) => {
+	mainWindow.webContents.send('keyword-item', arg);
+});

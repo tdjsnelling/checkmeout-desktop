@@ -519,3 +519,61 @@ small {
 ::-webkit-scrollbar-thumb:hover {
     background: #ed1e24; 
 }
+
+.item-card {
+	margin-bottom: 30px;
+	padding: 20px;
+	border: 2px solid lightgrey;
+	background-color: white;
+	transition: 0.3s;
+}
+
+.item-card:hover {
+	border: 2px solid #ed1e24;
+}
+
+.item-card h5 {
+	transition: 0.3s;
+}
+
+.item-card:hover h5 {
+	color: #ed1e24;
+}
+
+.item-card h5, .item-card p {
+	display: inline-block;
+	margin-left: 20px;
+	margin-bottom: 0;
+}
+
+.item-card .tags {
+	margin-top: 30px;
+}
+
+.item-card .tag {
+	background: #eee;
+	padding: 4px 14px;
+	border-radius: 18px !important; 
+	margin: 0;
+	margin-right: 16px;
+	transition: 0.3s;
+}
+
+.item-card .tag:hover {
+	background: #ed1e24;
+	color: white;
+}
+
+.tag i {
+	vertical-align: text-bottom;
+	font-size: 20px;
+	margin-left: -4px;
+}
+
+label i {
+	transition: 0.3s;
+} 
+
+label i:hover {
+	color: #ed1e24;
+} 

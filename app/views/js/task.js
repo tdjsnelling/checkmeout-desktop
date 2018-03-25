@@ -1,4 +1,5 @@
 var crypto = require('crypto');
+var {ipcRenderer} = require('electron');
 
 let editId;
 
@@ -180,4 +181,16 @@ $("#auto-checkout").on('click', function() {
 
 $('#auto-checkout-delay').on('input', function() {
 	$('#delay-val').text($(this).val() + ' seconds');
+});
+
+// keyword finder
+
+$('#find-keywords').on('click', function(e) {
+	e.preventDefault();
+	ipcRenderer.send('create', 'keywordWindow');
+});
+
+ipcRenderer.on('keyword-item', (event, arg) => {
+
+	$('#keywords').val($('#keywords').val() + ' ' + arg);
 });
