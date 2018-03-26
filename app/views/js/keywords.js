@@ -10,35 +10,40 @@ $(document).ready(function() {
 		}
 		else {
 			var _$ = cheerio.load(body);
-			var url = 'https://supremecommunity.com' + _$('.block').first().attr('href');
-			
-			if (url) {
-				request(url, (err, res, body) => {
-					if (err) {
-						console.log(err);
-						$('#err').fadeIn(100);
-					}
-					else {
-						var _$ = cheerio.load(body);
 
-						$('#title').html('Keywords &mdash; ' + _$('h1').text());
+			_$('.block').each((i, el) => {
+				var url = _$(el).attr('href');
+				$('.item-list-container').append($('<div class="drop-card" data-url="' + url + '"></div>').html('<h2>' + _$(el).find('h2').text() + '</h2><h3>' + _$(el).find('h3').text() + '</h3>'));
+			});
+		}
+	});
+});
 
-						_$('.card').each((i, el) => {
-							$('.item-list-container').append($('<div class="item-card"></div>').html('<img width="200" src="https://supremecommunity.com' + _$(el).find('img').attr('src') + '"><h5>' + _$(el).find('.name').text() + '</h5><p>' + _$(el).parent().data('masonry-filter') + '</p><p>' +  _$(el).find('.label-price').text() + '</p><div class="tags"></div>'));
-						});
-					}
-				});
-			}
-			else {
-				$('#err').fadeIn(100);
-			}
+$(document).on('click', '.drop-card', function() {
+	var url = 'https://supremecommunity.com' + $(this).data('url');
+
+	request(url, (err, res, body) => {
+		if (err) {
+			console.log(err);
+			$('#err').fadeIn(100);
+		}
+		else {
+			$('.item-list-container').children().remove();
+
+			var _$ = cheerio.load(body);
+
+			$('#title').html('Keywords &mdash; ' + _$('h1').text());
+
+			_$('.card').each((i, el) => {
+				$('.item-list-container').append($('<div class="item-card"></div>').html('<img width="200" src="https://supremecommunity.com' + _$(el).find('img').attr('src') + '"><h5>' + _$(el).find('.name').text() + '</h5><p>' + _$(el).parent().data('masonry-filter') + '</p><p>' +  _$(el).find('.label-price').text() + '</p><div class="tags"></div>'));
+			});
 		}
 	});
 });
 
 $(document).on('click', '.item-card', function() {
 	if ($(this).find('.tags').children().length == 0) {
-		var tags = $(this).find('h5').text().split(' ');
+		var tags = $(this).find('h5').text().split(/[\s/]/);
 		for (i in tags) {
 			$(this).find('.tags').append($('<p class="tag"><i class="material-icons">add</i>&nbsp;<span>' + tags[i] + '</span></p>'))
 		}

@@ -520,6 +520,18 @@ small {
     background: #ed1e24; 
 }
 
+.drop-card {
+	margin-bottom: 30px;
+	padding: 20px;
+	text-align: center;
+	border: 2px solid lightgrey;
+	transition: 0.3s;
+}
+
+.drop-card:hover {
+	border: 2px solid #ed1e24;
+}
+
 .item-card {
 	margin-bottom: 30px;
 	padding: 20px;
