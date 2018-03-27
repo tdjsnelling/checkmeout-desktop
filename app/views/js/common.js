@@ -1,4 +1,4 @@
-const { remote, ipcRenderer } = require('electron');
+const { remote, ipcRenderer, shell } = require('electron');
 
 // fade in / out
 
@@ -55,6 +55,13 @@ ipcRenderer.on('message', function(event, message) {
 	}
 	else if (message == 'update-available') {
 		console.log('update-available');
+	}
+	else if (message == 'mac-update-available') {
+		console.log('mac-update-available');
+		shell.openExternal('https://checkmeout.pro/desktop/download');
+	}
+	else if (message == 'update-not-available') {
+		snackbar('<p><i class="material-icons">check</i>&nbsp; You\'re up to date!</p>');
 	}
 	else if (message == 'update-downloaded') {
 		snackbar('<p><i class="material-icons">file_download</i>&nbsp; Update downloaded. <a href="#" id="restart-link">Relaunch</a> to get the latest changes.</p>', false);

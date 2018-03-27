@@ -3,10 +3,8 @@
 const {app, BrowserWindow, ipcMain, Notification} = require("electron");
 const {autoUpdater} = require("electron-updater");
 
-var express = require('express');
-var exp = express();
-var passport = require('passport');
-var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
+var request = require('request');
+var semver = require('semver');
 var isDev = require('electron-is-dev');
 
 var mainWindow = null;
@@ -79,13 +77,38 @@ app.on('ready', function() {
 
 ipcMain.on('check-for-updates', () => {
 	mainWindow.webContents.send('message', 'checking-for-updates');
-	autoUpdater.checkForUpdates();
-})
+
+	if (process.platform != 'darwin') {
+		autoUpdater.checkForUpdates();
+	}
+	else {
+		request('https://desktop.checkmeout.pro/', (err, res, body) => {
+			if (err) {
+				console.log(err);
+				mainWindow.webContents.send('message', 'update-error');
+			}
+			else {
+				var version = JSON.parse(body).version;
+
+				if (semver.gt(version, app.getVersion())) {
+					mainWindow.webContents.send('message', 'mac-update-available');
+
+				}
+				else {
+					mainWindow.webContents.send('message', 'update-not-available');
+				}
+			}
+		});
+	}
+});
 
 // auto updater
 
 autoUpdater.on('update-available', (ev, info) => {
 	mainWindow.webContents.send('message', 'update-available');
+});
+autoUpdater.on('update-not-available', (ev, info) => {
+	mainWindow.webContents.send('message', 'update-not-available');
 });
 autoUpdater.on('error', (ev, err) => {
 	mainWindow.webContents.send('message', 'update-error');
