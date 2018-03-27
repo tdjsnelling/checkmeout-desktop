@@ -117,7 +117,8 @@ ipcMain.on('create', (event, arg) => {
 	if (arg == 'logWindow') {
 		logWindow = new BrowserWindow({
 			width: 500,
-			height: 700
+			height: 700,
+			backgroundColor: '#f8f8f8'
 		});
 		logWindow.loadURL('file://' + __dirname + '/views/log.html');
 	}
@@ -132,6 +133,7 @@ ipcMain.on('create', (event, arg) => {
 		var captchaWindow = new BrowserWindow({
 			width: 1280,
 			height: 700,
+			backgroundColor: '#f8f8f8',
 			webPreferences: {
 				nodeIntegration: false
 			}
@@ -141,9 +143,15 @@ ipcMain.on('create', (event, arg) => {
 	else if (arg == 'keywordWindow') {
 		var keywordWindow = new BrowserWindow({
 			width: 1100, 
-			height: 750
+			height: 750,
+			backgroundColor: '#f8f8f8',
+			show: false
 		});
 		keywordWindow.loadURL('file://' + __dirname + '/views/keywords.html');
+
+		keywordWindow.once('ready-to-show', () => {
+			keywordWindow.show();
+		});
 	}
 });
 

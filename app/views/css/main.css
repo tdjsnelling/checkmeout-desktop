@@ -520,6 +520,14 @@ small {
     background: #ed1e24; 
 }
 
+.item-list-container {
+	overflow-x: hidden;
+}
+
+.item-card {
+	padding-top: 40px !important;
+}
+
 .drop-card {
 	margin-bottom: 30px;
 	padding: 20px;
@@ -548,7 +556,7 @@ small {
 	transition: 0.3s;
 }
 
-.item-card:hover h5 {
+.item-card:hover h5, .drop-card:hover h2 {
 	color: #ed1e24;
 }
 

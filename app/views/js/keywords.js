@@ -12,8 +12,10 @@ $(document).ready(function() {
 			var _$ = cheerio.load(body);
 
 			_$('.block').each((i, el) => {
-				var url = _$(el).attr('href');
-				$('.item-list-container').append($('<div class="drop-card" data-url="' + url + '"></div>').html('<h2>' + _$(el).find('h2').text() + '</h2><h3>' + _$(el).find('h3').text() + '</h3>'));
+				setTimeout(() => {
+					var url = _$(el).attr('href');
+					$('.item-list-container').append($('<div class="drop-card animated slideInRight" data-url="' + url + '"></div>').html('<h2>' + _$(el).find('h2').text() + '</h2><h3>' + _$(el).find('h3').text() + '</h3>'));
+				}, 100 * i);
 			});
 		}
 	});
@@ -32,10 +34,13 @@ $(document).on('click', '.drop-card', function() {
 
 			var _$ = cheerio.load(body);
 
-			$('#title').html('Keywords &mdash; ' + _$('h1').text());
+			$('#title').html('Keywords &mdash; ' + _$('h1').text() + '<button type="button" class="btn btn-header" id="back-button">Back to weeks</button>');
+			$('#prices-prompt').fadeIn(100);
 
 			_$('.card').each((i, el) => {
-				$('.item-list-container').append($('<div class="item-card"></div>').html('<img width="200" src="https://supremecommunity.com' + _$(el).find('img').attr('src') + '"><h5>' + _$(el).find('.name').text() + '</h5><p>' + _$(el).parent().data('masonry-filter') + '</p><p>' +  _$(el).find('.label-price').text() + '</p><div class="tags"></div>'));
+				setTimeout(() => {
+					$('.item-list-container').append($('<div class="item-card animated slideInRight"></div>').html('<img width="200" src="https://supremecommunity.com' + _$(el).find('img').attr('src') + '"><h5>' + _$(el).find('.name').text() + '</h5><p>' + _$(el).parent().data('masonry-filter') + '</p><p>' +  _$(el).find('.label-price').text() + '</p><div class="tags"></div>'));
+				}, 100 * i);
 			});
 		}
 	});
@@ -56,4 +61,10 @@ $(document).on('click', '.item-card', function() {
 $(document).on('click', '.tag', function(e) {
 	e.stopPropagation();
 	ipcRenderer.send('keyword-item', $(this).find('span').text());
+});
+
+$(document).on('click', '#back-button', function() {
+	$('body').fadeOut(100, function() {
+		location.reload();
+	});
 });
