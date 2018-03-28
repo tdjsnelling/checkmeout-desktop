@@ -331,8 +331,8 @@ select {
 	position: fixed;
 	bottom: 0;
 }
-.snackbar > i {
-	margin-bottom: 2px;
+.snackbar i {
+	vertical-align: text-bottom;
 }
 .snackbar.in {
 	animation: 0.5s slideIn;

@@ -58,7 +58,7 @@ ipcRenderer.on('message', function(event, message) {
 	}
 	else if (message == 'mac-update-available') {
 		console.log('mac-update-available');
-		shell.openExternal('https://checkmeout.pro/desktop/download');
+		shell.openExternal('https://checkmeout.pro/desktop/update');
 	}
 	else if (message == 'update-not-available') {
 		snackbar('<p><i class="material-icons">check</i>&nbsp; You\'re up to date!</p>');
