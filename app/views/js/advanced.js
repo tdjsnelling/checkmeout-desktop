@@ -45,6 +45,10 @@ $('#login-google').on('click', function() {
 	ipcRenderer.send('create', 'googleWindow');
 });
 
+$('#login-paypal').on('click', function() {
+	ipcRenderer.send('create', 'paypalWindow');
+});
+
 $('#recaptcha').on('click', function() {
 	ipcRenderer.send('create', 'captchaWindow');
 });

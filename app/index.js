@@ -152,6 +152,13 @@ ipcMain.on('create', (event, arg) => {
 		});
 		googleWindow.loadURL('http://accounts.google.com/signin');
 	}
+	else if (arg == 'paypalWindow') {
+		var paypalWindow = new BrowserWindow({
+			width: 1000,
+			height: 700
+		});
+		paypalWindow.loadURL('https://paypal.com/signin');
+	}
 	else if (arg == 'captchaWindow') {
 		var captchaWindow = new BrowserWindow({
 			width: 1280,
