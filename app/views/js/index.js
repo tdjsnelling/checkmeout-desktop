@@ -121,6 +121,8 @@ if (tasks.length > 0) {
 }
 
 $(document).ready(function() {
+	analytics.pageview('https://checkmeout.pro', '/', 'Home screen');
+
 	for (i in tasks) {
 		tasks[i].browser = null;
 		tasks[i].autofilled = false;

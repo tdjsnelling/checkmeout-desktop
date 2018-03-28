@@ -11,6 +11,8 @@
 			padding: 20px;
 		}
 	</style>
+
+	<script src="https://cdn.ravenjs.com/3.24.0/raven.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
 	<div class="container-fluid">
@@ -26,6 +28,7 @@
 </body>
 <script>
 	window.$ = require('./js/jquery.min.js');
+	require('./js/common.js');
 	var ipcRenderer = require('electron').ipcRenderer;
 
 	ipcRenderer.on('status', (event, task, status) => {
