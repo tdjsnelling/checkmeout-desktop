@@ -70,7 +70,7 @@ app.on('ready', function() {
 			mainWindow.webContents.send('message', 'checking-for-updates');
 			autoUpdater.checkForUpdates();
 		}
-	}, 5000);
+	}, 7500);
 });
 
 // check for updates

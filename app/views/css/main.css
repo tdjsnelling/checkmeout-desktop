@@ -531,6 +531,7 @@ small {
 .drop-card {
 	margin-bottom: 30px;
 	padding: 20px;
+	padding-top: 28px;
 	text-align: center;
 	border: 2px solid lightgrey;
 	transition: 0.3s;
@@ -552,7 +553,7 @@ small {
 	border: 2px solid #ed1e24;
 }
 
-.item-card h5 {
+.item-card h5, .drop-card h2 {
 	transition: 0.3s;
 }
 
