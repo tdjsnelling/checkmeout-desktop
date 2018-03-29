@@ -219,7 +219,7 @@ select {
 }
 
 .shopping-list-container {
-	max-height: 189px;
+	height: 114px;
 	overflow-y: auto;
 }
 

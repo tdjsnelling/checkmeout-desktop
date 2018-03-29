@@ -1,4 +1,5 @@
 const { remote, ipcRenderer, shell } = require('electron');
+const isDev = require('electron-is-dev');
 
 // fade in / out
 
@@ -83,12 +84,13 @@ $(document).on('click', '#restart-link', function() {
 
 var userEmail = JSON.parse(localStorage.getItem('loggedInUser')) == null ? 'not set' : JSON.parse(localStorage.getItem('loggedInUser')).email;
 
-// var Raven = require('raven');
-Raven.config('https://02ae6c3a5f12497e90b935e7e3cd8801@sentry.io/725515').install();
-Raven.setUserContext({
-	email: userEmail
-});
-Raven.setTagsContext({
-	platform: process.platform,
-	version: remote.app.getVersion()
-});
+if (!isDev) {
+	Raven.config('https://02ae6c3a5f12497e90b935e7e3cd8801@sentry.io/725515').install();
+	Raven.setUserContext({
+		email: userEmail
+	});
+	Raven.setTagsContext({
+		platform: process.platform,
+		version: remote.app.getVersion()
+	});
+}

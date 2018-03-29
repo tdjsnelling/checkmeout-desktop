@@ -15,11 +15,16 @@ $(document).ready(function() {
 	if (editId) {
 		var tasks = JSON.parse(localStorage.getItem('tasks'));
 		var task = tasks.filter(x => x.id == editId)[0];
+
+		if (task.shoppingList.length > 0) {
+			$('#shopping-list').find('.empty').remove();
+		}
 		
 		for (i in task.shoppingList) {
 			item = task.shoppingList[i];
 
-			$('#shopping-list').append($('<li class="list-group-item item">').html('<p>' + item.category + ': ' + item.keywords + ' (' + item.negKeywords + ') - ' + item.colour + ' (' + item.size + ')</p><div class="controls"><i class="material-icons delete">close</i></div>'));
+			// $('#shopping-list').append($('<li class="list-group-item item">').html('<p>' + item.category + ': ' + item.keywords + ' (' + item.negKeywords + ') - ' + item.colour + ' (' + item.size + ')</p><div class="controls"><i class="material-icons delete">close</i></div>'));
+			$('#shopping-list').append($('<li class="list-group-item item">').html('<ul><li><b>Category: </b>' + item.category + '</li><li><b>Keywords: </b>' + item.keywords + ' (' + item.negKeywords + ')</li><li><b>Colour: </b>' + item.colour + '</li><li><b>Size: </b>' + item.size + '</li></ul><div class="controls"><i class="material-icons delete">close</i></div>'));
 			shoppingList.push(item);
 		}
 
@@ -70,7 +75,10 @@ $('#create-item').on('click', function() {
 		item.size = $('#size').val();
 		item.carted = false;
 
-		$('#shopping-list').append($('<li class="list-group-item item">').html('<p>' + item.category + ': ' + item.keywords + ' (' + item.negKeywords + ') - ' + item.colour + ' (' + item.size + ')</p><div class="controls"><i class="material-icons delete">close</i></div>'));
+		$('#shopping-list').find('.empty').remove();
+
+		// $('#shopping-list').append($('<li class="list-group-item item">').html('<p>' + item.category + ': ' + item.keywords + ' (' + item.negKeywords + ') - ' + item.colour + ' (' + item.size + ')</p><div class="controls"><i class="material-icons delete">close</i></div>'));
+		$('#shopping-list').append($('<li class="list-group-item item">').html('<ul><li><b>Category: </b>' + item.category + '</li><li><b>Keywords: </b>' + item.keywords + ' (' + item.negKeywords + ')</li><li><b>Colour: </b>' + item.colour + '</li><li><b>Size: </b>' + item.size + '</li></ul><div class="controls"><i class="material-icons delete">close</i></div>'));
 		shoppingList.push(item);
 
 		$('#keywords').val('');
@@ -88,6 +96,10 @@ $(document).on('click', '.delete', function() {
 	var index = $(this).parents('.list-group-item').index() - 1;
 	shoppingList.splice(index, 1);
 	$(this).parents('.list-group-item').remove();
+
+	if (shoppingList.length == 0) {
+		$('#shopping-list').append($('<li class="list-group-item empty">').html('Nothing here!'));
+	}
 });
 
 $('#create-task').on('click', function() {
@@ -191,6 +203,5 @@ $('#find-keywords').on('click', function(e) {
 });
 
 ipcRenderer.on('keyword-item', (event, arg) => {
-
 	$('#keywords').val($('#keywords').val() + ' ' + arg);
 });
