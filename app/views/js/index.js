@@ -801,6 +801,7 @@ function searchForItem(searchItem, proxy, cb) {
 						item.colour = $(el2).children().text();
 					}
 				});
+				item.inStock = $(el).find('.sold_out_tag').length == 0;
 				items.push(item);
 			});
 
@@ -854,8 +855,14 @@ function searchForItem(searchItem, proxy, cb) {
 				]
 			};
 
-			fuse = new Fuse(itemRes, colourOptions);
-			var res = fuse.search(searchItem.colour);
+			var res;
+			if (searchItem.colour != '') {
+				fuse = new Fuse(itemRes, colourOptions);
+				res = fuse.search(searchItem.colour);
+			}
+			else {
+				res = itemRes.filter(x => x.inStock == true);
+			}
 
 			return cb(res[0], null);
 		}

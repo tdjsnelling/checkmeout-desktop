@@ -51,7 +51,7 @@ for (i in savedPayment) {
 
 $('#create-item').on('click', function() {
 	var count = 0;
-	$.each($('#keywords, #colour'), function(i, value) {
+	$.each($('#keywords'), function(i, value) {
 		if ($(value).val() == "" && $(value).attr('placeholder') != 'optional' && $(value).parents('.form-group').css('display') != 'none') {
 			count += 1;
 			$(value).css('border', '1px solid #ed1e24');
