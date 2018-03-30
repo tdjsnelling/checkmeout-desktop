@@ -1,10 +1,10 @@
 {
   "name": "checkmeout-desktop",
   "description": "The Desktop Supreme bot from Check Me Out",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "main": "index.js",
   "devDependencies": {
-    "electron": "2.0.0-beta.1"
+    "electron": "^1.8.4"
   },
   "scripts": {
     "start": "electron .",
@@ -16,12 +16,9 @@
     "electron-google-analytics": "0.0.24",
     "electron-is-dev": "^0.3.0",
     "electron-updater": "^2.20.1",
-    "express": "^4.16.2",
     "fuse.js": "^3.2.0",
     "moment": "^2.20.1",
     "nightmare": "^2.10.0",
-    "passport": "^0.4.0",
-    "passport-google-oauth": "^1.0.0",
     "request": "^2.83.0",
     "semver": "^5.5.0"
   }
