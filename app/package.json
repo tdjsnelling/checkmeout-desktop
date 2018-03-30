@@ -1,10 +1,10 @@
 {
   "name": "checkmeout-desktop",
   "description": "The Desktop Supreme bot from Check Me Out",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "main": "index.js",
   "devDependencies": {
-    "electron": "^1.8.4"
+    "electron": "1.8.4"
   },
   "scripts": {
     "start": "electron .",

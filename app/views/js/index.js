@@ -29,8 +29,10 @@ $('.badge-ver').text(verPrefix + ver);
 
 $('#user-email').text(JSON.parse(localStorage.getItem('loggedInUser')).email);
 
-if (!fs.existsSync('logs')){
-	fs.mkdirSync('logs');
+if (process.platform != 'darwin') {
+	if (!fs.existsSync('logs')){
+		fs.mkdirSync('logs');
+	}
 }
 
 function perf(browser, event) {
@@ -45,10 +47,12 @@ function perf(browser, event) {
 
 	console.log(tObj);
 
-	fName = 'logs/' + tasks[browser].name + '_' + moment().format('Y-MM-DD') + '.txt';
-	fs.appendFile(fName, JSON.stringify(tObj) + '\n', (err) => {
-		if (err) throw err;
-	});
+	if (process.platform != 'darwin') {
+		fName = 'logs/' + tasks[browser].name + '_' + moment().format('Y-MM-DD') + '.txt';
+		fs.appendFile(fName, JSON.stringify(tObj) + '\n', (err) => {
+			if (err) throw err;
+		});
+	}
 }
 
 setInterval(() => {
@@ -99,7 +103,10 @@ $('body').popover({
 });
 
 var savedShipping = JSON.parse(localStorage.getItem('shipping'));
+savedShipping = savedShipping == null ? [] : savedShipping;
+
 var savedPayment = JSON.parse(localStorage.getItem('payment'));
+savedPayment = savedPayment == null ? [] : savedPayment;
 
 if (savedShipping.length == 0 || savedPayment.length == 0) {
 	$('#new-task').addClass('disabled');

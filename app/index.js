@@ -13,8 +13,7 @@ var logWindow = null;
 app.setAppUserModelId('pro.checkmeout.desktop');
 
 app.on('window-all-closed', function() {
-	if (process.platform != 'darwin')
-		app.quit();
+	app.quit();
 });
 
 app.on('ready', function() {
