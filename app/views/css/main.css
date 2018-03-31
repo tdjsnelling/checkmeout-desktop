@@ -310,6 +310,15 @@ select {
 	transform: scale(1.15);
 }
 
+.location {
+	padding: 20px 40px !important;
+	margin: 10px !important;
+	border: none;
+}
+.location:hover {
+	border: none;
+}
+
 .disabled {
 	pointer-events: none;
 	color: lightgrey;
