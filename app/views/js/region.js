@@ -3,7 +3,7 @@ $('#set-' + region).children('i').text('my_location');
 
 setTimeout(function() {
 	if (region == 'eu') {
-		$('[cc=gb], [cc=ie], [cc=fr], [cc=de], [cc=es], [cc=pt], [cc=it], [cc=ch], [cc=nl], [cc=be], [cc=no], [cc=se], [cc=dk], [cc=fi], [cc=lv], [cc=lt], [cc=by], [cc=pl], [cc=ee], [cc=ua], [cc=cz], [cc=sk], [cc=at], [cc=hu], [cc=si], [cc=hr], [cc=ba], [cc=md], [cc=ro], [cc=rs], [cc=bg], [cc=al], [cc=mk], [cc=gr]').css('fill', '#ed1e24');
+		$('[cc=gb], [cc=ie], [cc=fr], [cc=de], [cc=es], [cc=pt], [cc=it], [cc=ch], [cc=nl], [cc=be], [cc=no], [cc=se], [cc=dk], [cc=fi], [cc=lv], [cc=lt], [cc=by], [cc=pl], [cc=ee], [cc=ua], [cc=cz], [cc=sk], [cc=at], [cc=hu], [cc=si], [cc=hr], [cc=ba], [cc=md], [cc=ro], [cc=rs], [cc=bg], [cc=al], [cc=mk], [cc=gr], [cc=ru]').css('fill', '#ed1e24');
 	}
 	else if (region == 'us') {
 		$('[cc=us], [cc=ca]').css('fill', '#ed1e24');
@@ -21,7 +21,7 @@ $('#set-eu').on('click', function() {
 	$('#set-jp').children('i').text('location_searching');
 
 	$('[cc]').css('fill', 'black');
-	$('[cc=gb], [cc=ie], [cc=fr], [cc=de], [cc=es], [cc=pt], [cc=it], [cc=ch], [cc=nl], [cc=be], [cc=no], [cc=se], [cc=dk], [cc=fi], [cc=lv], [cc=lt], [cc=by], [cc=pl], [cc=ee], [cc=ua], [cc=cz], [cc=sk], [cc=at], [cc=hu], [cc=si], [cc=hr], [cc=ba], [cc=md], [cc=ro], [cc=rs], [cc=bg], [cc=al], [cc=mk], [cc=gr]').css('fill', '#ed1e24');
+	$('[cc=gb], [cc=ie], [cc=fr], [cc=de], [cc=es], [cc=pt], [cc=it], [cc=ch], [cc=nl], [cc=be], [cc=no], [cc=se], [cc=dk], [cc=fi], [cc=lv], [cc=lt], [cc=by], [cc=pl], [cc=ee], [cc=ua], [cc=cz], [cc=sk], [cc=at], [cc=hu], [cc=si], [cc=hr], [cc=ba], [cc=md], [cc=ro], [cc=rs], [cc=bg], [cc=al], [cc=mk], [cc=gr], [cc=ru]').css('fill', '#ed1e24');
 });
 $('#set-us').on('click', function() {
 	localStorage.setItem('region', 'us');
@@ -46,12 +46,12 @@ $('#set-jp').on('click', function() {
 
 $('#set-eu').on('mouseenter', function() {
 	if ($(this).find('.material-icons').text() != 'my_location') {
-		$('[cc=gb], [cc=ie], [cc=fr], [cc=de], [cc=es], [cc=pt], [cc=it], [cc=ch], [cc=nl], [cc=be], [cc=no], [cc=se], [cc=dk], [cc=fi], [cc=lv], [cc=lt], [cc=by], [cc=pl], [cc=ee], [cc=ua], [cc=cz], [cc=sk], [cc=at], [cc=hu], [cc=si], [cc=hr], [cc=ba], [cc=md], [cc=ro], [cc=rs], [cc=bg], [cc=al], [cc=mk], [cc=gr]').css('fill', '#cc2029');
+		$('[cc=gb], [cc=ie], [cc=fr], [cc=de], [cc=es], [cc=pt], [cc=it], [cc=ch], [cc=nl], [cc=be], [cc=no], [cc=se], [cc=dk], [cc=fi], [cc=lv], [cc=lt], [cc=by], [cc=pl], [cc=ee], [cc=ua], [cc=cz], [cc=sk], [cc=at], [cc=hu], [cc=si], [cc=hr], [cc=ba], [cc=md], [cc=ro], [cc=rs], [cc=bg], [cc=al], [cc=mk], [cc=gr], [cc=ru]').css('fill', '#cc2029');
 	}
 });
 $('#set-eu').on('mouseleave', function() {
 	if ($(this).find('.material-icons').text() != 'my_location') {
-		$('[cc=gb], [cc=ie], [cc=fr], [cc=de], [cc=es], [cc=pt], [cc=it], [cc=ch], [cc=nl], [cc=be], [cc=no], [cc=se], [cc=dk], [cc=fi], [cc=lv], [cc=lt], [cc=by], [cc=pl], [cc=ee], [cc=ua], [cc=cz], [cc=sk], [cc=at], [cc=hu], [cc=si], [cc=hr], [cc=ba], [cc=md], [cc=ro], [cc=rs], [cc=bg], [cc=al], [cc=mk], [cc=gr]').css('fill', 'black');
+		$('[cc=gb], [cc=ie], [cc=fr], [cc=de], [cc=es], [cc=pt], [cc=it], [cc=ch], [cc=nl], [cc=be], [cc=no], [cc=se], [cc=dk], [cc=fi], [cc=lv], [cc=lt], [cc=by], [cc=pl], [cc=ee], [cc=ua], [cc=cz], [cc=sk], [cc=at], [cc=hu], [cc=si], [cc=hr], [cc=ba], [cc=md], [cc=ro], [cc=rs], [cc=bg], [cc=al], [cc=mk], [cc=gr], [cc=ru]').css('fill', 'black');
 	}
 });
 

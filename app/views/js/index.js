@@ -716,6 +716,8 @@ function handleBrowser(id) {
 	else {
 		console.log('unknown-url: ' + currentBrowserIndex + ':' + id);
 
+		ipcRenderer.send('status', tasks[taskIndex].name, 'stuck at unknown page!');
+
 		tasks[currentBrowserIndex].autofilled = false;
 		tasks[currentBrowserIndex].complete = false;
 		localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -754,18 +756,24 @@ function gotoNextItem(taskIndex) {
 					});
 				}
 				else {
-					ipcRenderer.send('status', tasks[taskIndex].name, 'couldn\'t find item &rarr; ' + nextItem.keywords + ', ' + nextItem.colour);
-					nextItem.carted = true;
-					nextItem = tasks[taskIndex].shoppingList.filter(x => x.carted == false)[0];
-
-					console.log(nextItem)
-
-					if (nextItem) {
-						gotoNextItem(taskIndex);
+					if (nextItem == tasks[taskIndex].shoppingList[0] && !tasks[taskIndex].browser.isDestroyed()) {
+						setTimeout(() => {
+							ipcRenderer.send('status', tasks[taskIndex].name, 'couldn\'t find first item, retrying...');
+							gotoNextItem(taskIndex);
+						}, 1000);
 					}
 					else {
-						ipcRenderer.send('status', tasks[taskIndex].name, 'going to checkout...');
-						tasks[taskIndex].browser.loadURL('https://www.supremenewyork.com/checkout');
+						ipcRenderer.send('status', tasks[taskIndex].name, 'couldn\'t find item &rarr; ' + nextItem.keywords + ', ' + nextItem.colour);
+						nextItem.carted = true;
+						nextItem = tasks[taskIndex].shoppingList.filter(x => x.carted == false)[0];
+
+						if (nextItem) {
+							gotoNextItem(taskIndex);
+						}
+						else {
+							ipcRenderer.send('status', tasks[taskIndex].name, 'going to checkout...');
+							tasks[taskIndex].browser.loadURL('https://www.supremenewyork.com/checkout');
+						}
 					}
 				}
 			}
