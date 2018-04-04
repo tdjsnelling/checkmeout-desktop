@@ -757,10 +757,12 @@ function gotoNextItem(taskIndex) {
 				}
 				else {
 					if (nextItem == tasks[taskIndex].shoppingList[0] && !tasks[taskIndex].browser.isDestroyed()) {
+						var randomDelay = Math.floor((Math.random() + 0.75) * 1000);
+
 						setTimeout(() => {
 							ipcRenderer.send('status', tasks[taskIndex].name, 'couldn\'t find first item, retrying...');
 							gotoNextItem(taskIndex);
-						}, 1000);
+						}, randomDelay);
 					}
 					else {
 						ipcRenderer.send('status', tasks[taskIndex].name, 'couldn\'t find item &rarr; ' + nextItem.keywords + ', ' + nextItem.colour);

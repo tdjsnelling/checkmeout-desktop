@@ -282,6 +282,7 @@ select {
 	text-align: center;
 
 	flex-grow: 1;
+	width: 200px;
 
 	margin: 15px;
 	color: black;
@@ -309,10 +310,13 @@ select {
 .settings-card:hover > i {
 	transform: scale(1.15);
 }
+.settings-card > h4 {
+	line-height: 1.33;
+}
 
 .location {
 	padding: 20px 40px !important;
-	margin: 10px !important;
+	margin: 8px !important;
 	border: none;
 }
 .location:hover {
