@@ -61,6 +61,11 @@ $(document).on('click', '.item-card', function() {
 $(document).on('click', '.tag', function(e) {
 	e.stopPropagation();
 	ipcRenderer.send('keyword-item', $(this).find('span').text());
+
+	$(this).find('.material-icons').text('check');
+	setTimeout(() => {
+		$(this).find('.material-icons').text('add');
+	}, 2000);
 });
 
 $(document).on('click', '#back-button', function() {

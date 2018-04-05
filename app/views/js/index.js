@@ -523,14 +523,30 @@ function handleBrowser(id) {
 			if (tasks[arg[0]].shoppingList.filter(x => x.carted == false).length > 0) {
 				var nextItem = tasks[arg[0]].shoppingList.filter(x => x.carted == false)[0];
 
-				gotoNextItem(arg[0]);
+				if (tasks[arg[0]].useProductPageDelay) {
+					setTimeout(() => {
+						gotoNextItem(arg[0]);
+					}, tasks[arg[0]].productPageDelay * 1000);
+				}
+				else {
+					gotoNextItem(arg[0]);
+				}
 			}
 			else {
-				setTimeout(() => {
-					ipcRenderer.send('status', tasks[arg[0]].name, 'going to checkout...');
-					perf(currentBrowserIndex, 'going-to-checkout');
-					tasks[arg[0]].browser.webContents.executeJavaScript('document.getElementsByClassName("checkout")[0].click()');
-				}, 250);
+				if (tasks[arg[0]].useProductPageDelay) {
+					setTimeout(() => {
+						ipcRenderer.send('status', tasks[arg[0]].name, 'going to checkout...');
+						perf(currentBrowserIndex, 'going-to-checkout');
+						tasks[arg[0]].browser.webContents.executeJavaScript('document.getElementsByClassName("checkout")[0].click()');
+					}, tasks[arg[0]].productPageDelay * 1000);
+				}
+				else {
+					setTimeout(() => {
+						ipcRenderer.send('status', tasks[arg[0]].name, 'going to checkout...');
+						perf(currentBrowserIndex, 'going-to-checkout');
+						tasks[arg[0]].browser.webContents.executeJavaScript('document.getElementsByClassName("checkout")[0].click()');
+					}, 250);
+				}
 			}
 		});
 	}

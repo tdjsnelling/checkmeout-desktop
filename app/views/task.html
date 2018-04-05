@@ -176,8 +176,26 @@
 								</div>
 								<div class="col col-h" style="display: none;">
 									<div class="form-group">
-										<input type="range" id="auto-checkout-delay" min="0" max="8" step="0.5" style="margin-bottom: 12px;">
-										<p id="delay-val">4 seconds</p>
+										<input type="number" class="form-control" id="auto-checkout-delay" min="0" step="0.5" value="4" style="width: 75px; display: inline-block;">
+										<small>sec</small>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col">
+									<input type="checkbox" id="retry-checkout" class="checkbox-custom">
+									<label for="retry-checkout" class="checkbox-custom-label">Retry if checkout fails</label>
+								</div>
+								<div class="col">
+									<div class="form-group">
+										<input type="checkbox" id="pp-delay" class="checkbox-custom">
+										<label for="pp-delay" class="checkbox-custom-label">Product page delay</label>
+									</div>
+								</div>
+								<div class="col col-h" style="display: none;">
+									<div class="form-group">
+										<input type="number" class="form-control" id="product-page-delay" min="0" step="0.5" value="4" style="width: 75px; display: inline-block;">
+										<small>sec</small>
 									</div>
 								</div>
 							</div>

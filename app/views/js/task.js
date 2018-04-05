@@ -36,10 +36,15 @@ $(document).ready(function() {
 		$('#show-browser').prop('checked', task.showBrowser);
 		$('#auto-checkout').prop('checked', task.autoCheckout);
 		$('#auto-checkout-delay').val(task.autoCheckoutDelay);
-		$('#delay-val').text(task.autoCheckoutDelay + ' seconds');
+		$('#retry-checkout').prop('checked', task.retryOnFail);
+		$('#pp-delay').prop('checked', task.useProductPageDelay);
+		$('#product-page-delay').val(task.productPageDelay);
 
 		if (task.autoCheckout) {
 			$('#auto-checkout-delay').parents('.col-h').show();
+		}
+		if (task.useProductPageDelay) {
+			$('#product-page-delay').parents('.col-h').show();
 		}
 
 		$('#create-task').text('Update task')
@@ -146,6 +151,9 @@ $('#create-task').on('click', function() {
 		task.showBrowser = $('#show-browser').is(':checked');
 		task.autoCheckout = $('#auto-checkout').is(':checked');
 		task.autoCheckoutDelay = $('#auto-checkout-delay').val();
+		task.retryOnFail = $('#retry-checkout').is(':checked');
+		task.useProductPageDelay = $('#pp-delay').is(':checked');
+		task.productPageDelay = $('#product-page-delay').val();
 		task.status = 'Idle';
 		task.autofilled = false;
 		task.complete = false;
@@ -191,8 +199,13 @@ $("#auto-checkout").on('click', function() {
 	}
 });
 
-$('#auto-checkout-delay').on('input', function() {
-	$('#delay-val').text($(this).val() + ' seconds');
+$("#pp-delay").on('click', function() {
+	if (!$(this).is(':checked')) {
+		$('#product-page-delay').parents('.col-h').hide();
+	}
+	else {
+		$('#product-page-delay').parents('.col-h').show();
+	}
 });
 
 // keyword finder
