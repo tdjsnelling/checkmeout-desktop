@@ -714,6 +714,17 @@ function handleBrowser(id) {
 					$(listEntry).children('.status').css('color', '#e74c3c');
 
 					analytics.event('Confirmation', 'fail');
+
+					if (tasks[arg[0]].retryOnFail) {
+						tasks[arg[0]].autofilled = false;
+						tasks[arg[0]].complete = false;
+						tasks[arg[0]].autoCheckout = true;
+						tasks[arg[0]].autoCheckoutDelay = 2;
+
+						setTimeout(() => {
+							tasks[arg[0]].browser.loadURL('https://www.supremenewyork.com/checkout');
+						}, 250);
+					}
 				}
 				else {
 					ipcRenderer.send('status', tasks[arg[0]].name, 'checkout success');
