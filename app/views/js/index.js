@@ -37,6 +37,19 @@ if (process.platform != 'darwin') {
 		fs.mkdirSync('confirmations');
 	}
 }
+else {
+	var homeDir = process.env['HOME'];
+
+	if (!fs.existsSync(path.join(homeDir, 'Documents/Check Me Out'))) {
+		fs.mkdirSync(path.join(homeDir, 'Documents/Check Me Out'));
+	}
+	if (!fs.existsSync(path.join(homeDir, 'Documents/Check Me Out/logs'))) {
+		fs.mkdirSync(path.join(homeDir, 'Documents/Check Me Out/logs'));
+	}
+	if (!fs.existsSync(path.join(homeDir, 'Documents/Check Me Out/confirmations'))) {
+		fs.mkdirSync(path.join(homeDir, 'Documents/Check Me Out/confirmations'));
+	}
+}
 
 function perf(browser, event) {
 	var t = performance.now() - t0;
@@ -52,6 +65,12 @@ function perf(browser, event) {
 
 	if (process.platform != 'darwin') {
 		fName = 'logs/' + tasks[browser].name + '_' + moment().format('Y-MM-DD') + '.txt';
+		fs.appendFile(fName, JSON.stringify(tObj) + '\n', (err) => {
+			if (err) throw err;
+		});
+	}
+	else {
+		fName = path.join(process.env['HOME'], 'Documents/Check Me Out/logs/') + tasks[browser].name + '_' + moment().format('Y-MM-DD') + '.txt';
 		fs.appendFile(fName, JSON.stringify(tObj) + '\n', (err) => {
 			if (err) throw err;
 		});
@@ -738,18 +757,24 @@ function handleBrowser(id) {
 
 					analytics.event('Confirmation', 'success');
 
-					if (process.platform != 'darwin') {
-						tasks[arg[0]].browser.webContents.insertCSS('body { background-color: white !important; }');
+					tasks[arg[0]].browser.webContents.insertCSS('body { background-color: white !important; }');
 
-						setTimeout(() => {
-							tasks[arg[0]].browser.webContents.capturePage((image) => {
+					setTimeout(() => {
+						tasks[arg[0]].browser.webContents.capturePage((image) => {
+							if (process.platform != 'darwin') {
 								fName = 'confirmations/' + tasks[arg[0]].name + '_' + moment().format('Y-MM-DD') + '.png';
 								fs.writeFile(fName, image.toPng(), (err) => {
 									if (err) throw err;
 								});
-							});
-						}, 50);
-					}
+							}
+							else {
+								fName = path.join(process.env['HOME'], 'Documents/Check Me Out/confirmations/') + tasks[arg[0]].name + '_' + moment().format('Y-MM-DD') + '.png';
+								fs.writeFile(fName, image.toPng(), (err) => {
+									if (err) throw err;
+								});
+							}
+						});
+					}, 50);
 				}
 			}
 		});
