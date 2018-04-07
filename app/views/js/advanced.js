@@ -1,5 +1,6 @@
-const {remote, ipcRenderer} = require('electron');
+const {remote, ipcRenderer, shell} = require('electron');
 var request = require('request');
+var path = require('path');
 
 let email;
 
@@ -51,4 +52,22 @@ $('#login-paypal').on('click', function() {
 
 $('#recaptcha').on('click', function() {
 	ipcRenderer.send('create', 'captchaWindow');
+});
+
+$('#view-logs').on('click', function() {
+	if (process.platform != 'darwin') {
+		shell.showItemInFolder(path.join(process.env['HOME'], 'AppData/Local/Programs/checkmeout-desktop/logs/*'));
+	}
+	else {
+		shell.showItemInFolder(path.join(process.env['HOME'], 'Documents/Check Me Out/logs/*'));
+	}
+});
+
+$('#view-confs').on('click', function() {
+	if (process.platform != 'darwin') {
+		shell.showItemInFolder(path.join(process.env['HOME'], 'AppData/Local/Programs/checkmeout-desktop/confirmations/*'));
+	}
+	else {
+		shell.showItemInFolder(path.join(process.env['HOME'], 'Documents/Check Me Out/confirmations/*'));
+	}
 });
