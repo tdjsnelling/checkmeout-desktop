@@ -161,59 +161,68 @@ $(document).ready(function() {
 	localStorage.setItem('tasks', JSON.stringify(tasks));
 });
 
-$(document).on('click', '.task-select', function() {
-	var index = $(this).parents('.list-group-item').index() - 1;
+$(document).on('click', '.list-group-item:not(.list-head)', function() {
+	var index = $(this).index() - 1;
 	var last4 =  tasks[index].payment.number.substr(tasks[index].payment.number.length - 4);
 
-	if ($(this).text() == 'check_box') {
-		$(this).text('check_box_outline_blank');
-		$(this).parents('.list-group-item').css('height', '');
+	if ($(this).css('height') == '120px') {
+		$(this).css('height', '');
 
-		$(this).parent().siblings('.address').fadeOut(75, () => {
-			$(this).parent().siblings('.address').html(tasks[index].shipping.address);
-			$(this).parent().siblings('.address').fadeIn(75);
+		$(this).find('.address').fadeOut(75, () => {
+			$(this).find('.address').html(tasks[index].shipping.address);
+			$(this).find('.address').fadeIn(75);
 		});
 
-		$(this).parent().siblings('.payment').fadeOut(75, () => {
-			$(this).parent().siblings('.payment').html(tasks[index].payment.type + ': ' + last4);
-			$(this).parent().siblings('.payment').fadeIn(75);
+		$(this).find('.payment').fadeOut(75, () => {
+			$(this).find('.payment').html(tasks[index].payment.type + ': ' + last4);
+			$(this).find('.payment').fadeIn(75);
 		});
 
-		$(this).parent().siblings('.name').fadeOut(75, () => {
-			$(this).parent().siblings('.name').html(tasks[index].name);
-			$(this).parent().siblings('.name').fadeIn(75);
+		$(this).find('.name').fadeOut(75, () => {
+			$(this).find('.name').html(tasks[index].name);
+			$(this).find('.name').fadeIn(75);
 		});
 	}
 	else {
+		$(this).css('height', '120px');
+
+		var shoppingListString = '';
+		for (i in tasks[index].shoppingList) {
+			shoppingListString += tasks[index].shoppingList[i].category + ': ' + tasks[index].shoppingList[i].keywords + ' - ' + tasks[index].shoppingList[i].colour + ' (' + tasks[index].shoppingList[i].size + ')<br>';
+		}
+
+		setTimeout(() => {
+			$(this).find('.address').fadeOut(75, () => {
+				$(this).find('.address').html(tasks[index].shipping.name + '<br>' + tasks[index].shipping.address + '<br>' + tasks[index].shipping.city + '<br>' + tasks[index].shipping.zip);
+				$(this).find('.address').fadeIn(75);
+			});
+
+			$(this).find('.payment').fadeOut(75, () => {
+				$(this).find('.payment').html(tasks[index].payment.type + '<br>' + tasks[index].payment.number + '<br>' + tasks[index].payment.expirymonth + '/' + tasks[index].payment.expiryyear + '<br>' + tasks[index].payment.cvv);
+				$(this).find('.payment').fadeIn(75);
+			});
+
+			$(this).find('.name').fadeOut(75, () => {
+				$(this).find('.name').html(tasks[index].name + '<i class="material-icons items-hover">subject</i>');
+				$(this).find('.name').children('.items-hover').attr('data-toggle', 'popover');
+				$(this).find('.name').children('.items-hover').attr('data-placement', 'right');
+				$(this).find('.name').children('.items-hover').attr('data-html', 'true');
+				$(this).find('.name').children('.items-hover').attr('title', 'Shopping list');
+				$(this).find('.name').children('.items-hover').attr('data-content', shoppingListString);
+				$(this).find('.name').fadeIn(75);
+			});
+		}, 120);
+	}
+});
+
+$(document).on('click', '.task-select', function(e) {
+	e.stopPropagation();
+
+	if ($(this).text() == 'check_box') {
+		$(this).text('check_box_outline_blank');
+	}
+	else {
 		$(this).text('check_box');
-		$(this).parents('.list-group-item').css('height', '120px');
-
-			var shoppingListString = '';
-			for (i in tasks[index].shoppingList) {
-				shoppingListString += tasks[index].shoppingList[i].category + ': ' + tasks[index].shoppingList[i].keywords + ' - ' + tasks[index].shoppingList[i].colour + ' (' + tasks[index].shoppingList[i].size + ')<br>';
-			}
-
-			setTimeout(() => {
-				$(this).parent().siblings('.address').fadeOut(75, () => {
-					$(this).parent().siblings('.address').html(tasks[index].shipping.name + '<br>' + tasks[index].shipping.address + '<br>' + tasks[index].shipping.city + '<br>' + tasks[index].shipping.zip);
-					$(this).parent().siblings('.address').fadeIn(75);
-				});
-
-				$(this).parent().siblings('.payment').fadeOut(75, () => {
-					$(this).parent().siblings('.payment').html(tasks[index].payment.type + '<br>' + tasks[index].payment.number + '<br>' + tasks[index].payment.expirymonth + '/' + tasks[index].payment.expiryyear + '<br>' + tasks[index].payment.cvv);
-					$(this).parent().siblings('.payment').fadeIn(75);
-				});
-
-				$(this).parent().siblings('.name').fadeOut(75, () => {
-					$(this).parent().siblings('.name').html(tasks[index].name + '<i class="material-icons items-hover">subject</i>');
-					$(this).parent().siblings('.name').children('.items-hover').attr('data-toggle', 'popover');
-					$(this).parent().siblings('.name').children('.items-hover').attr('data-placement', 'right');
-					$(this).parent().siblings('.name').children('.items-hover').attr('data-html', 'true');
-					$(this).parent().siblings('.name').children('.items-hover').attr('title', 'Shopping list');
-					$(this).parent().siblings('.name').children('.items-hover').attr('data-content', shoppingListString);
-					$(this).parent().siblings('.name').fadeIn(75);
-				});
-			}, 120);
 	}
 });
 
@@ -344,7 +353,8 @@ $('#pause-tasks').on('click', function() {
 	}
 });
 
-$(document).on('click', '.edit-task', function() {
+$(document).on('click', '.edit-task', function(e) {
+	e.stopPropagation();
 	var id = $(this).parents('.list-group-item').data('id');
 
 	$('body').fadeOut(100, function() {
