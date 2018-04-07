@@ -30,8 +30,11 @@ $('.badge-ver').text(verPrefix + ver);
 $('#user-email').text(JSON.parse(localStorage.getItem('loggedInUser')).email);
 
 if (process.platform != 'darwin') {
-	if (!fs.existsSync('logs')){
+	if (!fs.existsSync('logs')) {
 		fs.mkdirSync('logs');
+	}
+	if (!fs.existsSync('confirmations')) {
+		fs.mkdirSync('confirmations');
 	}
 }
 
@@ -734,6 +737,19 @@ function handleBrowser(id) {
 					$(listEntry).children('.status').css('color', '#2ecc71');
 
 					analytics.event('Confirmation', 'success');
+
+					if (process.platform != 'darwin') {
+						tasks[arg[0]].browser.webContents.insertCSS('body { background-color: white !important; }');
+
+						setTimeout(() => {
+							tasks[arg[0]].browser.webContents.capturePage((image) => {
+								fName = 'confirmations/' + tasks[arg[0]].name + '_' + moment().format('Y-MM-DD') + '.png';
+								fs.writeFile(fName, image.toPng(), (err) => {
+									if (err) throw err;
+								});
+							});
+						}, 50);
+					}
 				}
 			}
 		});
