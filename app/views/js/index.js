@@ -115,10 +115,6 @@ setInterval(() => {
 	}
 }, 250);
 
-$(function () {
-	$('[data-toggle="tooltip"]').tooltip();
-});
-
 $('body').popover({
     selector: '[data-toggle="popover"]',
     trigger: 'hover'
@@ -150,7 +146,9 @@ if (tasks.length > 0) {
 }
 
 $(document).ready(function() {
-	analytics.pageview('https://checkmeout.pro', '/', 'Home screen');
+	setTimeout(() => {
+		analytics.pageview('https://checkmeout.pro', '/', 'Home screen');
+	}, 200);
 
 	for (i in tasks) {
 		tasks[i].browser = null;
