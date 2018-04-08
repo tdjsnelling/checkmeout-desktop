@@ -20,6 +20,7 @@
     "inline-svg": "^2.2.3",
     "moment": "^2.20.1",
     "nightmare": "^2.10.0",
+    "node-machine-id": "^1.1.10",
     "request": "^2.83.0",
     "semver": "^5.5.0"
   }

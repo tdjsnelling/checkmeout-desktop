@@ -19,6 +19,8 @@
 	window.$ = require('./js/jquery.min.js');
 	require('./js/common.js');
 	var request = require('request');
+	var {machineId, machineIdSync} = require('node-machine-id');
+	let mID = machineIdSync();
 
 	$(document).ready(function() {
 		var loggedInUser = localStorage.getItem('loggedInUser');
@@ -40,7 +42,8 @@
 			url: 'https://desktop.checkmeout.pro/login', 
 			form: {
 				email: email,
-				password: password
+				password: password,
+				machineId: mID
 			} 
 		},
 		function(err, httpResponse, body) {
@@ -55,13 +58,20 @@
 				});
 			}
 			else {
-				if (body == new Buffer(email).toString('base64') || body == 'already-logged-in') {
+				try {
+					body = JSON.parse(body);
+				}
+				catch (err) {
+					console.log(err)
+				}
+
+				if (body.status == 'login-success' || (body.status == 'already-logged-in' && body.session == mID)) {
 					localStorage.setItem('loggedInUser', JSON.stringify({ email: email, password: password }));
 					$('body').fadeOut(100, function() {
 						location.href = 'index.html';
 					});
 				}
-				else if (body == 'Unauthorized') {
+				else if (body == 'Unauthorized' || (body.status == 'already-logged-in' && body.session != mID)) {
 					$('body').fadeOut(100, function() {
 						location.href = 'login.html';
 					});

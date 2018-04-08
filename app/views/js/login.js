@@ -1,4 +1,6 @@
 var request = require('request');
+var {machineId, machineIdSync} = require('node-machine-id');
+let mID = machineIdSync();
 
 $('#login-btn').on('click', function() {
 	var count = 0;
@@ -26,7 +28,8 @@ function auth(email, password) {
 		url: 'https://desktop.checkmeout.pro/login', 
 		form: {
 			email: email,
-			password: password
+			password: password,
+			machineId: mID
 		} 
 	},
 	function(err, httpResponse, body) {
@@ -34,14 +37,21 @@ function auth(email, password) {
 			console.log(err);
 		}
 		else {
-			if (body == new Buffer(email).toString('base64')) {
+			try {
+				body = JSON.parse(body);
+			}
+			catch (err) {
+				console.log(err)
+			}
+
+			if (body.status == 'login-success' || (body.status == 'already-logged-in' && body.session == mID)) {
 				$('body').fadeOut(100, function() {
 					location.href = 'index.html';
 				});
 
 				localStorage.setItem('loggedInUser', JSON.stringify({ email: email, password: password }));
 			}
-			else if (body == 'already-logged-in') {
+			else if (body.status == 'already-logged-in' && body.session != mID) {
 				common.snackbar('<i class="material-icons">error_outline</i>&nbsp; You are already logged in elsewhere.');
 			}
 			else if (body == 'Unauthorized') {
