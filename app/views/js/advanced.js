@@ -1,11 +1,13 @@
 const {remote, ipcRenderer, shell} = require('electron');
 var request = require('request');
 var path = require('path');
+var {machineId, machineIdSync} = require('node-machine-id');
 
 let email;
 
 $(document).ready(function() {
 	email = JSON.parse(localStorage.getItem('loggedInUser')).email;
+	$('#machineId').text(machineIdSync());
 });
 
 $('#open-dev-tools').on('click', function() {

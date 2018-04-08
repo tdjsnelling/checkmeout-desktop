@@ -15,6 +15,11 @@
 	border-radius: 0px !important;
 }
 
+::selection { 
+	background: #ed1e24;
+	color: #eee; 
+}
+
 html, body {
 	background: #f8f8f8;
 	cursor: default;
