@@ -186,6 +186,9 @@ button:focus {
 }
 
 .list-head {
+	position: sticky;
+	top: 0;
+	z-index: 999;
 	background: #eee;
 	font-weight: bold;
 	margin-bottom: 20px;
@@ -195,8 +198,13 @@ button:focus {
 	width: 50px;
 }
 
+#tasks {
+	max-height: 512px;
+	overflow-y: auto;
+}
+
 #tasks .list-group-item {
-	height: 50px;
+	min-height: 50px;
 	transition: 0.3s;
 }
 
