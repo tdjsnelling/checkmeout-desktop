@@ -52,10 +52,27 @@
 			</div>
 		</div>
 	</div>
+	<div id="footer-text" style="width: 100%; text-align: center; position: fixed; bottom: -60px; color: #aaa; transition: 0.15s;">
+		<p>&copy; 2018 Check Me Out Ltd. All rights reserved.</p>
+		<a href="https://tdjs.tech" style="font-family: 'Futura'; color: #ccc; font-size: 26px; margin-bottom: 15px; display: inline-block; text-decoration: none;">tdjs</a>
+	</div>
 </body>
 <script>
 	window.$ = window.jQuery = require('./js/jquery.min.js');
 	require('./js/common.js');
 	require('./js/settings.js');
+	var shell = require('electron').shell;
+
+	$(document).on('click', 'a[href^="http"]', function(event) {
+		event.preventDefault();
+		shell.openExternal(this.href);
+	});
+
+	$('#footer-text').on('mouseenter', function() {
+		$(this).css('bottom', '0');
+	});
+	$('#footer-text').on('mouseleave', function() {
+		$(this).css('bottom', '-60px');
+	});
 </script>
 </html>
