@@ -187,7 +187,12 @@ ipcMain.on('create', (event, arg) => {
 // on receive browser status message
 
 ipcMain.on('status', (event, task, status) => {
-	logWindow.webContents.send('status', task, status);
+	try {
+		logWindow.webContents.send('status', task, status);
+	}
+	catch (e) {
+		console.error(e);
+	}
 });
 
 // get cookies

@@ -516,6 +516,14 @@ function handleBrowser(id) {
 
 			var $ = cheerio.load(arg[1]);
 
+			// set language to english
+			if (!$('li#current-lang').hasClass('en')) {
+				currentBrowser.webContents.executeJavaScript(`
+					$('li#current-lang').click();
+					$('li.en').click();
+				`);
+			}
+
 			var availableSizes = $('#size option, #s option').map((i, el) => {
 				return $(el).text();
 			}).get();
