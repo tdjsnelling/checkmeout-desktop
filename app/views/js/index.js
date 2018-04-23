@@ -23,7 +23,9 @@ $('#time').text(timeNow.format('HH:mm:ss'));
 
 let t0;
 
-var verPrefix = 'BETA ';
+console.log(remote.app.getPath('home'));
+
+var verPrefix = '';
 var ver = remote.app.getVersion();
 $('.badge-ver').text(verPrefix + ver);
 
@@ -38,7 +40,7 @@ if (process.platform != 'darwin') {
 	}
 }
 else {
-	var homeDir = process.env['HOME'];
+	var homeDir = remote.app.getPath('home');
 
 	if (!fs.existsSync(path.join(homeDir, 'Documents/Check Me Out'))) {
 		fs.mkdirSync(path.join(homeDir, 'Documents/Check Me Out'));
@@ -70,7 +72,7 @@ function perf(browser, event) {
 		});
 	}
 	else {
-		fName = path.join(process.env['HOME'], 'Documents/Check Me Out/logs/') + tasks[browser].name + '_' + moment().format('Y-MM-DD') + '.txt';
+		fName = path.join(remote.app.getPath('home'), 'Documents/Check Me Out/logs/') + tasks[browser].name + '_' + moment().format('Y-MM-DD') + '.txt';
 		fs.appendFile(fName, JSON.stringify(tObj) + '\n', (err) => {
 			if (err) throw err;
 		});
@@ -784,7 +786,7 @@ function handleBrowser(id) {
 								});
 							}
 							else {
-								fName = path.join(process.env['HOME'], 'Documents/Check Me Out/confirmations/') + tasks[arg[0]].name + '_' + moment().format('Y-MM-DD') + '.png';
+								fName = path.join(remote.app.getPath('home'), 'Documents/Check Me Out/confirmations/') + tasks[arg[0]].name + '_' + moment().format('Y-MM-DD') + '.png';
 								fs.writeFile(fName, image.toPng(), (err) => {
 									if (err) throw err;
 								});

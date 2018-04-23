@@ -1,14 +1,26 @@
 {
-    "@types/node@8.9.4": {
+    "7zip-bin-win@2.1.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/develar/7zip-bin",
+        "licenseUrl": "https://github.com/develar/7zip-bin",
+        "parents": "checkmeout-desktop"
+    },
+    "7zip-bin@2.4.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/develar/7zip-bin",
+        "licenseUrl": "https://github.com/develar/7zip-bin/raw/master/LICENSE.txt",
+        "parents": "checkmeout-desktop"
+    },
+    "@types/node@8.9.1": {
         "licenses": "MIT",
         "repository": "https://wwwhub.com/DefinitelyTyped/DefinitelyTyped",
         "licenseUrl": "https://wwwhub.com/DefinitelyTyped/DefinitelyTyped",
         "parents": "checkmeout-desktop"
     },
-    "accepts@1.3.4": {
+    "ajv-keywords@2.1.1": {
         "licenses": "MIT",
-        "repository": "https://github.com/jshttp/accepts",
-        "licenseUrl": "https://github.com/jshttp/accepts/raw/master/LICENSE",
+        "repository": "https://github.com/epoberezkin/ajv-keywords",
+        "licenseUrl": "https://github.com/epoberezkin/ajv-keywords/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
     "ajv@5.5.2": {
@@ -17,13 +29,31 @@
         "licenseUrl": "https://github.com/epoberezkin/ajv/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
+    "ansi-align@2.0.0": {
+        "licenses": "ISC",
+        "repository": "https://github.com/nexdrew/ansi-align",
+        "licenseUrl": "https://github.com/nexdrew/ansi-align/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
     "ansi-regex@2.1.1": {
         "licenses": "MIT",
         "repository": "https://github.com/chalk/ansi-regex",
         "licenseUrl": "https://github.com/chalk/ansi-regex/raw/master/license",
         "parents": "checkmeout-desktop"
     },
-    "argparse@1.0.10": {
+    "ansi-regex@3.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/chalk/ansi-regex",
+        "licenseUrl": "https://github.com/chalk/ansi-regex/raw/master/license",
+        "parents": "ansi-align:checkmeout-desktop"
+    },
+    "ansi-styles@3.2.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/chalk/ansi-styles",
+        "licenseUrl": "https://github.com/chalk/ansi-styles/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "argparse@1.0.9": {
         "licenses": "MIT",
         "repository": "https://github.com/nodeca/argparse",
         "licenseUrl": "https://github.com/nodeca/argparse/raw/master/LICENSE",
@@ -35,10 +65,10 @@
         "licenseUrl": "https://github.com/sindresorhus/array-find-index/raw/master/license",
         "parents": "checkmeout-desktop"
     },
-    "array-flatten@1.1.1": {
+    "asar-integrity@0.2.4": {
         "licenses": "MIT",
-        "repository": "https://github.com/blakeembrey/array-flatten",
-        "licenseUrl": "https://github.com/blakeembrey/array-flatten/raw/master/LICENSE",
+        "repository": "https://github.com/electron-userland/electron-builder",
+        "licenseUrl": "https://github.com/electron-userland/electron-builder",
         "parents": "checkmeout-desktop"
     },
     "asn1@0.2.3": {
@@ -51,6 +81,12 @@
         "licenses": "MIT",
         "repository": "https://github.com/mcavage/node-assert-plus",
         "licenseUrl": "https://github.com/mcavage/node-assert-plus",
+        "parents": "checkmeout-desktop"
+    },
+    "async-exit-hook@2.0.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/tapppi/async-exit-hook",
+        "licenseUrl": "https://github.com/tapppi/async-exit-hook/raw/master/license",
         "parents": "checkmeout-desktop"
     },
     "asynckit@0.4.0": {
@@ -77,6 +113,12 @@
         "licenseUrl": "https://github.com/juliangruber/balanced-match/raw/master/LICENSE.md",
         "parents": "checkmeout-desktop"
     },
+    "base64-js@1.2.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/beatgammit/base64-js",
+        "licenseUrl": "https://github.com/beatgammit/base64-js/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
     "bcrypt-pbkdf@1.0.1": {
         "licenses": "BSD-3-Clause",
         "parents": "checkmeout-desktop"
@@ -91,12 +133,6 @@
         "licenses": "MIT",
         "repository": "https://github.com/petkaantonov/bluebird",
         "licenseUrl": "https://github.com/petkaantonov/bluebird/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
-    "body-parser@1.18.2": {
-        "licenses": "MIT",
-        "repository": "https://github.com/expressjs/body-parser",
-        "licenseUrl": "https://github.com/expressjs/body-parser/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
     "boolbase@1.0.0": {
@@ -117,13 +153,25 @@
         "licenseUrl": "https://github.com/hapijs/boom/raw/master/LICENSE",
         "parents": "cryptiles:checkmeout-desktop"
     },
-    "brace-expansion@1.1.11": {
+    "boxen@1.3.0": {
         "licenses": "MIT",
-        "repository": "https://github.com/juliangruber/brace-expansion",
-        "licenseUrl": "https://github.com/juliangruber/brace-expansion/raw/master/LICENSE",
+        "repository": "https://github.com/sindresorhus/boxen",
+        "licenseUrl": "https://github.com/sindresorhus/boxen/raw/master/license",
         "parents": "checkmeout-desktop"
     },
-    "builder-util-runtime@4.0.5": {
+    "brace-expansion@1.1.8": {
+        "licenses": "MIT",
+        "repository": "https://github.com/juliangruber/brace-expansion",
+        "licenseUrl": "https://github.com/juliangruber/brace-expansion",
+        "parents": "checkmeout-desktop"
+    },
+    "builder-util-runtime@4.0.4": {
+        "licenses": "MIT",
+        "repository": "https://github.com/electron-userland/electron-builder",
+        "licenseUrl": "https://github.com/electron-userland/electron-builder",
+        "parents": "checkmeout-desktop"
+    },
+    "builder-util@4.2.2": {
         "licenses": "MIT",
         "repository": "https://github.com/electron-userland/electron-builder",
         "licenseUrl": "https://github.com/electron-userland/electron-builder",
@@ -133,12 +181,6 @@
         "licenses": "MIT",
         "repository": "https://github.com/sindresorhus/builtin-modules",
         "licenseUrl": "https://github.com/sindresorhus/builtin-modules/raw/master/license",
-        "parents": "checkmeout-desktop"
-    },
-    "bytes@3.0.0": {
-        "licenses": "MIT",
-        "repository": "https://github.com/visionmedia/bytes.js",
-        "licenseUrl": "https://github.com/visionmedia/bytes.js/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
     "camelcase-keys@2.1.0": {
@@ -153,16 +195,58 @@
         "licenseUrl": "https://github.com/sindresorhus/camelcase/raw/master/license",
         "parents": "checkmeout-desktop"
     },
+    "camelcase@4.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/camelcase",
+        "licenseUrl": "https://github.com/sindresorhus/camelcase/raw/master/license",
+        "parents": "boxen:checkmeout-desktop"
+    },
+    "capture-stack-trace@1.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/floatdrop/capture-stack-trace",
+        "licenseUrl": "https://github.com/floatdrop/capture-stack-trace",
+        "parents": "checkmeout-desktop"
+    },
     "caseless@0.12.0": {
         "licenses": "Apache-2.0",
         "repository": "https://github.com/mikeal/caseless",
         "licenseUrl": "https://github.com/mikeal/caseless/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
+    "chalk@2.3.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/chalk/chalk",
+        "licenseUrl": "https://github.com/chalk/chalk/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
     "cheerio@1.0.0-rc.2": {
         "licenses": "MIT",
         "repository": "https://github.com/cheeriojs/cheerio",
         "licenseUrl": "https://github.com/cheeriojs/cheerio/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "chromium-pickle-js@0.2.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/electron/node-chromium-pickle-js",
+        "licenseUrl": "https://github.com/electron/node-chromium-pickle-js",
+        "parents": "checkmeout-desktop"
+    },
+    "ci-info@1.1.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/watson/ci-info",
+        "licenseUrl": "https://github.com/watson/ci-info/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "cli-boxes@1.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/cli-boxes",
+        "licenseUrl": "https://github.com/sindresorhus/cli-boxes/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "cliui@4.0.0": {
+        "licenses": "ISC",
+        "repository": "https://github.com/yargs/cliui",
+        "licenseUrl": "https://github.com/yargs/cliui/raw/master/LICENSE.txt",
         "parents": "checkmeout-desktop"
     },
     "clone@1.0.3": {
@@ -183,16 +267,40 @@
         "licenseUrl": "https://github.com/sindresorhus/code-point-at/raw/master/license",
         "parents": "checkmeout-desktop"
     },
-    "combined-stream@1.0.6": {
+    "color-convert@0.5.3": {
+        "licenses": "UNKNOWN",
+        "repository": "https://github.com/harthur/color-convert",
+        "licenseUrl": "https://github.com/harthur/color-convert/raw/master/LICENSE",
+        "parents": "parse-color:checkmeout-desktop"
+    },
+    "color-convert@1.9.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/Qix-/color-convert",
+        "licenseUrl": "https://github.com/Qix-/color-convert/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "color-name@1.1.3": {
+        "licenses": "MIT",
+        "repository": "https://github.com/dfcreative/color-name",
+        "licenseUrl": "https://github.com/dfcreative/color-name/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "combined-stream@1.0.5": {
         "licenses": "MIT",
         "repository": "https://github.com/felixge/node-combined-stream",
         "licenseUrl": "https://github.com/felixge/node-combined-stream/raw/master/License",
         "parents": "checkmeout-desktop"
     },
     "commander@1.0.4": {
-        "licenses": "MIT*",
+        "licenses": "UNKNOWN",
         "repository": "https://github.com/visionmedia/commander.js",
-        "licenseUrl": "https://github.com/visionmedia/commander.js/raw/master/Readme.md",
+        "licenseUrl": "https://github.com/visionmedia/commander.js",
+        "parents": "checkmeout-desktop"
+    },
+    "compare-version@0.1.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/kevva/compare-version",
+        "licenseUrl": "https://github.com/kevva/compare-version",
         "parents": "checkmeout-desktop"
     },
     "concat-map@0.0.1": {
@@ -207,28 +315,10 @@
         "licenseUrl": "https://github.com/maxogden/concat-stream/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
-    "content-disposition@0.5.2": {
-        "licenses": "MIT",
-        "repository": "https://github.com/jshttp/content-disposition",
-        "licenseUrl": "https://github.com/jshttp/content-disposition/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
-    "content-type@1.0.4": {
-        "licenses": "MIT",
-        "repository": "https://github.com/jshttp/content-type",
-        "licenseUrl": "https://github.com/jshttp/content-type/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
-    "cookie-signature@1.0.6": {
-        "licenses": "MIT",
-        "repository": "https://github.com/visionmedia/node-cookie-signature",
-        "licenseUrl": "https://github.com/visionmedia/node-cookie-signature",
-        "parents": "checkmeout-desktop"
-    },
-    "cookie@0.3.1": {
-        "licenses": "MIT",
-        "repository": "https://github.com/jshttp/cookie",
-        "licenseUrl": "https://github.com/jshttp/cookie/raw/master/LICENSE",
+    "configstore@3.1.1": {
+        "licenses": "BSD-2-Clause",
+        "repository": "https://github.com/yeoman/configstore",
+        "licenseUrl": "https://github.com/yeoman/configstore",
         "parents": "checkmeout-desktop"
     },
     "core-util-is@1.0.2": {
@@ -237,10 +327,28 @@
         "licenseUrl": "https://github.com/isaacs/core-util-is/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
+    "create-error-class@3.0.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/floatdrop/create-error-class",
+        "licenseUrl": "https://github.com/floatdrop/create-error-class/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "cross-spawn@5.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/IndigoUnited/node-cross-spawn",
+        "licenseUrl": "https://github.com/IndigoUnited/node-cross-spawn/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
     "cryptiles@3.1.2": {
         "licenses": "BSD-3-Clause",
         "repository": "https://github.com/hapijs/cryptiles",
         "licenseUrl": "https://github.com/hapijs/cryptiles/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "crypto-random-string@1.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/crypto-random-string",
+        "licenseUrl": "https://github.com/sindresorhus/crypto-random-string/raw/master/license",
         "parents": "checkmeout-desktop"
     },
     "css-select@1.2.0": {
@@ -271,7 +379,7 @@
         "licenses": "MIT",
         "repository": "https://github.com/visionmedia/debug",
         "licenseUrl": "https://github.com/visionmedia/debug/raw/master/LICENSE",
-        "parents": "body-parser:checkmeout-desktop"
+        "parents": "nightmare:checkmeout-desktop"
     },
     "debug@3.1.0": {
         "licenses": "MIT",
@@ -309,22 +417,10 @@
         "licenseUrl": "https://github.com/felixge/node-delayed-stream/raw/master/License",
         "parents": "checkmeout-desktop"
     },
-    "depd@1.1.1": {
+    "dmg-builder@3.1.4": {
         "licenses": "MIT",
-        "repository": "https://github.com/dougwilson/nodejs-depd",
-        "licenseUrl": "https://github.com/dougwilson/nodejs-depd/raw/master/LICENSE",
-        "parents": "http-errors:checkmeout-desktop"
-    },
-    "depd@1.1.2": {
-        "licenses": "MIT",
-        "repository": "https://github.com/dougwilson/nodejs-depd",
-        "licenseUrl": "https://github.com/dougwilson/nodejs-depd/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
-    "destroy@1.0.4": {
-        "licenses": "MIT",
-        "repository": "https://github.com/stream-utils/destroy",
-        "licenseUrl": "https://github.com/stream-utils/destroy/raw/master/LICENSE",
+        "repository": "https://github.com/electron-userland/electron-builder",
+        "licenseUrl": "https://github.com/electron-userland/electron-builder",
         "parents": "checkmeout-desktop"
     },
     "dom-serializer@0.1.0": {
@@ -357,22 +453,68 @@
         "licenseUrl": "https://github.com/FB55/domutils/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
+    "dot-prop@4.2.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/dot-prop",
+        "licenseUrl": "https://github.com/sindresorhus/dot-prop/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "dotenv-expand@4.0.1": {
+        "licenses": "BSD-2-Clause",
+        "parents": "checkmeout-desktop"
+    },
+    "dotenv@4.0.0": {
+        "licenses": "BSD-2-Clause",
+        "repository": "https://github.com/motdotla/dotenv",
+        "licenseUrl": "https://github.com/motdotla/dotenv/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "duplexer3@0.1.4": {
+        "licenses": "BSD-3-Clause",
+        "repository": "https://github.com/floatdrop/duplexer3",
+        "licenseUrl": "https://github.com/floatdrop/duplexer3/raw/master/LICENSE.md",
+        "parents": "checkmeout-desktop"
+    },
     "ecc-jsbn@0.1.1": {
         "licenses": "MIT",
         "repository": "https://github.com/quartzjer/ecc-jsbn",
         "licenseUrl": "https://github.com/quartzjer/ecc-jsbn/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
-    "ee-first@1.1.1": {
+    "ejs@2.5.7": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/mde/ejs",
+        "licenseUrl": "https://github.com/mde/ejs/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "electron-builder-lib@19.56.0": {
         "licenses": "MIT",
-        "repository": "https://github.com/jonathanong/ee-first",
-        "licenseUrl": "https://github.com/jonathanong/ee-first/raw/master/LICENSE",
+        "repository": "https://github.com/electron-userland/electron-builder",
+        "licenseUrl": "https://github.com/electron-userland/electron-builder",
+        "parents": "checkmeout-desktop"
+    },
+    "electron-builder@19.56.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/electron-userland/electron-builder",
+        "licenseUrl": "https://github.com/electron-userland/electron-builder",
+        "parents": "checkmeout-desktop"
+    },
+    "electron-download-tf@4.3.4": {
+        "licenses": "BSD-3-Clause",
+        "repository": "https://github.com/electron-userland/electron-download",
+        "licenseUrl": "https://github.com/electron-userland/electron-download",
         "parents": "checkmeout-desktop"
     },
     "electron-download@3.3.0": {
         "licenses": "BSD-3-Clause",
         "repository": "https://github.com/electron-userland/electron-download",
         "licenseUrl": "https://github.com/electron-userland/electron-download",
+        "parents": "nightmare:checkmeout-desktop"
+    },
+    "electron-google-analytics@0.0.24": {
+        "licenses": "MIT",
+        "repository": "https://github.com/vacu/electron-google-analytics",
+        "licenseUrl": "https://github.com/vacu/electron-google-analytics/raw/master/LICENSE.md",
         "parents": "checkmeout-desktop"
     },
     "electron-is-dev@0.3.0": {
@@ -381,40 +523,52 @@
         "licenseUrl": "https://github.com/sindresorhus/electron-is-dev/raw/master/license",
         "parents": "checkmeout-desktop"
     },
+    "electron-osx-sign@0.4.8": {
+        "licenses": "BSD-2-Clause",
+        "repository": "https://github.com/electron-userland/electron-osx-sign",
+        "licenseUrl": "https://github.com/electron-userland/electron-osx-sign/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "electron-publish@19.56.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/electron-userland/electron-builder",
+        "licenseUrl": "https://github.com/electron-userland/electron-builder",
+        "parents": "checkmeout-desktop"
+    },
     "electron-updater@2.20.1": {
         "licenses": "MIT",
         "repository": "https://github.com/electron-userland/electron-builder",
         "licenseUrl": "https://github.com/electron-userland/electron-builder",
         "parents": "checkmeout-desktop"
     },
-    "electron@1.8.2": {
+    "electron@1.8.3": {
         "licenses": "MIT",
         "repository": "https://github.com/electron/electron",
         "licenseUrl": "https://github.com/electron/electron/raw/master/LICENSE",
         "parents": "nightmare:checkmeout-desktop"
     },
-    "electron@2.0.0-beta.1": {
+    "electron@1.8.4": {
         "licenses": "MIT",
         "repository": "https://github.com/electron/electron",
         "licenseUrl": "https://github.com/electron/electron/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
-    "encodeurl@1.0.2": {
-        "licenses": "MIT",
-        "repository": "https://github.com/pillarjs/encodeurl",
-        "licenseUrl": "https://github.com/pillarjs/encodeurl/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
     "enqueue@1.0.2": {
-        "licenses": "MIT*",
+        "licenses": "UNKNOWN",
         "repository": "https://github.com/MatthewMueller/enqueue",
-        "licenseUrl": "https://github.com/MatthewMueller/enqueue/raw/master/Readme.md",
+        "licenseUrl": "https://github.com/MatthewMueller/enqueue",
         "parents": "checkmeout-desktop"
     },
     "entities@1.1.1": {
         "licenses": "BSD-like",
         "repository": "https://github.com/fb55/node-entities",
         "licenseUrl": "https://github.com/fb55/node-entities/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "env-paths@1.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/env-paths",
+        "licenseUrl": "https://github.com/sindresorhus/env-paths/raw/master/license",
         "parents": "checkmeout-desktop"
     },
     "error-ex@1.3.1": {
@@ -429,10 +583,10 @@
         "licenseUrl": "https://github.com/stefanpenner/es6-promise/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
-    "escape-html@1.0.3": {
+    "escape-string-regexp@1.0.5": {
         "licenses": "MIT",
-        "repository": "https://github.com/component/escape-html",
-        "licenseUrl": "https://github.com/component/escape-html/raw/master/LICENSE",
+        "repository": "https://github.com/sindresorhus/escape-string-regexp",
+        "licenseUrl": "https://github.com/sindresorhus/escape-string-regexp/raw/master/license",
         "parents": "checkmeout-desktop"
     },
     "esprima@4.0.0": {
@@ -441,16 +595,10 @@
         "licenseUrl": "https://github.com/jquery/esprima/raw/master/LICENSE.BSD",
         "parents": "checkmeout-desktop"
     },
-    "etag@1.8.1": {
+    "execa@0.7.0": {
         "licenses": "MIT",
-        "repository": "https://github.com/jshttp/etag",
-        "licenseUrl": "https://github.com/jshttp/etag/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
-    "express@4.16.2": {
-        "licenses": "MIT",
-        "repository": "https://github.com/expressjs/express",
-        "licenseUrl": "https://github.com/expressjs/express/raw/master/LICENSE",
+        "repository": "https://github.com/sindresorhus/execa",
+        "licenseUrl": "https://github.com/sindresorhus/execa/raw/master/license",
         "parents": "checkmeout-desktop"
     },
     "extend@3.0.1": {
@@ -489,17 +637,17 @@
         "licenseUrl": "https://github.com/andrewrk/node-fd-slicer/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
-    "finalhandler@1.1.0": {
-        "licenses": "MIT",
-        "repository": "https://github.com/pillarjs/finalhandler",
-        "licenseUrl": "https://github.com/pillarjs/finalhandler/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
     "find-up@1.1.2": {
         "licenses": "MIT",
         "repository": "https://github.com/sindresorhus/find-up",
         "licenseUrl": "https://github.com/sindresorhus/find-up/raw/master/license",
         "parents": "checkmeout-desktop"
+    },
+    "find-up@2.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/find-up",
+        "licenseUrl": "https://github.com/sindresorhus/find-up/raw/master/license",
+        "parents": "yargs:checkmeout-desktop"
     },
     "forever-agent@0.6.1": {
         "licenses": "Apache-2.0",
@@ -507,25 +655,13 @@
         "licenseUrl": "https://github.com/mikeal/forever-agent/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
-    "form-data@2.3.2": {
+    "form-data@2.3.1": {
         "licenses": "MIT",
         "repository": "https://github.com/form-data/form-data",
         "licenseUrl": "https://github.com/form-data/form-data/raw/master/License",
         "parents": "checkmeout-desktop"
     },
-    "forwarded@0.1.2": {
-        "licenses": "MIT",
-        "repository": "https://github.com/jshttp/forwarded",
-        "licenseUrl": "https://github.com/jshttp/forwarded/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
-    "fresh@0.5.2": {
-        "licenses": "MIT",
-        "repository": "https://github.com/jshttp/fresh",
-        "licenseUrl": "https://github.com/jshttp/fresh/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
-    "fs-extra-p@4.5.2": {
+    "fs-extra-p@4.5.0": {
         "licenses": "MIT",
         "repository": "https://github.com/develar/fs-extra-p",
         "licenseUrl": "https://github.com/develar/fs-extra-p/raw/master/LICENSE",
@@ -535,7 +671,13 @@
         "licenses": "MIT",
         "repository": "https://github.com/jprichardson/node-fs-extra",
         "licenseUrl": "https://github.com/jprichardson/node-fs-extra/raw/master/LICENSE",
-        "parents": "electron-download:checkmeout-desktop"
+        "parents": "nightmare:checkmeout-desktop"
+    },
+    "fs-extra@4.0.3": {
+        "licenses": "MIT",
+        "repository": "https://github.com/jprichardson/node-fs-extra",
+        "licenseUrl": "https://github.com/jprichardson/node-fs-extra/raw/master/LICENSE",
+        "parents": "electron-download-tf:checkmeout-desktop"
     },
     "fs-extra@5.0.0": {
         "licenses": "MIT",
@@ -561,10 +703,22 @@
         "licenseUrl": "https://github.com/krisk/Fuse/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
+    "get-caller-file@1.0.2": {
+        "licenses": "ISC",
+        "repository": "https://github.com/stefanpenner/get-caller-file",
+        "licenseUrl": "https://github.com/stefanpenner/get-caller-file",
+        "parents": "checkmeout-desktop"
+    },
     "get-stdin@4.0.1": {
         "licenses": "MIT",
         "repository": "https://github.com/sindresorhus/get-stdin",
         "licenseUrl": "https://github.com/sindresorhus/get-stdin",
+        "parents": "checkmeout-desktop"
+    },
+    "get-stream@3.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/get-stream",
+        "licenseUrl": "https://github.com/sindresorhus/get-stream/raw/master/license",
         "parents": "checkmeout-desktop"
     },
     "getpass@0.1.7": {
@@ -577,6 +731,18 @@
         "licenses": "ISC",
         "repository": "https://github.com/isaacs/node-glob",
         "licenseUrl": "https://github.com/isaacs/node-glob/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "global-dirs@0.1.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/global-dirs",
+        "licenseUrl": "https://github.com/sindresorhus/global-dirs/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "got@6.7.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/got",
+        "licenseUrl": "https://github.com/sindresorhus/got/raw/master/license",
         "parents": "checkmeout-desktop"
     },
     "graceful-fs@4.1.11": {
@@ -597,13 +763,19 @@
         "licenseUrl": "https://github.com/ahmadnassri/har-validator/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
+    "has-flag@2.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/has-flag",
+        "licenseUrl": "https://github.com/sindresorhus/has-flag/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
     "hawk@6.0.2": {
         "licenses": "BSD-3-Clause",
         "repository": "https://github.com/hueniverse/hawk",
         "licenseUrl": "https://github.com/hueniverse/hawk/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
-    "hoek@4.2.1": {
+    "hoek@4.2.0": {
         "licenses": "BSD-3-Clause",
         "repository": "https://github.com/hapijs/hoek",
         "licenseUrl": "https://github.com/hapijs/hoek/raw/master/LICENSE",
@@ -627,12 +799,6 @@
         "licenseUrl": "https://github.com/fb55/htmlparser2/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
-    "http-errors@1.6.2": {
-        "licenses": "MIT",
-        "repository": "https://github.com/jshttp/http-errors",
-        "licenseUrl": "https://github.com/jshttp/http-errors/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
     "http-signature@1.2.0": {
         "licenses": "MIT",
         "repository": "https://github.com/joyent/node-http-signature",
@@ -643,6 +809,18 @@
         "licenses": "MIT",
         "repository": "https://github.com/ashtuchkin/iconv-lite",
         "licenseUrl": "https://github.com/ashtuchkin/iconv-lite/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "import-lazy@2.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/import-lazy",
+        "licenseUrl": "https://github.com/sindresorhus/import-lazy/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "imurmurhash@0.1.4": {
+        "licenses": "MIT",
+        "repository": "https://github.com/jensyt/imurmurhash-js",
+        "licenseUrl": "https://github.com/jensyt/imurmurhash-js",
         "parents": "checkmeout-desktop"
     },
     "indent-string@2.1.0": {
@@ -669,10 +847,16 @@
         "licenseUrl": "https://github.com/isaacs/ini/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
-    "ipaddr.js@1.6.0": {
+    "inline-svg@2.2.3": {
         "licenses": "MIT",
-        "repository": "https://github.com/whitequark/ipaddr.js",
-        "licenseUrl": "https://github.com/whitequark/ipaddr.js/raw/master/LICENSE",
+        "repository": "https://github.com/jonnyhaynes/inline-svg",
+        "licenseUrl": "https://github.com/jonnyhaynes/inline-svg/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "invert-kv@1.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/invert-kv",
+        "licenseUrl": "https://github.com/sindresorhus/invert-kv",
         "parents": "checkmeout-desktop"
     },
     "is-arrayish@0.2.1": {
@@ -687,6 +871,12 @@
         "licenseUrl": "https://github.com/sindresorhus/is-builtin-module/raw/master/license",
         "parents": "checkmeout-desktop"
     },
+    "is-ci@1.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/watson/is-ci",
+        "licenseUrl": "https://github.com/watson/is-ci/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
     "is-finite@1.0.2": {
         "licenses": "MIT",
         "repository": "https://github.com/sindresorhus/is-finite",
@@ -697,6 +887,54 @@
         "licenses": "MIT",
         "repository": "https://github.com/sindresorhus/is-fullwidth-code-point",
         "licenseUrl": "https://github.com/sindresorhus/is-fullwidth-code-point/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "is-fullwidth-code-point@2.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/is-fullwidth-code-point",
+        "licenseUrl": "https://github.com/sindresorhus/is-fullwidth-code-point/raw/master/license",
+        "parents": "ansi-align:checkmeout-desktop"
+    },
+    "is-installed-globally@0.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/is-installed-globally",
+        "licenseUrl": "https://github.com/sindresorhus/is-installed-globally/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "is-npm@1.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/is-npm",
+        "licenseUrl": "https://github.com/sindresorhus/is-npm",
+        "parents": "checkmeout-desktop"
+    },
+    "is-obj@1.0.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/is-obj",
+        "licenseUrl": "https://github.com/sindresorhus/is-obj/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "is-path-inside@1.0.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/is-path-inside",
+        "licenseUrl": "https://github.com/sindresorhus/is-path-inside/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "is-redirect@1.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/is-redirect",
+        "licenseUrl": "https://github.com/sindresorhus/is-redirect/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "is-retry-allowed@1.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/floatdrop/is-retry-allowed",
+        "licenseUrl": "https://github.com/floatdrop/is-retry-allowed/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "is-stream@1.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/is-stream",
+        "licenseUrl": "https://github.com/sindresorhus/is-stream/raw/master/license",
         "parents": "checkmeout-desktop"
     },
     "is-typedarray@1.0.0": {
@@ -722,6 +960,18 @@
         "repository": "https://github.com/juliangruber/isarray",
         "licenseUrl": "https://github.com/juliangruber/isarray",
         "parents": "htmlparser2:checkmeout-desktop"
+    },
+    "isbinaryfile@3.0.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/gjtorikian/isBinaryFile",
+        "licenseUrl": "https://github.com/gjtorikian/isBinaryFile/raw/master/LICENSE.txt",
+        "parents": "checkmeout-desktop"
+    },
+    "isexe@2.0.0": {
+        "licenses": "ISC",
+        "repository": "https://github.com/isaacs/isexe",
+        "licenseUrl": "https://github.com/isaacs/isexe/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
     },
     "isstream@0.1.2": {
         "licenses": "MIT",
@@ -765,11 +1015,17 @@
         "licenseUrl": "https://github.com/isaacs/json-stringify-safe/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
+    "json5@0.5.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/aseemk/json5",
+        "licenseUrl": "https://github.com/aseemk/json5/raw/master/LICENSE.md",
+        "parents": "checkmeout-desktop"
+    },
     "jsonfile@2.4.0": {
         "licenses": "MIT",
         "repository": "https://github.com/jprichardson/node-jsonfile",
         "licenseUrl": "https://github.com/jprichardson/node-jsonfile/raw/master/LICENSE",
-        "parents": "electron-download:checkmeout-desktop"
+        "parents": "nightmare:checkmeout-desktop"
     },
     "jsonfile@4.0.0": {
         "licenses": "MIT",
@@ -795,16 +1051,34 @@
         "licenseUrl": "https://github.com/jprichardson/node-klaw/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
+    "latest-version@3.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/latest-version",
+        "licenseUrl": "https://github.com/sindresorhus/latest-version/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
     "lazy-val@1.0.3": {
         "licenses": "MIT",
         "repository": "https://github.com/develar/read-config-file",
         "licenseUrl": "https://github.com/develar/read-config-file",
         "parents": "checkmeout-desktop"
     },
+    "lcid@1.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/lcid",
+        "licenseUrl": "https://github.com/sindresorhus/lcid/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
     "load-json-file@1.1.0": {
         "licenses": "MIT",
         "repository": "https://github.com/sindresorhus/load-json-file",
         "licenseUrl": "https://github.com/sindresorhus/load-json-file/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "locate-path@2.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/locate-path",
+        "licenseUrl": "https://github.com/sindresorhus/locate-path/raw/master/license",
         "parents": "checkmeout-desktop"
     },
     "lodash.isequal@4.5.0": {
@@ -831,16 +1105,34 @@
         "licenseUrl": "https://github.com/sindresorhus/loud-rejection/raw/master/license",
         "parents": "checkmeout-desktop"
     },
+    "lowercase-keys@1.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/lowercase-keys",
+        "licenseUrl": "https://github.com/sindresorhus/lowercase-keys",
+        "parents": "checkmeout-desktop"
+    },
+    "lru-cache@4.1.1": {
+        "licenses": "ISC",
+        "repository": "https://github.com/isaacs/node-lru-cache",
+        "licenseUrl": "https://github.com/isaacs/node-lru-cache/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "make-dir@1.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/make-dir",
+        "licenseUrl": "https://github.com/sindresorhus/make-dir/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
     "map-obj@1.0.1": {
         "licenses": "MIT",
         "repository": "https://github.com/sindresorhus/map-obj",
         "licenseUrl": "https://github.com/sindresorhus/map-obj/raw/master/license",
         "parents": "checkmeout-desktop"
     },
-    "media-typer@0.3.0": {
+    "mem@1.1.0": {
         "licenses": "MIT",
-        "repository": "https://github.com/jshttp/media-typer",
-        "licenseUrl": "https://github.com/jshttp/media-typer/raw/master/LICENSE",
+        "repository": "https://github.com/sindresorhus/mem",
+        "licenseUrl": "https://github.com/sindresorhus/mem/raw/master/license",
         "parents": "checkmeout-desktop"
     },
     "meow@3.7.0": {
@@ -849,34 +1141,28 @@
         "licenseUrl": "https://github.com/sindresorhus/meow/raw/master/license",
         "parents": "checkmeout-desktop"
     },
-    "merge-descriptors@1.0.1": {
-        "licenses": "MIT",
-        "repository": "https://github.com/component/merge-descriptors",
-        "licenseUrl": "https://github.com/component/merge-descriptors/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
-    "methods@1.1.2": {
-        "licenses": "MIT",
-        "repository": "https://github.com/jshttp/methods",
-        "licenseUrl": "https://github.com/jshttp/methods/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
-    "mime-db@1.33.0": {
+    "mime-db@1.30.0": {
         "licenses": "MIT",
         "repository": "https://github.com/jshttp/mime-db",
         "licenseUrl": "https://github.com/jshttp/mime-db/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
-    "mime-types@2.1.18": {
+    "mime-types@2.1.17": {
         "licenses": "MIT",
         "repository": "https://github.com/jshttp/mime-types",
         "licenseUrl": "https://github.com/jshttp/mime-types/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
-    "mime@1.4.1": {
+    "mime@2.2.0": {
         "licenses": "MIT",
         "repository": "https://github.com/broofa/node-mime",
         "licenseUrl": "https://github.com/broofa/node-mime/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "mimic-fn@1.2.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/mimic-fn",
+        "licenseUrl": "https://github.com/sindresorhus/mimic-fn/raw/master/license",
         "parents": "checkmeout-desktop"
     },
     "minimatch@3.0.4": {
@@ -889,29 +1175,29 @@
         "licenses": "MIT",
         "repository": "https://github.com/substack/minimist",
         "licenseUrl": "https://github.com/substack/minimist/raw/master/LICENSE",
-        "parents": "extract-zip:checkmeout-desktop"
+        "parents": "mkdirp:checkmeout-desktop"
     },
     "minimist@1.2.0": {
         "licenses": "MIT",
         "repository": "https://github.com/substack/minimist",
         "licenseUrl": "https://github.com/substack/minimist/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
+        "parents": "electron-download:nightmare:checkmeout-desktop"
     },
     "minstache@1.2.0": {
-        "licenses": "MIT*",
+        "licenses": "UNKNOWN",
         "parents": "checkmeout-desktop"
     },
     "mkdirp@0.5.0": {
         "licenses": "MIT",
         "repository": "https://github.com/substack/node-mkdirp",
         "licenseUrl": "https://github.com/substack/node-mkdirp/raw/master/LICENSE",
-        "parents": "extract-zip:checkmeout-desktop"
+        "parents": "checkmeout-desktop"
     },
     "mkdirp@0.5.1": {
         "licenses": "MIT",
         "repository": "https://github.com/substack/node-mkdirp",
         "licenseUrl": "https://github.com/substack/node-mkdirp/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
+        "parents": "nightmare:checkmeout-desktop"
     },
     "moment@2.20.1": {
         "licenses": "MIT",
@@ -925,22 +1211,28 @@
         "licenseUrl": "https://github.com/zeit/ms/raw/master/license.md",
         "parents": "checkmeout-desktop"
     },
-    "negotiator@0.6.1": {
-        "licenses": "MIT",
-        "repository": "https://github.com/jshttp/negotiator",
-        "licenseUrl": "https://github.com/jshttp/negotiator/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
     "nightmare@2.10.0": {
         "licenses": "MIT",
         "repository": "https://github.com/segmentio/nightmare",
         "licenseUrl": "https://github.com/segmentio/nightmare",
         "parents": "checkmeout-desktop"
     },
+    "node-machine-id@1.1.10": {
+        "licenses": "MIT",
+        "repository": "https://github.com/automation-stack/node-machine-id",
+        "licenseUrl": "https://github.com/automation-stack/node-machine-id/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
     "normalize-package-data@2.4.0": {
         "licenses": "BSD-2-Clause",
         "repository": "https://github.com/npm/normalize-package-data",
         "licenseUrl": "https://github.com/npm/normalize-package-data/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "npm-run-path@2.0.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/npm-run-path",
+        "licenseUrl": "https://github.com/sindresorhus/npm-run-path/raw/master/license",
         "parents": "checkmeout-desktop"
     },
     "nth-check@1.0.1": {
@@ -967,12 +1259,6 @@
         "licenseUrl": "https://github.com/mikeal/oauth-sign/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
-    "oauth@0.9.15": {
-        "licenses": "MIT",
-        "repository": "https://github.com/ciaranj/node-oauth",
-        "licenseUrl": "https://github.com/ciaranj/node-oauth/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
     "object-assign@4.1.1": {
         "licenses": "MIT",
         "repository": "https://github.com/sindresorhus/object-assign",
@@ -985,16 +1271,52 @@
         "licenseUrl": "https://github.com/ljharb/object-keys",
         "parents": "checkmeout-desktop"
     },
-    "on-finished@2.3.0": {
-        "licenses": "MIT",
-        "repository": "https://github.com/jshttp/on-finished",
-        "licenseUrl": "https://github.com/jshttp/on-finished/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
     "once@1.4.0": {
         "licenses": "ISC",
         "repository": "https://github.com/isaacs/once",
         "licenseUrl": "https://github.com/isaacs/once/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "os-locale@2.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/os-locale",
+        "licenseUrl": "https://github.com/sindresorhus/os-locale/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "p-finally@1.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/p-finally",
+        "licenseUrl": "https://github.com/sindresorhus/p-finally/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "p-limit@1.2.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/p-limit",
+        "licenseUrl": "https://github.com/sindresorhus/p-limit/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "p-locate@2.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/p-locate",
+        "licenseUrl": "https://github.com/sindresorhus/p-locate/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "p-try@1.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/p-try",
+        "licenseUrl": "https://github.com/sindresorhus/p-try/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "package-json@4.0.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/package-json",
+        "licenseUrl": "https://github.com/sindresorhus/package-json/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "parse-color@1.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/substack/parse-color",
+        "licenseUrl": "https://github.com/substack/parse-color/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
     "parse-json@2.2.0": {
@@ -1009,55 +1331,13 @@
         "licenseUrl": "https://github.com/inikulin/parse5/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
-    "parseurl@1.3.2": {
-        "licenses": "MIT",
-        "repository": "https://github.com/pillarjs/parseurl",
-        "licenseUrl": "https://github.com/pillarjs/parseurl/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
-    "passport-google-oauth1@1.0.0": {
-        "licenses": "MIT",
-        "repository": "https://github.com/jaredhanson/passport-google-oauth1",
-        "licenseUrl": "https://github.com/jaredhanson/passport-google-oauth1/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
-    "passport-google-oauth20@1.0.0": {
-        "licenses": "MIT",
-        "repository": "https://github.com/jaredhanson/passport-google-oauth2",
-        "licenseUrl": "https://github.com/jaredhanson/passport-google-oauth2/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
-    "passport-google-oauth@1.0.0": {
-        "licenses": "MIT",
-        "repository": "https://github.com/jaredhanson/passport-google-oauth",
-        "licenseUrl": "https://github.com/jaredhanson/passport-google-oauth/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
-    "passport-oauth1@1.1.0": {
-        "licenses": "MIT",
-        "repository": "https://github.com/jaredhanson/passport-oauth1",
-        "licenseUrl": "https://github.com/jaredhanson/passport-oauth1/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
-    "passport-oauth2@1.4.0": {
-        "licenses": "MIT",
-        "repository": "https://github.com/jaredhanson/passport-oauth2",
-        "licenseUrl": "https://github.com/jaredhanson/passport-oauth2/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
-    "passport-strategy@1.0.0": {
-        "licenses": "MIT",
-        "repository": "https://github.com/jaredhanson/passport-strategy",
-        "licenseUrl": "http://www.opensource.org/licenses/MIT",
-        "parents": "checkmeout-desktop"
-    },
-    "passport@0.4.0": {
-        "licenses": "MIT",
-        "repository": "https://github.com/jaredhanson/passport",
-        "licenseUrl": "https://github.com/jaredhanson/passport/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
     "path-exists@2.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/path-exists",
+        "licenseUrl": "https://github.com/sindresorhus/path-exists/raw/master/license",
+        "parents": "find-up:checkmeout-desktop"
+    },
+    "path-exists@3.0.0": {
         "licenses": "MIT",
         "repository": "https://github.com/sindresorhus/path-exists",
         "licenseUrl": "https://github.com/sindresorhus/path-exists/raw/master/license",
@@ -1069,20 +1349,22 @@
         "licenseUrl": "https://github.com/sindresorhus/path-is-absolute/raw/master/license",
         "parents": "checkmeout-desktop"
     },
-    "path-to-regexp@0.1.7": {
+    "path-is-inside@1.0.2": {
+        "licenses": "(WTFPL OR MIT)",
+        "repository": "https://github.com/domenic/path-is-inside",
+        "licenseUrl": "https://github.com/domenic/path-is-inside/raw/master/LICENSE.txt",
+        "parents": "checkmeout-desktop"
+    },
+    "path-key@2.0.1": {
         "licenses": "MIT",
-        "repository": "https://github.com/component/path-to-regexp",
-        "licenseUrl": "https://github.com/component/path-to-regexp/raw/master/LICENSE",
+        "repository": "https://github.com/sindresorhus/path-key",
+        "licenseUrl": "https://github.com/sindresorhus/path-key/raw/master/license",
         "parents": "checkmeout-desktop"
     },
     "path-type@1.1.0": {
         "licenses": "MIT",
         "repository": "https://github.com/sindresorhus/path-type",
         "licenseUrl": "https://github.com/sindresorhus/path-type/raw/master/license",
-        "parents": "checkmeout-desktop"
-    },
-    "pause@0.0.1": {
-        "licenses": "MIT*",
         "parents": "checkmeout-desktop"
     },
     "pend@1.2.0": {
@@ -1103,6 +1385,12 @@
         "licenseUrl": "https://github.com/sindresorhus/pify/raw/master/license",
         "parents": "checkmeout-desktop"
     },
+    "pify@3.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/pify",
+        "licenseUrl": "https://github.com/sindresorhus/pify/raw/master/license",
+        "parents": "make-dir:checkmeout-desktop"
+    },
     "pinkie-promise@2.0.1": {
         "licenses": "MIT",
         "repository": "https://github.com/floatdrop/pinkie-promise",
@@ -1115,6 +1403,18 @@
         "licenseUrl": "https://github.com/floatdrop/pinkie/raw/master/license",
         "parents": "checkmeout-desktop"
     },
+    "plist@2.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/TooTallNate/node-plist",
+        "licenseUrl": "https://github.com/TooTallNate/node-plist/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "prepend-http@1.0.4": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/prepend-http",
+        "licenseUrl": "https://github.com/sindresorhus/prepend-http/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
     "pretty-bytes@1.0.4": {
         "licenses": "MIT",
         "repository": "https://github.com/sindresorhus/pretty-bytes",
@@ -1125,7 +1425,7 @@
         "licenses": "MIT",
         "repository": "https://github.com/calvinmetcalf/process-nextick-args",
         "licenseUrl": "https://github.com/calvinmetcalf/process-nextick-args/raw/master/license.md",
-        "parents": "checkmeout-desktop"
+        "parents": "htmlparser2:checkmeout-desktop"
     },
     "progress-stream@1.2.0": {
         "licenses": "BSD-2-Clause",
@@ -1133,10 +1433,10 @@
         "licenseUrl": "https://github.com/freeall/progress-stream/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
-    "proxy-addr@2.0.3": {
-        "licenses": "MIT",
-        "repository": "https://github.com/jshttp/proxy-addr",
-        "licenseUrl": "https://github.com/jshttp/proxy-addr/raw/master/LICENSE",
+    "pseudomap@1.0.2": {
+        "licenses": "ISC",
+        "repository": "https://github.com/isaacs/pseudomap",
+        "licenseUrl": "https://github.com/isaacs/pseudomap/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
     "punycode@1.4.1": {
@@ -1151,22 +1451,16 @@
         "licenseUrl": "https://github.com/ljharb/qs/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
-    "range-parser@1.2.0": {
-        "licenses": "MIT",
-        "repository": "https://github.com/jshttp/range-parser",
-        "licenseUrl": "https://github.com/jshttp/range-parser/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
-    "raw-body@2.3.2": {
-        "licenses": "MIT",
-        "repository": "https://github.com/stream-utils/raw-body",
-        "licenseUrl": "https://github.com/stream-utils/raw-body/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
     "rc@1.2.5": {
         "licenses": "(BSD-2-Clause OR MIT OR Apache-2.0)",
         "repository": "https://github.com/dominictarr/rc",
         "licenseUrl": "https://github.com/dominictarr/rc/raw/master/LICENSE.APACHE2",
+        "parents": "checkmeout-desktop"
+    },
+    "read-config-file@2.1.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/develar/read-config-file",
+        "licenseUrl": "https://github.com/develar/read-config-file",
         "parents": "checkmeout-desktop"
     },
     "read-pkg-up@1.0.1": {
@@ -1199,6 +1493,18 @@
         "licenseUrl": "https://github.com/sindresorhus/redent/raw/master/license",
         "parents": "checkmeout-desktop"
     },
+    "registry-auth-token@3.3.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/rexxars/registry-auth-token",
+        "licenseUrl": "https://github.com/rexxars/registry-auth-token/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "registry-url@3.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/registry-url",
+        "licenseUrl": "https://github.com/sindresorhus/registry-url/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
     "repeating@2.0.1": {
         "licenses": "MIT",
         "repository": "https://github.com/sindresorhus/repeating",
@@ -1209,6 +1515,18 @@
         "licenses": "Apache-2.0",
         "repository": "https://github.com/request/request",
         "licenseUrl": "https://github.com/request/request/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "require-directory@2.1.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/troygoode/node-require-directory",
+        "licenseUrl": "https://github.com/troygoode/node-require-directory/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "require-main-filename@1.0.1": {
+        "licenses": "ISC",
+        "repository": "https://github.com/yargs/require-main-filename",
+        "licenseUrl": "https://github.com/yargs/require-main-filename/raw/master/LICENSE.txt",
         "parents": "checkmeout-desktop"
     },
     "rimraf@2.6.2": {
@@ -1223,10 +1541,22 @@
         "licenseUrl": "https://github.com/feross/safe-buffer/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
+    "sanitize-filename@1.6.1": {
+        "licenses": "WTFPL OR ISC",
+        "repository": "https://github.com/parshap/node-sanitize-filename",
+        "licenseUrl": "https://github.com/parshap/node-sanitize-filename/raw/master/LICENSE.md",
+        "parents": "checkmeout-desktop"
+    },
     "sax@1.2.4": {
         "licenses": "ISC",
         "repository": "https://github.com/isaacs/sax-js",
         "licenseUrl": "https://github.com/isaacs/sax-js/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "semver-diff@2.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/semver-diff",
+        "licenseUrl": "https://github.com/sindresorhus/semver-diff/raw/master/license",
         "parents": "checkmeout-desktop"
     },
     "semver@5.5.0": {
@@ -1235,28 +1565,22 @@
         "licenseUrl": "https://github.com/npm/node-semver/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
-    "send@0.16.1": {
-        "licenses": "MIT",
-        "repository": "https://github.com/pillarjs/send",
-        "licenseUrl": "https://github.com/pillarjs/send/raw/master/LICENSE",
+    "set-blocking@2.0.0": {
+        "licenses": "ISC",
+        "repository": "https://github.com/yargs/set-blocking",
+        "licenseUrl": "https://github.com/yargs/set-blocking/raw/master/LICENSE.txt",
         "parents": "checkmeout-desktop"
     },
-    "serve-static@1.13.1": {
+    "shebang-command@1.2.0": {
         "licenses": "MIT",
-        "repository": "https://github.com/expressjs/serve-static",
-        "licenseUrl": "https://github.com/expressjs/serve-static/raw/master/LICENSE",
+        "repository": "https://github.com/kevva/shebang-command",
+        "licenseUrl": "https://github.com/kevva/shebang-command/raw/master/license",
         "parents": "checkmeout-desktop"
     },
-    "setprototypeof@1.0.3": {
-        "licenses": "ISC",
-        "repository": "https://github.com/wesleytodd/setprototypeof",
-        "licenseUrl": "https://github.com/wesleytodd/setprototypeof/raw/master/LICENSE",
-        "parents": "http-errors:checkmeout-desktop"
-    },
-    "setprototypeof@1.1.0": {
-        "licenses": "ISC",
-        "repository": "https://github.com/wesleytodd/setprototypeof",
-        "licenseUrl": "https://github.com/wesleytodd/setprototypeof/raw/master/LICENSE",
+    "shebang-regex@1.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/shebang-regex",
+        "licenseUrl": "https://github.com/sindresorhus/shebang-regex/raw/master/license",
         "parents": "checkmeout-desktop"
     },
     "signal-exit@3.0.2": {
@@ -1320,7 +1644,7 @@
         "parents": "checkmeout-desktop"
     },
     "speedometer@0.1.4": {
-        "licenses": "MIT*",
+        "licenses": "UNKNOWN",
         "repository": "https://github.com/mafintosh/speedometer",
         "licenseUrl": "https://github.com/mafintosh/speedometer/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
@@ -1343,10 +1667,10 @@
         "licenseUrl": "https://github.com/arekinath/node-sshpk/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
-    "statuses@1.3.1": {
+    "stat-mode@0.2.2": {
         "licenses": "MIT",
-        "repository": "https://github.com/jshttp/statuses",
-        "licenseUrl": "https://github.com/jshttp/statuses/raw/master/LICENSE",
+        "repository": "https://github.com/TooTallNate/stat-mode",
+        "licenseUrl": "https://github.com/TooTallNate/stat-mode",
         "parents": "checkmeout-desktop"
     },
     "string-width@1.0.2": {
@@ -1354,6 +1678,12 @@
         "repository": "https://github.com/sindresorhus/string-width",
         "licenseUrl": "https://github.com/sindresorhus/string-width/raw/master/license",
         "parents": "checkmeout-desktop"
+    },
+    "string-width@2.1.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/string-width",
+        "licenseUrl": "https://github.com/sindresorhus/string-width/raw/master/license",
+        "parents": "ansi-align:checkmeout-desktop"
     },
     "string_decoder@0.10.31": {
         "licenses": "MIT",
@@ -1379,10 +1709,22 @@
         "licenseUrl": "https://github.com/chalk/strip-ansi/raw/master/license",
         "parents": "checkmeout-desktop"
     },
+    "strip-ansi@4.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/chalk/strip-ansi",
+        "licenseUrl": "https://github.com/chalk/strip-ansi/raw/master/license",
+        "parents": "ansi-align:checkmeout-desktop"
+    },
     "strip-bom@2.0.0": {
         "licenses": "MIT",
         "repository": "https://github.com/sindresorhus/strip-bom",
         "licenseUrl": "https://github.com/sindresorhus/strip-bom/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "strip-eof@1.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/strip-eof",
+        "licenseUrl": "https://github.com/sindresorhus/strip-eof/raw/master/license",
         "parents": "checkmeout-desktop"
     },
     "strip-indent@1.0.1": {
@@ -1401,6 +1743,30 @@
         "licenses": "Apache-2.0",
         "repository": "https://github.com/malept/sumchecker",
         "licenseUrl": "https://github.com/malept/sumchecker/raw/master/LICENSE",
+        "parents": "nightmare:checkmeout-desktop"
+    },
+    "sumchecker@2.0.2": {
+        "licenses": "Apache-2.0",
+        "repository": "https://github.com/malept/sumchecker",
+        "licenseUrl": "https://github.com/malept/sumchecker/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "supports-color@4.5.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/chalk/supports-color",
+        "licenseUrl": "https://github.com/chalk/supports-color/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "temp-file@3.1.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/develar/temp-file",
+        "licenseUrl": "https://github.com/develar/temp-file",
+        "parents": "checkmeout-desktop"
+    },
+    "term-size@1.2.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/term-size",
+        "licenseUrl": "https://github.com/sindresorhus/term-size/raw/master/license",
         "parents": "checkmeout-desktop"
     },
     "throttleit@0.0.2": {
@@ -1421,6 +1787,12 @@
         "licenseUrl": "https://github.com/rvagg/through2/raw/master/LICENSE.html",
         "parents": "split2:checkmeout-desktop"
     },
+    "timed-out@4.0.1": {
+        "licenses": "MIT",
+        "repository": "https://github.com/floatdrop/timed-out",
+        "licenseUrl": "https://github.com/floatdrop/timed-out/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
     "tough-cookie@2.3.3": {
         "licenses": "BSD-3-Clause",
         "repository": "https://github.com/salesforce/tough-cookie",
@@ -1431,6 +1803,12 @@
         "licenses": "MIT",
         "repository": "https://github.com/sindresorhus/trim-newlines",
         "licenseUrl": "https://github.com/sindresorhus/trim-newlines/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "truncate-utf8-bytes@1.0.2": {
+        "licenses": "WTFPL",
+        "repository": "https://github.com/parshap/truncate-utf8-bytes",
+        "licenseUrl": "https://github.com/parshap/truncate-utf8-bytes",
         "parents": "checkmeout-desktop"
     },
     "tunnel-agent@0.6.0": {
@@ -1445,20 +1823,16 @@
         "licenseUrl": "https://github.com/dchest/tweetnacl-js/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
-    "type-is@1.6.16": {
-        "licenses": "MIT",
-        "repository": "https://github.com/jshttp/type-is",
-        "licenseUrl": "https://github.com/jshttp/type-is/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
     "typedarray@0.0.6": {
         "licenses": "MIT",
         "repository": "https://github.com/substack/typedarray",
         "licenseUrl": "https://github.com/substack/typedarray/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
-    "uid2@0.0.3": {
-        "licenses": "UNKNOWN",
+    "unique-string@1.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/unique-string",
+        "licenseUrl": "https://github.com/sindresorhus/unique-string/raw/master/license",
         "parents": "checkmeout-desktop"
     },
     "universalify@0.1.1": {
@@ -1467,22 +1841,34 @@
         "licenseUrl": "https://github.com/RyanZim/universalify/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
-    "unpipe@1.0.0": {
+    "unzip-response@2.0.1": {
         "licenses": "MIT",
-        "repository": "https://github.com/stream-utils/unpipe",
-        "licenseUrl": "https://github.com/stream-utils/unpipe/raw/master/LICENSE",
+        "repository": "https://github.com/sindresorhus/unzip-response",
+        "licenseUrl": "https://github.com/sindresorhus/unzip-response/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "update-notifier@2.3.0": {
+        "licenses": "BSD-2-Clause",
+        "repository": "https://github.com/yeoman/update-notifier",
+        "licenseUrl": "https://github.com/yeoman/update-notifier",
+        "parents": "checkmeout-desktop"
+    },
+    "url-parse-lax@1.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/url-parse-lax",
+        "licenseUrl": "https://github.com/sindresorhus/url-parse-lax/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "utf8-byte-length@1.0.4": {
+        "licenses": "WTFPL",
+        "repository": "https://github.com/parshap/utf8-byte-length",
+        "licenseUrl": "https://github.com/parshap/utf8-byte-length",
         "parents": "checkmeout-desktop"
     },
     "util-deprecate@1.0.2": {
         "licenses": "MIT",
         "repository": "https://github.com/TooTallNate/util-deprecate",
         "licenseUrl": "https://github.com/TooTallNate/util-deprecate/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
-    "utils-merge@1.0.1": {
-        "licenses": "MIT",
-        "repository": "https://github.com/jaredhanson/utils-merge",
-        "licenseUrl": "https://github.com/jaredhanson/utils-merge/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
     "uuid@3.2.1": {
@@ -1497,22 +1883,64 @@
         "licenseUrl": "https://github.com/kemitchell/validate-npm-package-license.js/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
-    "vary@1.1.2": {
-        "licenses": "MIT",
-        "repository": "https://github.com/jshttp/vary",
-        "licenseUrl": "https://github.com/jshttp/vary/raw/master/LICENSE",
-        "parents": "checkmeout-desktop"
-    },
     "verror@1.10.0": {
         "licenses": "MIT",
         "repository": "https://github.com/davepacheco/node-verror",
         "licenseUrl": "https://github.com/davepacheco/node-verror/raw/master/LICENSE",
         "parents": "checkmeout-desktop"
     },
+    "which-module@2.0.0": {
+        "licenses": "ISC",
+        "repository": "https://github.com/nexdrew/which-module",
+        "licenseUrl": "https://github.com/nexdrew/which-module/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "which@1.3.0": {
+        "licenses": "ISC",
+        "repository": "https://github.com/isaacs/node-which",
+        "licenseUrl": "https://github.com/isaacs/node-which/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "widest-line@2.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/widest-line",
+        "licenseUrl": "https://github.com/sindresorhus/widest-line/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "wrap-ansi@2.1.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/chalk/wrap-ansi",
+        "licenseUrl": "https://github.com/chalk/wrap-ansi/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
     "wrappy@1.0.2": {
         "licenses": "ISC",
         "repository": "https://github.com/npm/wrappy",
         "licenseUrl": "https://github.com/npm/wrappy/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "write-file-atomic@2.3.0": {
+        "licenses": "ISC",
+        "repository": "https://github.com/iarna/write-file-atomic",
+        "licenseUrl": "https://github.com/iarna/write-file-atomic/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "xdg-basedir@3.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/sindresorhus/xdg-basedir",
+        "licenseUrl": "https://github.com/sindresorhus/xdg-basedir/raw/master/license",
+        "parents": "checkmeout-desktop"
+    },
+    "xmlbuilder@8.2.2": {
+        "licenses": "MIT",
+        "repository": "https://github.com/oozcitak/xmlbuilder-js",
+        "licenseUrl": "https://github.com/oozcitak/xmlbuilder-js/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "xmldom@0.1.27": {
+        "licenses": "LGPL",
+        "repository": "https://github.com/jindw/xmldom",
+        "licenseUrl": "http://www.gnu.org/licenses/lgpl.html",
         "parents": "checkmeout-desktop"
     },
     "xtend@2.1.2": {
@@ -1526,6 +1954,30 @@
         "repository": "https://github.com/Raynos/xtend",
         "licenseUrl": "https://github.com/Raynos/xtend/raw/master/LICENCE",
         "parents": "split2:checkmeout-desktop"
+    },
+    "y18n@3.2.1": {
+        "licenses": "ISC",
+        "repository": "https://github.com/yargs/y18n",
+        "licenseUrl": "https://github.com/yargs/y18n/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "yallist@2.1.2": {
+        "licenses": "ISC",
+        "repository": "https://github.com/isaacs/yallist",
+        "licenseUrl": "https://github.com/isaacs/yallist/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
+    },
+    "yargs-parser@9.0.2": {
+        "licenses": "ISC",
+        "repository": "https://github.com/yargs/yargs-parser",
+        "licenseUrl": "https://github.com/yargs/yargs-parser/raw/master/LICENSE.txt",
+        "parents": "checkmeout-desktop"
+    },
+    "yargs@11.0.0": {
+        "licenses": "MIT",
+        "repository": "https://github.com/yargs/yargs",
+        "licenseUrl": "https://github.com/yargs/yargs/raw/master/LICENSE",
+        "parents": "checkmeout-desktop"
     },
     "yauzl@2.4.1": {
         "licenses": "MIT",

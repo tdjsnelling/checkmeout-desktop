@@ -65,7 +65,7 @@ ipcRenderer.on('message', function(event, message) {
 		snackbar('<p><i class="material-icons">check</i>&nbsp; You\'re up to date!</p>');
 	}
 	else if (message == 'update-downloaded') {
-		snackbar('<p><i class="material-icons">file_download</i>&nbsp; Update downloaded. <a href="#" id="restart-link">Relaunch</a> to get the latest changes.</p>', false);
+		snackbar('<p><i class="material-icons">file_download</i>&nbsp; Update downloaded. Go to other settings and relaunch to get the latest changes.</p>', false);
 	}
 	else if (message == 'update-error') {
 		console.log('update-error');

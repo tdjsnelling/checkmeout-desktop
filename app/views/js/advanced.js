@@ -58,18 +58,18 @@ $('#recaptcha').on('click', function() {
 
 $('#view-logs').on('click', function() {
 	if (process.platform != 'darwin') {
-		shell.showItemInFolder(path.join(process.env['HOME'], 'AppData/Local/Programs/checkmeout-desktop/logs/*'));
+		shell.showItemInFolder(path.join(remote.app.getPath('home'), 'AppData/Local/Programs/checkmeout-desktop/logs/*'));
 	}
 	else {
-		shell.showItemInFolder(path.join(process.env['HOME'], 'Documents/Check Me Out/logs/*'));
+		shell.showItemInFolder(path.join(remote.app.getPath('home'), 'Documents/Check Me Out/logs/*'));
 	}
 });
 
 $('#view-confs').on('click', function() {
 	if (process.platform != 'darwin') {
-		shell.showItemInFolder(path.join(process.env['HOME'], 'AppData/Local/Programs/checkmeout-desktop/confirmations/*'));
+		shell.showItemInFolder(path.join(remote.app.getPath('home'), 'AppData/Local/Programs/checkmeout-desktop/confirmations/*'));
 	}
 	else {
-		shell.showItemInFolder(path.join(process.env['HOME'], 'Documents/Check Me Out/confirmations/*'));
+		shell.showItemInFolder(path.join(remote.app.getPath('home'), 'Documents/Check Me Out/confirmations/*'));
 	}
 });
