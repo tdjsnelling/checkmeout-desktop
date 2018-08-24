@@ -19,7 +19,7 @@ $(document).ready(function() {
 		if (task.shoppingList.length > 0) {
 			$('#shopping-list').find('.empty').remove();
 		}
-		
+
 		for (i in task.shoppingList) {
 			item = task.shoppingList[i];
 
@@ -141,7 +141,7 @@ $('#create-task').on('click', function() {
 
 		var task = new Object();
 
-		task.id = hash.digest('hex');
+		task.id = hash.digest('hex') + ':' + Date.now();
 		task.name = $('#task-name').val();
 		task.proxy = $('#proxy').val();
 		task.shipping = savedShipping.find(x => x.id == $('#shipping-profile').val());

@@ -57,7 +57,7 @@ function perf(browser, event) {
 	var t = performance.now() - t0;
 	var tObj = {
 		browser: browser,
-		name: tasks[browser].name, 
+		name: tasks[browser].name,
 		event: event,
 		time: `T+${t.toFixed(3)} ms`,
 		timestamp: moment().format('Y-MM-DD HH:mm:ss')
@@ -90,7 +90,7 @@ setInterval(() => {
 
 			$($('.list-group-item:not(.list-head)')[i]).children('.status').text('Waiting: ' + diff + 's');
 			$($('.list-group-item:not(.list-head)')[i]).children('.status').css('color', '#f39c12');
-			
+
 			if (diff == 0) {
 				tasks[i].status = 'Running';
 				localStorage.setItem('tasks', JSON.stringify(tasks));
@@ -142,7 +142,7 @@ if (tasks.length > 0) {
 								<div class="col no-overflow address">' + tasks[i].shipping.address + '</div> \
 								<div class="col no-overflow payment">' + tasks[i].payment.type + ': ' + last4 + '</div> \
 								<div class="col no-overflow status">' + tasks[i].status + '</div> \
-								<div class="controls"><i class="material-icons edit-task">edit</i></div> \
+								<div class="controls"><i class="material-icons duplicate-task">flip_to_front</i><i class="material-icons edit-task">edit</i></div> \
 							</li>'));
 	}
 }
@@ -236,7 +236,7 @@ $('#delete-selected').on('click', function() {
 			$(this).children('.col-icon').children('i').text('check_box');
 		});
 	}
-	
+
 	var selected = 0;
 
 	$('.list-group-item').not('.list-head').each(function(i) {
@@ -252,7 +252,7 @@ $('#delete-selected').on('click', function() {
 		common.snackbar('<i class="material-icons">error_outline</i>&nbsp; No tasks selected.');
 	}
 
-	tasks = tasks.filter(function(n) { return n != null }); 
+	tasks = tasks.filter(function(n) { return n != null });
 	localStorage.setItem('tasks', JSON.stringify(tasks));
 
 	if (tasks.length == 0 && $('.list-item-empty')[0] == null) {
@@ -337,7 +337,7 @@ $('#pause-tasks').on('click', function() {
 	$('.list-group-item').not('.list-head').each(function(i) {
 		if ($(this).children('.col-icon').children('i').text() == 'check_box') {
 			selected++;
-			
+
 			tasks[i].status = 'Idle';
 			$(this).children('.status').text('Idle');
 			$(this).children('.status').css('color', '');
@@ -360,6 +360,27 @@ $(document).on('click', '.edit-task', function(e) {
 	$('body').fadeOut(100, function() {
 		location.href = 'task.html?id=' + id;
 	});
+});
+
+$(document).on('click', '.duplicate-task', function(e) {
+	e.stopPropagation();
+	var id = $(this).parents('.list-group-item').data('id');
+	var duplicateTask = $.extend({}, tasks.filter(x => x.id == id)[0]);
+	var newId = id.split(':')[0] + ':' + Date.now();
+
+	duplicateTask.id = newId;
+	tasks.push(duplicateTask);
+	localStorage.setItem('tasks', JSON.stringify(tasks));
+
+	var last4 =  duplicateTask.payment.number.substr(duplicateTask.payment.number.length - 4);
+	$('#tasks').append($('<li class="list-group-item" data-id="' + duplicateTask.id + '""> \
+													<div class="col-icon"><i class="material-icons task-select">check_box_outline_blank</i></div> \
+													<div class="col no-overflow name">' + duplicateTask.name + '</div> \
+													<div class="col no-overflow address">' + duplicateTask.shipping.address + '</div> \
+													<div class="col no-overflow payment">' + duplicateTask.payment.type + ': ' + last4 + '</div> \
+													<div class="col no-overflow status">' + duplicateTask.status + '</div> \
+													<div class="controls"><i class="material-icons duplicate-task">flip_to_front</i><i class="material-icons edit-task">edit</i></div> \
+												</li>'));
 });
 
 var shiftClick = false;
@@ -442,7 +463,7 @@ function createBrowser(task) {
 			perf(taskIndex, 'browser-created');
 
 			gotoNextItem(taskIndex);
-			
+
 		});
 	}
 	else {
@@ -487,7 +508,7 @@ function handleBrowser(id) {
 
 	var currentUrl = currentBrowser.webContents.getURL();
 	var currentUrlSplit = currentUrl.split('/');
-	
+
 	// on item page
 	if (currentUrl.includes('/shop/') && /^([a-zA-Z0-9]{9})$/.test(currentUrlSplit[currentUrlSplit.length - 1])) {
 		// select size
@@ -559,7 +580,7 @@ function handleBrowser(id) {
 			}
 
 			currentProduct.carted = true;
-			
+
 			if (tasks[arg[0]].shoppingList.filter(x => x.carted == false).length > 0) {
 				var nextItem = tasks[arg[0]].shoppingList.filter(x => x.carted == false)[0];
 
@@ -606,7 +627,7 @@ function handleBrowser(id) {
 		ipcRenderer.on('checkoutPageSource', (event, arg) => {
 			var task = tasks[arg[0]];
 			var _$ = cheerio.load(arg[1]);
-			
+
 			if (_$('.tab-payment').hasClass('selected') && !task.autofilled) {
 				console.log('at-checkout: ' + arg[0] + ':' + id);
 
@@ -768,6 +789,13 @@ function handleBrowser(id) {
 				}
 				else {
 					ipcRenderer.send('status', tasks[arg[0]].name, 'checkout success');
+
+					var id = tasks[arg[0]].id;
+					var duplicateId = id.split(':')[0];
+					var duplicateTasks = tasks.filter(x => x.id.indexOf(duplicateId) != -1);
+					duplicateTasks.forEach((task, i) => {
+						task.browser.destroy();
+					});
 
 					var listEntry = $('.list-group-item').not('.list-head')[arg[0]];
 					$(listEntry).children('.status').text('Checkout success');
