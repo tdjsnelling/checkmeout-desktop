@@ -267,6 +267,8 @@ $('#run-tasks').on('click', function() {
 
 	tasks = JSON.parse(localStorage.getItem('tasks'));
 
+	ipcRenderer.send('rich-presence', 'Running tasks');
+
 	if (shiftClick) {
 		$('.list-group-item').not('.list-head').each(function(i) {
 			$(this).children('.col-icon').children('i').text('check_box');
@@ -326,6 +328,8 @@ $('#run-tasks').on('click', function() {
 });
 
 $('#pause-tasks').on('click', function() {
+	ipcRenderer.send('rich-presence', 'Idle');
+
 	if (shiftClick) {
 		$('.list-group-item').not('.list-head').each(function(i) {
 			$(this).children('.col-icon').children('i').text('check_box');
@@ -789,6 +793,7 @@ function handleBrowser(id) {
 				}
 				else {
 					ipcRenderer.send('status', tasks[arg[0]].name, 'checkout success');
+					ipcRenderer.send('rich-presence', 'Checked out successfully')
 
 					var id = tasks[arg[0]].id;
 					var duplicateId = id.split(':')[0];

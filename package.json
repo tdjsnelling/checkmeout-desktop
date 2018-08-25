@@ -11,6 +11,6 @@
     "electron-builder": "^19.56.0"
   },
   "scripts": {
-  	"build": "node_modules\\.bin\\electron-builder build -w"
+    "build": "node_modules\\.bin\\electron-builder build -w"
   }
 }

@@ -14,6 +14,7 @@
   "author": "Check Me Out Ltd",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
+    "discord-rpc": "^3.0.0",
     "electron-google-analytics": "0.0.24",
     "electron-is-dev": "^0.3.0",
     "electron-updater": "^2.20.1",

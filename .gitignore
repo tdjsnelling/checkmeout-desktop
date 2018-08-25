@@ -60,3 +60,5 @@ typings/
 dist/
 app/log.txt
 
+.DS_Store
+

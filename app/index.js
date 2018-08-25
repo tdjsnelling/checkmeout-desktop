@@ -6,6 +6,7 @@ const {autoUpdater} = require("electron-updater");
 var request = require('request');
 var semver = require('semver');
 var isDev = require('electron-is-dev');
+var DiscordRPC = require('discord-rpc')
 
 var mainWindow = null;
 var logWindow = null;
@@ -19,7 +20,7 @@ app.on('window-all-closed', function() {
 app.on('ready', function() {
 	// if (isDev) {
 	// 	mainWindow = new BrowserWindow({
-	// 		width: 1280, 
+	// 		width: 1280,
 	// 		height: 800,
 	// 		backgroundColor: '#f8f8f8',
 	// 		frame: true,
@@ -30,7 +31,7 @@ app.on('ready', function() {
 	// }
 	// else {
 	// 	mainWindow = new BrowserWindow({
-	// 		width: 1280, 
+	// 		width: 1280,
 	// 		height: 800,
 	// 		backgroundColor: '#f8f8f8',
 	// 		frame: false,
@@ -41,7 +42,7 @@ app.on('ready', function() {
 	// }
 
 	mainWindow = new BrowserWindow({
-	 	width: 1280, 
+	 	width: 1280,
 	 	height: 800,
 		backgroundColor: '#f8f8f8',
 	 	frame: true,
@@ -52,6 +53,13 @@ app.on('ready', function() {
 
 	mainWindow.once('ready-to-show', () => {
 		mainWindow.show();
+
+		rpc.setActivity({
+		  state: 'Idle',
+		  details: 'Desktop bot',
+		  largeImageKey: 'cmo1024',
+		  instance: false,
+		});
 	});
 
 	// mainWindow.setMenu(null);
@@ -171,7 +179,7 @@ ipcMain.on('create', (event, arg) => {
 	}
 	else if (arg == 'keywordWindow') {
 		var keywordWindow = new BrowserWindow({
-			width: 1100, 
+			width: 1100,
 			height: 750,
 			backgroundColor: '#f8f8f8',
 			show: false
@@ -261,4 +269,19 @@ ipcMain.on('get-monitors', (event) => {
 
 ipcMain.on('keyword-item', (event, arg) => {
 	mainWindow.webContents.send('keyword-item', arg);
+});
+
+// discord rich presence setup
+
+const clientId = '432646837753610242';
+const rpc = new DiscordRPC.Client({ transport: 'ipc' });
+rpc.login({ clientId }).catch(console.error);
+
+ipcMain.on('rich-presence', (event, status) => {
+	rpc.setActivity({
+		state: status,
+		details: 'Desktop bot',
+		largeImageKey: 'cmo1024',
+		instance: false,
+	});
 });
