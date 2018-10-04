@@ -555,7 +555,7 @@ function handleBrowser(id) {
 				return $(el).text();
 			}).get();
 
-			if (availableSizes.indexOf(currentProduct.size) == -1 && currentProduct.size != 'One size') {
+			if (availableSizes.indexOf(currentProduct.size) == -1 && currentProduct.size != 'One size' && !currentProduct.continueNextSize) {
 				ipcRenderer.send('status', tasks[arg[0]].name, currentProduct.keywords + ' &rarr; size ' + currentProduct.size + ' out of stock, skipping');
 			}
 			else {
@@ -870,7 +870,7 @@ function gotoNextItem(taskIndex) {
 				if (item) {
 					perf(taskIndex, 'found-product');
 
-					tasks[taskIndex].browser.loadURL('http://www.supremenewyork.com/' + item.href, {
+					tasks[taskIndex].browser.loadURL('https://www.supremenewyork.com/' + item.href, {
 						userAgent: ua
 					});
 				}
@@ -916,7 +916,7 @@ function searchForItem(searchItem, proxy, cb) {
 		proxy = 'http://' + proxy;
 	}
 
-	request('http://supremenewyork.com/shop/all/' + searchItem.category, { headers: headers, timeout: 3000, proxy: proxy, forever: true }, (err, res, body) => {
+	request('https://supremenewyork.com/shop/all/' + searchItem.category, { headers: headers, timeout: 3000, proxy: proxy, forever: true }, (err, res, body) => {
 		if (err) {
 			console.log(err);
 			return cb(null, err);

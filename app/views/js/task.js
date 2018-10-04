@@ -78,6 +78,7 @@ $('#create-item').on('click', function() {
 		item.negKeywords = $('#neg-keywords').val();
 		item.colour = $('#colour').val();
 		item.size = $('#size').val();
+		item.continueNextSize = $('#continue-next-size').is(':checked');
 		item.carted = false;
 
 		$('#shopping-list').find('.empty').remove();
@@ -87,7 +88,9 @@ $('#create-item').on('click', function() {
 		shoppingList.push(item);
 
 		$('#keywords').val('');
+		$('#neg-keywords').val('');
 		$('#colour').val('');
+		$('#continue-next-size').prop('checked', false);
 	}
 	else {
 		$('#create-item').text('All fields must be complete.');
