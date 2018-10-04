@@ -513,6 +513,21 @@ function handleBrowser(id) {
 	var currentUrl = currentBrowser.webContents.getURL();
 	var currentUrlSplit = currentUrl.split('/');
 
+	console.log(currentUrl)
+
+	// at homepage (this shouldn't happen)
+	if (currentUrl == 'https://www.supremenewyork.com/shop') {
+		ipcRenderer.send('status', tasks[currentBrowserIndex].name, 'task error');
+		tasks[currentBrowserIndex].status = 'Ended';
+		$($('.list-group-item').not('.list-head')[currentBrowserIndex]).children('.status').text('Ended');
+		$($('.list-group-item').not('.list-head')[currentBrowserIndex]).children('.status').css('color', '#f39c12');
+		tasks[currentBrowserIndex].autofilled = false;
+		tasks[currentBrowserIndex].complete = false;
+		tasks[currentBrowserIndex].browser.destroy();
+		tasks[currentBrowserIndex].browser = null;
+		localStorage.setItem('tasks', JSON.stringify(tasks));
+	}
+
 	// on item page
 	if (currentUrl.includes('/shop/') && /^([a-zA-Z0-9]{9})$/.test(currentUrlSplit[currentUrlSplit.length - 1])) {
 		// select size
@@ -944,7 +959,7 @@ function searchForItem(searchItem, proxy, cb) {
 			var keywordOptions = {
 				shouldSort: true,
 				tokenize: true,
-				threshold: 0.4,
+				threshold: 0.6,
 				location: 0,
 				distance: 100,
 				maxPatternLength: 32,
