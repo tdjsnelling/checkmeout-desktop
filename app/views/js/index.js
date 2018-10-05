@@ -584,9 +584,10 @@ function handleBrowser(id) {
 					}
 				}
 				else {
-					$('#size').children().each((i, el) => {
+					$('#size, #s').children().each((i, el) => {
 						if ($(el).text() == currentProduct.size) {
 							tasks[arg[0]].browser.webContents.executeJavaScript('document.getElementById("size").value=' + $(el).val());
+							tasks[arg[0]].browser.webContents.executeJavaScript('document.getElementById("s").value=' + $(el).val());
 							perf(currentBrowserIndex, 'selected-size');
 							ipcRenderer.send('status', tasks[arg[0]].name, currentProduct.keywords + ' &rarr; selected size &rarr; ' + currentProduct.size);
 						}
