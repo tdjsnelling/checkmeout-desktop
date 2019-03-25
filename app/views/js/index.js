@@ -29,8 +29,6 @@ var verPrefix = '';
 var ver = remote.app.getVersion();
 $('.badge-ver').text(verPrefix + ver);
 
-$('#user-email').text(JSON.parse(localStorage.getItem('loggedInUser')).email);
-
 if (process.platform != 'darwin') {
 	if (!fs.existsSync('logs')) {
 		fs.mkdirSync('logs');

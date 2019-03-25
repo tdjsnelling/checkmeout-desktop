@@ -18,29 +18,6 @@ app.on('window-all-closed', function() {
 });
 
 app.on('ready', function() {
-	// if (isDev) {
-	// 	mainWindow = new BrowserWindow({
-	// 		width: 1280,
-	// 		height: 800,
-	// 		backgroundColor: '#f8f8f8',
-	// 		frame: true,
-	// 		show: false
-	// 	});
-
-	// 	mainWindow.loadURL('file://' + __dirname + '/views/preload.html');
-	// }
-	// else {
-	// 	mainWindow = new BrowserWindow({
-	// 		width: 1280,
-	// 		height: 800,
-	// 		backgroundColor: '#f8f8f8',
-	// 		frame: false,
-	// 		show: false
-	// 	});
-
-	// 	mainWindow.loadURL('file://' + __dirname + '/views/root.html');
-	// }
-
 	mainWindow = new BrowserWindow({
 	 	width: 1280,
 	 	height: 800,
@@ -49,7 +26,7 @@ app.on('ready', function() {
 	 	show: false
 	 });
 
- 	mainWindow.loadURL('file://' + __dirname + '/views/preload.html');
+ 	mainWindow.loadURL('file://' + __dirname + '/views/index.html');
 
 	mainWindow.once('ready-to-show', () => {
 		mainWindow.show();
@@ -61,8 +38,6 @@ app.on('ready', function() {
 		  instance: false,
 		});
 	});
-
-	// mainWindow.setMenu(null);
 
 	mainWindow.on('closed', function() {
 		// Dereference the window object, usually you would store windows

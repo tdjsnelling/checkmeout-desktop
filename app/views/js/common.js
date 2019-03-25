@@ -79,18 +79,3 @@ $(document).on('click', '#restart-link', function() {
 	remote.app.relaunch();
 	remote.app.exit(0);
 });
-
-// sentry error reporting
-
-var userEmail = JSON.parse(localStorage.getItem('loggedInUser')) == null ? 'not set' : JSON.parse(localStorage.getItem('loggedInUser')).email;
-
-if (!isDev) {
-	Raven.config('https://02ae6c3a5f12497e90b935e7e3cd8801@sentry.io/725515').install();
-	Raven.setUserContext({
-		email: userEmail
-	});
-	Raven.setTagsContext({
-		platform: process.platform,
-		version: remote.app.getVersion()
-	});
-}
